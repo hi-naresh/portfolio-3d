@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --parallaxBgX: 50%;
+    --parallaxBgY: 50%;
+}
+
+.hover-text {
+    display: inline-block;
+    color: transparent;
+    -webkit-text-stroke: 2px white;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out, -webkit-text-stroke 0.3s ease-in-out;
+    position: relative;
+    cursor: pointer;
+}
+
+.hover-text.hovered {
+    color: white;
+    -webkit-text-stroke: 0;
+    background: linear-gradient(135deg, #ff005d, #4bece9);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.bg-grid-white {
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.59) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.55) 1px, transparent 1px);
+}
+
+.glassmorphism {
+    background: rgba(255, 255, 255, 0.1);
+    /*border-radius: 16px;*/
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.glassmorphism-dark {
+    background: rgba(0, 0, 0, 0.1);
+    /*border-radius: 16px;*/
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.18);
+}
+
+/* Define custom cursors */
+* {
+    cursor: url("/icons/cursor/arrow.png"), auto;
+}
+
+/* Cursor for all clickable links */
+a {
+    cursor: url("/icons/cursor/click.png"), pointer;
+}
+
+/* Apply to buttons as well */
+button {
+    cursor: url("/icons/cursor/click.png"), pointer;
+}
+
+/* Apply to other interactive elements */
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="checkbox"],
+input[type="radio"] {
+    cursor: url("/icons/cursor/click.png"), pointer;
+}
+
+/* Cursor for loading state */
+.loading {
+    cursor: url("/icons/cursor/wait.png"), wait;
+}
+
+.project-card {
+    will-change: transform, opacity;
+}
+
+header, nav, .gallery-container {
+    will-change: transform, opacity;
+}
+
+
+@keyframes inertiaRotation {
+    0% {
+        transform: perspective(1000px) rotateX(0deg);
+        animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+    }
+    95% {
+        transform: perspective(1000px) rotateX(-355deg);
+        animation-timing-function: ease-out;
+    }
+    100% {
+        transform: perspective(1000px) rotateX(-360deg);
+        animation-timing-function: ease-in;
+    }
+}
+
+.perspective {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.transform-style {
+    transform-style: preserve-3d;
+}
+
+.animate-inertia {
+    animation: inertiaRotation 10s infinite;
+    animation-play-state: running;
+}
+
+.stroke-text {
+    -webkit-text-stroke: 2px #ff005d; /* Default stroke color */
+}
+
+.light-stroke-text {
+    -webkit-text-stroke: 2px #ff80ab; /* Light stroke color for glow effect */
+}
+
+.shadow-text {
+    text-shadow: 0 5px 10px #6c0520;
+}
+
+.glow-frame {
+    transition: opacity 1s ease-in-out; /* Smooth fade-in and fade-out */
+}
+
+@keyframes rotate {
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+/* Stroke animation for text */
+.text-copy {
+    fill: none;
+    stroke-dasharray: 20% 30%;  /* Adjusted to make the dashes and gaps balanced */
+    stroke-width: 5px;
+    animation: stroke-offset 5s infinite linear; /* Continuously moving without abrupt resets */
+}
+
+.text-copy-1 {
+    stroke: #FF005D;
+    animation-delay: -1s;
+}
+
+.text-copy-2 {
+    stroke: #4BECE9;
+    animation-delay: -2s;
+}
+
+@keyframes stroke-offset {
+    100% { stroke-dashoffset: -50%; } /* Seamless transition with the dasharray */
+}
+
+/* Glow effect */
+.glow {
+    text-shadow: 0 0 15px #FF005D;
+}
