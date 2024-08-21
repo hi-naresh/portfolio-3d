@@ -14,7 +14,7 @@ import {
 import { useLocaleParser } from "@libs/localeParser";
 import type { GetStaticProps, NextPage } from "next";
 import { NextSeo } from "next-seo";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 
 export interface IResumePage {
 	repos: IStarredRepo[];
@@ -22,14 +22,14 @@ export interface IResumePage {
 }
 
 const ResumePage: NextPage<IResumePage> = ({ repos, pinned }) => {
-	const router = useRouter();
+	// const router = useRouter();
 	const parser = useLocaleParser();
 
 	return (
 		<>
 			<NextSeo
 				title={parser.get("resume")}
-				canonical={`${CONFIG.SEO.publishDomain}${router.pathname}`}
+				// canonical={`${CONFIG.SEO.publishDomain}${router.pathname}`}
 			/>
 			<div id="resume" className="flex content-center bg-white text-black justify-center">
 				<div className="mb-20 mt-20 w-4/5 rounded-2xl border border-gray-300 px-20 py-20 shadow-lg">
