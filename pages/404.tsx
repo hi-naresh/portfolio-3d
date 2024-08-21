@@ -27,7 +27,7 @@ const NotFoundPage: NextPage = () => {
 					</div>
 				</h1>
 				<p className="text-white text-lg sm:text-2xl mt-2">
-					We couldn't find the page you're looking for.
+					We couldnt find the page you are looking for.
 				</p>
 				<Link href="/">
 					<div

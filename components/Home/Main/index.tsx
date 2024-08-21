@@ -8,14 +8,14 @@ import ThreeDText from "@components/Animations/Text";
 import AnimatedTextWithHover from "@components/Animations/Text2";
 
 const HeroSection = () => {
-	const images = [
-		'/images/projects/work1.webp',
-		'/images/projects/work2.webp',
-		'/images/projects/work3.webp',
-		'/images/projects/work4.webp',
-		'/images/projects/work5.webp',
-		'/images/projects/work6.webp',
-	];
+	// const images = [
+	// 	'/images/projects/work1.webp',
+	// 	'/images/projects/work2.webp',
+	// 	'/images/projects/work3.webp',
+	// 	'/images/projects/work4.webp',
+	// 	'/images/projects/work5.webp',
+	// 	'/images/projects/work6.webp',
+	// ];
 	
 	return (
 		<section className="relative h-screen w-full overflow-hidden ">

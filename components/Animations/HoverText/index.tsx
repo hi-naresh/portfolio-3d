@@ -46,12 +46,17 @@
 
 import React, { useState } from 'react';
 
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 const GlowingTextWithIndividualImages = ({ text, imageUrls }) => {
     // Track hover state for each character
     const [hoveredIndex, setHoveredIndex] = useState(null);
 
     return (
         <div className="relative flex items-center justify-center space-x-2">
+            {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment*/}
+            {/* @ts-expect-error*/}
             {text.split('').map((char, index) => (
                 <div
                     key={index}
@@ -78,7 +83,7 @@ const GlowingTextWithIndividualImages = ({ text, imageUrls }) => {
                             src={imageUrls[index]}
                             alt={`Hovered Image ${index}`}
                             className="absolute inset-0 w-full h-full object-contain"
-                            style={{ zIndex: -1 }} // Ensure the image is behind the character
+                            style={{ zIndex: -1 }} 
                         />
                     )}
                 </div>

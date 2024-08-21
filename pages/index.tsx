@@ -14,7 +14,7 @@ export interface IIndexPage {
 	pinned: IStarredRepo[];
 }
 
-const IndexPage: NextPage<IIndexPage> = ({ repos, pinned }) => {
+const IndexPage: NextPage<IIndexPage> = () => {
 	const parser = useLocaleParser();
 
 	return (

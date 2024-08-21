@@ -1,6 +1,6 @@
 import { ResumeAbout } from "@components/Resume/About";
-import { ResumeCertificates } from "@components/Resume/Certificates";
-import { ResumeEducation } from "@components/Resume/Education";
+// import { ResumeCertificates } from "@components/Resume/Certificates";
+// import { ResumeEducation } from "@components/Resume/Education";
 import { ResumeWorkExperience } from "@components/Resume/Experience";
 import { ResumeHeader } from "@components/Resume/Header";
 import { ResumeProjects } from "@components/Resume/Projects";

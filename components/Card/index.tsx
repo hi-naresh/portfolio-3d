@@ -23,6 +23,7 @@ interface ProjectCardProps {
 	initialLoad: boolean;
 }
 
+// eslint-disable-next-line react/display-name
 const ProjectCard: React.FC<ProjectCardProps> = memo(({ project, position, initialLoad }) => (
 	<motion.div
 		className={`absolute glassmorphism ${position.zIndex === 10 ? '' : 'opacity-0'} rounded-4xl shadow-lg overflow-hidden bg-white bg-opacity-5 backdrop-filter backdrop-blur-lg project-card`}

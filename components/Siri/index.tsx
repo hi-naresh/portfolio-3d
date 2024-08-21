@@ -1,10 +1,9 @@
-import { motion } from 'framer-motion';
 
 interface GradientBlobProps {
     size: number;
 }
 
-const GradientBlob: React.FC<GradientBlobProps> = ({ size }) => {
+const GradientBlob: React.FC<GradientBlobProps> = () => {
     return (
         <>
             {/*<motion.div*/}
