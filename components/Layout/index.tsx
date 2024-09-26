@@ -1,4 +1,3 @@
-import { Footer } from "@components/Layout/Footer";
 import { CONFIG } from "@libs/config";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
@@ -26,7 +25,7 @@ export const Layout: FC<ILayout> = ({ title, children }) => {
 				{/*	<Alert />*/}
 				{/*</div>*/}
 				{children}
-				<Footer />
+				{/*<Footer />*/}
 			</>
 		</div>
 	);

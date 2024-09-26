@@ -15,16 +15,13 @@ export const ResumeEducation: FC = () => {
 					<li className="pt-2" key={idx}>
 						<p className="flex justify-between text-sm">
 							<strong className="text-base">
-								{/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
 								{parser.get(education.name as any)}
 							</strong>
 							{education.era}
 						</p>
 						<p className="flex justify-between text-sm">
-							{/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
 							{parser.get(education.department as any)}
 							<small>
-								{/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
 								{parser.get(education.degree as any)} - GPA:{" "}
 								{education.gpa}
 							</small>

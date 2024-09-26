@@ -13,7 +13,8 @@ const nextConfig = {
 	images: {
 		domains: [
 			"avatars.githubusercontent.com",
-			"c.tenor.com"
+			"c.tenor.com",
+			"images.unsplash.com"
 		],
 		// remotePatterns: [
 		// 	"https://avatars.githubusercontent.com/*",

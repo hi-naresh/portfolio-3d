@@ -1,5 +1,13 @@
 const twTypography = require("@tailwindcss/typography");
 
+const defaultTheme = require("tailwindcss/defaultTheme");
+
+const colors = require("tailwindcss/colors");
+const {
+	default: flattenColorPalette,
+} = require("tailwindcss/lib/util/flattenColorPalette");
+
+/** @type {import('tailwindcss').Config} */
 module.exports = {
 	mode: "jit",
 	content: [
@@ -164,7 +172,7 @@ module.exports = {
 		},
 		backgroundColor: (theme) => ({
 			...theme("colors"),
-			body: "#fff",
+			body: "#000",
 		}),
 		backgroundPosition: {
 			bottom: "bottom",
@@ -226,6 +234,23 @@ module.exports = {
 			text: "text",
 			move: "move",
 			"not-allowed": "not-allowed",
+		},
+		extend: {
+			keyframes: {
+				glow: {
+					'0%, 100%': { textShadow: '0 0 10px rgba(255,255,255,0.8), 0 0 5px rgba(255,255,255,0.6), 0 0 5px rgba(255,255,255,0.4)' },
+					'50%': { textShadow: '0 0 10px rgba(255,255,255,1), 0 0 5px rgba(255,255,255,0.9), 0 0 10px rgba(255,255,255,0.7)' }
+				},
+				spinSlow: {
+					'0%': { transform: 'rotate(0deg)' },
+					'100%': { transform: 'rotate(360deg)' },
+				},
+			},
+			animation: {
+				glow: 'glow 4.5s ease-in-out infinite',
+				'spin-slow': 'spinSlow 12s linear infinite', // Adjust speed as needed
+
+			}
 		},
 		fill: {
 			current: "currentColor",
@@ -621,5 +646,19 @@ module.exports = {
 		zIndex: ["responsive", "focus-within", "focus"],
 	},
 	corePlugins: {},
-	plugins: [twTypography],
+	plugins: [
+		twTypography,
+		addVariablesForColors
+	],
 };
+
+function addVariablesForColors({ addBase, theme }: any) {
+	let allColors = flattenColorPalette(theme("colors"));
+	let newVars = Object.fromEntries(
+		Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+	);
+
+	addBase({
+		":root": newVars,
+	});
+}

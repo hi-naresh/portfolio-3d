@@ -5,6 +5,7 @@
 :root {
     --parallaxBgX: 50%;
     --parallaxBgY: 50%;
+    background: #000000;
 }
 
 .hover-text {
@@ -33,7 +34,7 @@
     background: rgba(255, 255, 255, 0.1);
     /*border-radius: 16px;*/
     backdrop-filter: blur(10px);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    /*box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);*/
     border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
@@ -50,29 +51,29 @@
     cursor: url("/icons/cursor/arrow.png"), auto;
 }
 
-/* Cursor for all clickable links */
-a {
-    cursor: url("/icons/cursor/click.png"), pointer;
-}
+/*!* Cursor for all clickable links *!*/
+/*a {*/
+/*    cursor: url("/icons/cursor/click.png"), pointer;*/
+/*}*/
 
-/* Apply to buttons as well */
-button {
-    cursor: url("/icons/cursor/click.png"), pointer;
-}
+/*!* Apply to buttons as well *!*/
+/*button {*/
+/*    cursor: url("/icons/cursor/click.png"), pointer;*/
+/*}*/
 
-/* Apply to other interactive elements */
-[role="button"],
-input[type="button"],
-input[type="submit"],
-input[type="checkbox"],
-input[type="radio"] {
-    cursor: url("/icons/cursor/click.png"), pointer;
-}
+/*!* Apply to other interactive elements *!*/
+/*[role="button"],*/
+/*input[type="button"],*/
+/*input[type="submit"],*/
+/*input[type="checkbox"],*/
+/*input[type="radio"] {*/
+/*    cursor: url("/icons/cursor/click.png"), pointer;*/
+/*}*/
 
-/* Cursor for loading state */
-.loading {
-    cursor: url("/icons/cursor/wait.png"), wait;
-}
+/*!* Cursor for loading state *!*/
+/*.loading {*/
+/*    cursor: url("/icons/cursor/wait.png"), wait;*/
+/*}*/
 
 .project-card {
     will-change: transform, opacity;
@@ -161,4 +162,33 @@ header, nav, .gallery-container {
 /* Glow effect */
 .glow {
     text-shadow: 0 0 15px #FF005D;
+}
+
+
+.titlef {
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%,  -50%);
+    font-size: 96px;
+    font-family: "Roboto Light", sans-serif;
+    font-weight: bolder;
+    -webkit-text-stroke: 1px #fff; 
+    color: transparent;
+    background-image: linear-gradient(
+        90deg,
+        #ff005d,
+        #4bece9
+    );
+    opacity: 0.8;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text; 
+    background-position: -450px 0;
+    animation: backcolor 2s alternate-reverse infinite;
+}
+
+@keyframes backcolor {
+    100%{
+        background-position: 0 0;
+    }
 }
