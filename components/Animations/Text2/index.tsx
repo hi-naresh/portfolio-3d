@@ -175,7 +175,7 @@ import React from 'react';
 const AnimatedTextWithHover = ({ text }: { text: string }) => {
     return (
         <div className="flex items-center md:mb-12 sm:mb-24 xs:mb-24  justify-center ">
-            <div className="flex space-x-2 sm:space-x-1"> {/* Adjust spacing for smaller screens */}
+            <div className="flex space-x-2 xs:space-x-1"> 
                 {text.split('').map((char, index) => (
                     <span
                         key={index}
@@ -186,7 +186,7 @@ const AnimatedTextWithHover = ({ text }: { text: string }) => {
                         hover:drop-shadow-[0_0_10px_rgba(255,255,255,1)] 
                         stroke-white text-transparent"
                         style={{
-                            WebkitTextStroke: '2px white', // Stroke remains the same for all sizes
+                            WebkitTextStroke: '2px white',
                             animationDelay: `${index * 0.1}s`,
                         }}
                     >

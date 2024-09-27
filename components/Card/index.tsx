@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { CardContainer } from "@components/ui/3d-card";
+import CardDetails from "@components/Card/CardDetails";
 
 interface ProjectCardProps {
 	project: {
@@ -24,9 +24,10 @@ interface ProjectCardProps {
 	initialLoad: boolean;
 }
 
+// eslint-disable-next-line react/display-name
 const ProjectCard: React.FC<ProjectCardProps> = memo(({ project, position, isActive, initialLoad }) => (
 	<motion.div
-		className={`absolute glassmorphism ${position.zIndex === 10 ? 'opacity-100' : 'opacity-0'} rounded-4xl overflow-hidden bg-white bg-opacity-5 project-card`}
+		className={`absolute glassmorphism ${position.zIndex === 10 ? 'opacity-100' : 'opacity-0'} rounded-4xl bg-white bg-opacity-5 project-card`}
 		initial={{
 			opacity: initialLoad ? 0 : 1,
 			scale: initialLoad ? 0.8 : position.scale,
@@ -52,62 +53,22 @@ const ProjectCard: React.FC<ProjectCardProps> = memo(({ project, position, isAct
 			delay: initialLoad ? position.zIndex * 0.08 : 0,
 		}}
 		style={{
-			width: "620px",
-			height: "90%",
+			width : isActive ? "620px" : "420px",
+			height: isActive ? "90%" : "100%",
 			zIndex: position.zIndex,
 			display: "flex",
 		}}
 	>
 		{isActive? (
-				<CardContainer className="w-full h-[60vh]">
-					<CardDetails project={project}/>
+				<CardContainer className="w-full h-[60vh]  ">
+					<CardDetails isDetail={true} project={project}/>
 				</CardContainer>)
-				:(<div className="flex w-full h-[60vh]">
-					<CardDetails project={project}/>
+				:(<div className="flex w-full h-[97%] hover:scale-105 hover:border-2 hover:border-white/60 hover:rounded-4xl opacity-70 hover:opacity-100">
+					<CardDetails isDetail={false} project={project}/>
 				</div>)}
 	</motion.div>
 ));
 
-const CardDetails = ({ project }) => {
-	return(
-		<>
-			<div className="m-2 w-1/2 h-[100%] rounded-l-2xl overflow-hidden">
-				<img
-					src={project.image}
-					alt={project.title}
-					className="rounded-[1.6rem] border-[1px] border-white/50 h-full object-cover"
-				/>
-			</div>
-			<div className="w-1/2 p-6 flex flex-col justify-center space-y-4 rounded-3xl bg-white bg-opacity-5">
-				{/* Title */}
-				<div className="p-4 rounded-2xl bg-black border-[0.5px] border-white/40 bg-opacity-20">
-					<h2 className="text-white text-xl font-semibold">{project.title}</h2>
-				</div>
-				{/* Description */}
-				<div className="p-4 rounded-2xl bg-black border-[0.5px] border-white/40 bg-opacity-20">
-					<p className="text-white text-sm">{project.description}</p>
-				</div>
-				{/* Tech Stack */}
-				<div className="p-4 rounded-2xl bg-black border-[0.5px] border-white/40 bg-opacity-20">
-					<span className="text-white text-sm">Tech Used: {project.tech}</span>
-				</div>
-				{/* Buttons */}
-				<div className="flex space-x-4 justify-center">
-					<button className="p-3 rounded-full bg-black border-[0.5px] border-white/40 bg-opacity-20">
-						<img className="w-6 h-6 filter invert" src="/icons/site/icon8.svg"/>
-					</button>
-					<button className="p-3 rounded-full bg-black border-[0.5px] border-white/40 bg-opacity-20">
-						<img className="w-6 h-6 filter invert" src="/icons/site/icon7.svg"/>
-					</button>
-					<Link href={project.link}
-						  className="p-3 rounded-full bg-black border-[0.5px] border-white/40 bg-opacity-20">
-						<img className="w-6 h-6 filter text-white" src="/icons/site/icon6.svg"/>
-					</Link>
-				</div>
-			</div>
-		</>
-	);
-}
 
 export default ProjectCard;
 

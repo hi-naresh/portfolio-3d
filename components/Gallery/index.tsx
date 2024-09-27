@@ -119,11 +119,11 @@ const Gallery3D: React.FC = () => {
 			}
 			if (offset === -1 || (offset === projects.length - 1 && currentIndex === 0)) {
 				// Left card
-				return { translateX: -650, scale: 0.8, zIndex: 5, opacity: 0.7, rotateY: 60, translateZ: -380 };
+				return { translateX: -600, scale: 0.8, zIndex: 5, opacity: 0.9, rotateY: 60, translateZ: -380 };
 			}
 			if (offset === 1 || (offset === -(projects.length - 1) && currentIndex === projects.length - 1)) {
 				// Right card
-				return { translateX: 650, scale: 0.8, zIndex: 5, opacity: 0.7, rotateY: -60, translateZ: -380 };
+				return { translateX: 600, scale: 0.8, zIndex: 5, opacity: 0.9, rotateY: -60, translateZ: -380 };
 			}
 			// Hidden cards
 			return { translateX: 0, scale: 0, zIndex: 1, opacity: 0, rotateY: 0, translateZ: 0 };
@@ -159,7 +159,7 @@ const Gallery3D: React.FC = () => {
 			<Header />
 			<motion.div
 				className="relative w-full max-w-[100%] h-[600px] flex items-center justify-center overflow-hidden z-10"
-				style={{ perspective: "1000px", transformStyle: "preserve-3d" }}
+				style={{ perspective: "900px", transformStyle: "preserve-3d" }}
 			>
 				{/* Cards Slider */}
 				{projects.map((project, index) => (
