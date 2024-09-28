@@ -12,7 +12,7 @@ interface CardProps{
 export const CardDetails = ({ project, isDetail } : {project: CardProps, isDetail :boolean}) => {
     const width = isDetail ? "w-1/2" : "w-full";
     return(
-        <>
+        <div className={"flex h-full w-full"}>
             <div className={`m-1.5 pl-1 ${width} h-[100%] rounded-2xl overflow-hidden`}>
                 <img
                     src={project.image}
@@ -49,7 +49,7 @@ export const CardDetails = ({ project, isDetail } : {project: CardProps, isDetai
                     </div>
                 </div>
             )}
-        </>
+        </div>
     );
 }
 

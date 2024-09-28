@@ -1,7 +1,7 @@
 const projects = [
 	{
 		id: 1,
-		image: '/images/projects/prodo.webp',
+		image: '/images/projects/prodo.png',
 		title: 'Prodo',
 		description: 'Prodo is a productivity tool designed to streamline workflows and task management for individuals and teams. It features seamless integration with calendars, task tracking, and real-time collaboration.',
 		tech: 'React, Node.js, MongoDB',
@@ -32,16 +32,8 @@ const projects = [
 		link: '#'
 	},
 	{
-		id: 5,
-		image: '/images/projects/riddlebox.webp',
-		title: 'The Riddle Box',
-		description: 'The Riddle Box is an engaging puzzle-solving platform where users can solve riddles and challenges to unlock rewards. It provides real-time hints and integrates gamification elements for a fun user experience.',
-		tech: 'Vue.js, Firebase, Node.js',
-		link: '#'
-	},
-	{
 		id: 6,
-		image: '/images/projects/auroBees.webp',
+		image: '/images/projects/aurobees.webp',
 		title: 'AuroBees',
 		description: 'AuroBees is a decentralized task management and micro-tasking platform powered by blockchain. It allows users to post tasks and reward task completers with cryptocurrency, making it an efficient decentralized gig economy app.',
 		tech: 'Ethereum, Solidity, IPFS',
@@ -49,23 +41,23 @@ const projects = [
 	},
 	{
 		id: 7,
-		image: '/images/projects/escapeRoom.webp',
+		image: '/images/projects/escape.webp',
 		title: 'EscapeRoom',
 		description: 'EscapeRoom is a 3D multiplayer game where users must solve puzzles and navigate complex environments to escape virtual rooms. It features real-time multiplayer interactions and various themed rooms to challenge players.',
 		tech: 'Unity, C#, Photon Networking',
 		link: '#'
 	},
-	{
-		id: 8,
-		image: '/images/projects/3jsAgency.webp',
-		title: '3JS Agency Portfolio',
-		description: 'A dynamic 3D portfolio website for agencies using Three.js to display services, projects, and team members in an interactive and visually engaging way. It includes animations, 3D models, and responsive design for a modern web experience.',
-		tech: 'Three.js, Next.js, Tailwind CSS',
-		link: '#'
-	},
+	// {
+	// 	id: 8,
+	// 	image: '/images/projects/common.webp',
+	// 	title: '3JS Agency Portfolio',
+	// 	description: 'A dynamic 3D portfolio website for agencies using Three.js to display services, projects, and team members in an interactive and visually engaging way. It includes animations, 3D models, and responsive design for a modern web experience.',
+	// 	tech: 'Three.js, Next.js, Tailwind CSS',
+	// 	link: '#'
+	// },
 	{
 		id: 9,
-		image: '/images/projects/personalPortfolio.webp',
+		image: '/images/projects/personal3d.webp',
 		title: 'Personal 3D Portfolio',
 		description: 'A visually stunning 3D personal portfolio showcasing projects, skills, and achievements. It features interactive elements, 3D models, and smooth transitions to give users a highly engaging experience.',
 		tech: 'Three.js, React, GSAP',
@@ -73,23 +65,15 @@ const projects = [
 	},
 	{
 		id: 10,
-		image: '/images/projects/varushiApparel.webp',
+		image: '/images/projects/varushi.webp',
 		title: 'Varushi Apparel',
 		description: 'Varushi Apparel is an e-commerce platform for a modern apparel brand. It provides a seamless shopping experience with product filters, integrated payment gateways, and a responsive design for mobile and desktop users.',
 		tech: 'Shopify, React, Tailwind CSS',
 		link: '#'
 	},
 	{
-		id: 11,
-		image: '/images/projects/singhviSilks.webp',
-		title: 'Singhvi Silks',
-		description: 'Singhvi Silks is a premium online store that showcases traditional and contemporary silk garments. It features an elegant UI/UX design with an integrated payment gateway and real-time order tracking for customers.',
-		tech: 'WordPress, WooCommerce, PHP',
-		link: '#'
-	},
-	{
 		id: 12,
-		image: '/images/projects/knowYourselfBetter.webp',
+		image: '/images/projects/knowyourself.webp',
 		title: 'Know Yourself Better',
 		description: 'Know Yourself Better is an all-in-one self-mastery mobile app based on Sri Aurobindo\'s teachings, offering mental, physical, emotional, and spiritual well-being resources. It covers all aspects of life and well-being.',
 		tech: 'Flutter, Firebase, Gemini AI',
@@ -113,7 +97,7 @@ const projects = [
 	},
 	{
 		id: 15,
-		image: '/images/projects/chapterCreator.webp',
+		image: '/images/projects/AI.webp',
 		title: 'Chapter Creator AI Tool',
 		description: 'Chapter Creator is an AI-powered content creation tool that helps writers, educators, and students create structured chapters for books and academic content. It automates chapter summaries, outlines, and references.',
 		tech: 'OpenAI GPT-4, React, Node.js',
@@ -121,7 +105,7 @@ const projects = [
 	},
 	{
 		id: 16,
-		image: '/images/projects/valueAnalysis.webp',
+		image: '/images/projects/AI.webp',
 		title: 'Value Analysis AI Tool',
 		description: 'Value Analysis AI Tool is a data-driven application that helps businesses analyze the value proposition of their products or services. It uses AI to process market trends, customer feedback, and financial data to provide insights.',
 		tech: 'Python, Pandas, Scikit-learn',
@@ -129,7 +113,7 @@ const projects = [
 	},
 	{
 		id: 17,
-		image: '/images/projects/moodShift.webp',
+		image: '/images/projects/AI.webp',
 		title: 'Mood Shift Tool',
 		description: 'Mood Shift is a mental health tool that tracks users\' emotional well-being and provides AI-generated suggestions to improve mood. It integrates with wearable devices to track physiological data and suggest personalized activities.',
 		tech: 'React Native, Firebase, IBM Watson',
