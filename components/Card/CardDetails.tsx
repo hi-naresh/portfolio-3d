@@ -37,14 +37,14 @@ export const CardDetails = ({ project, isDetail } : {project: CardProps, isDetai
                     {/* Buttons */}
                     <div className="flex space-x-4 justify-center">
                         <button className="p-3 rounded-full bg-black border-[0.5px] border-white/40 bg-opacity-20">
-                            <img className="w-6 h-6 filter invert" src="/icons/site/icon8.svg"/>
+                            <img className="w-6 h-6 filter invert" src="/assets/icons/share.svg"/>
                         </button>
                         <button className="p-3 rounded-full bg-black border-[0.5px] border-white/40 bg-opacity-20">
-                            <img className="w-6 h-6 filter invert" src="/icons/site/icon7.svg"/>
+                            <img className="w-6 h-6 filter invert" src="/assets/icons/like.svg"/>
                         </button>
                         <Link href={project.link}
                               className="p-3 rounded-full bg-black border-[0.5px] border-white/40 bg-opacity-20">
-                            <img className="w-6 h-6 filter text-white" src="/icons/site/icon6.svg"/>
+                            <img className="w-6 h-6 filter invert" src="/assets/icons/redirect.svg"/>
                         </Link>
                     </div>
                 </div>

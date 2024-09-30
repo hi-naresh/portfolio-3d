@@ -25,7 +25,7 @@ interface ProjectCardProps {
 }
 
 // eslint-disable-next-line react/display-name
-const ProjectCard: React.FC<ProjectCardProps> = memo(({ project, position, isActive, initialLoad }) => (
+const ProjectCardSlider: React.FC<ProjectCardProps> = memo(({ project, position, isActive, initialLoad }) => (
 	<motion.div
 		className={`absolute glassmorphism ${position.zIndex === 10 ? 'opacity-100' : 'opacity-0'} rounded-4xl bg-white bg-opacity-5 project-card`}
 		initial={{
@@ -70,7 +70,7 @@ const ProjectCard: React.FC<ProjectCardProps> = memo(({ project, position, isAct
 ));
 
 
-export default ProjectCard;
+export default ProjectCardSlider;
 
 
 // import React, { memo } from "react";

@@ -53,9 +53,9 @@
 }
 
 /* Define custom cursors */
-* {
-    cursor: url("/icons/cursor/arrow.png"), auto;
-}
+/** {*/
+/*    cursor: url("/icons/cursor/arrow.png"), auto;*/
+/*}*/
 
 /*!* Cursor for all clickable links *!*/
 /*a {*/
@@ -249,4 +249,54 @@ header, nav, .gallery-container {
     100% {
         background-position: 0% 50%;
     }
+}
+
+
+@layer components {
+    @keyframes move {
+        0% {
+            left: 0;
+            opacity: 0;
+            transform: rotate(180deg);
+        }
+        35% {
+            left: 41%;
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+        65% {
+            left: 59%;
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+        100% {
+            left: 100%;
+            opacity: 0;
+            transform: rotate(-180deg);
+        }
+    }
+
+    .animate-move {
+        animation: move 2s linear infinite;
+        position: absolute;
+    }
+}
+
+
+/* Mobile-specific styles */
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.swiper-slide-active {
+    transform: scale(1);
+}
+
+.swiper-slide {
+    transform: scale(0.85);
+    transition: transform 0.3s ease-in-out;
 }

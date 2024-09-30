@@ -174,7 +174,7 @@ import React from 'react';
 
 const AnimatedTextWithHover = ({ text }: { text: string }) => {
     return (
-        <div className="flex items-center md:mb-12 sm:mb-24 xs:mb-24  justify-center ">
+        <div className="flex items-center md:mb-12 sm:mb-24 xs:mb-44  justify-center ">
             <div className="flex space-x-2 xs:space-x-1"> 
                 {text.split('').map((char, index) => (
                     <span

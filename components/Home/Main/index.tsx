@@ -110,7 +110,7 @@ const HeroSection = () => {
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			setMinimumTimePassed(true);
-		}, 2000); // Minimum of 2 seconds for loading screen
+		}, 3000); // Minimum of 2 seconds for loading screen
 
 		return () => clearTimeout(timer); // Clean up the timer
 	}, []);
@@ -133,8 +133,12 @@ const HeroSection = () => {
 			>
 				<section className="relative h-screen w-full overflow-hidden">
 					<motion.div className="absolute inset-0 flex justify-center items-center transition duration-500 ease-in-out">
-						<div className="lg:w-[150%] md:w-[200%] sm:w-[300%] xs:w-[300%] overflow-clip md:mt-44">
+						<div className="lg:w-[100%] xl:w-[100%] xl:scale-100 lg:scale-[140%] md:w-[200%] md:scale-[460%] sm:w-[100%] xs:w-[100%] sm:scale-[160%] xs:scale-[160%] overflow-clip xs:-mt-40 md:mt-44">
 							<AnimatedNeonSvg />
+							{/*/!*<img src={"/images/neon.svg"} />*!/*/}
+							{/*{*/}
+							{/*	isMobile ? <img src={"/images/neon.svg"} /> : <AnimatedNeonSvg />*/}
+							{/*}*/}
 						</div>
 					</motion.div>
 

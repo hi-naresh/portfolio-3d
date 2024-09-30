@@ -1,11 +1,14 @@
 import { motion } from 'framer-motion';
 import React from "react";
 import RotatingCircularText from "@components/Animations/CircularText";
+import {useIsMobile} from "@libs/hooks/useIsMobile";
 
 const AnimatedNeonSvg = () => {
+    const isMobile = useIsMobile();
     return (
         <div className="relative flex items-center justify-center">
-            <motion.svg
+            {/*<img src={"/images/neon.svg"} />*/}
+            {isMobile ? <img src={"/images/neon.svg"}/> : <motion.svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 800 800"
                 style={{
@@ -162,9 +165,9 @@ const AnimatedNeonSvg = () => {
                         }}
                     />
                 </g>
-            </motion.svg>
+            </motion.svg>}
             {/* Rotating Text Around the Ring */}
-            <RotatingCircularText text={"NARESH"} />
+            <RotatingCircularText text={"NARESH"}/>
         </div>
     );
 };
