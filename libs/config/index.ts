@@ -18,7 +18,7 @@ const SEO = {
 	title: "Home - Naresh Jhawar",
 	domain,
 	publishDomain: `https://${domain}`,
-	themeColor: "#FF005D", 
+	themeColor: "#000000", 
 	keywords: [
 		"naresh",
 		"jhawar",

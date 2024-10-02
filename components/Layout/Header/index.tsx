@@ -10,7 +10,7 @@ const Header: React.FC = React.memo(() => (
 		transition={{ delay: 0.2, duration: 2, ease: "easeOut" }}
 	>
 		<motion.div
-			className="glassmorphism shadow-2xl w-full max-w-[60rem] sm:max-w-[40rem] px-1.5 md:py-0.5 xs:py-1.5 rounded-full flex justify-between items-center space-x-4 bg-white bg-opacity-10"
+			className="glassmorphism shadow-2xl w-full max-w-[60rem] sm:max-w-[40rem] px-1.5 md:py-[0.35rem] xs:py-1.5 rounded-full flex justify-between items-center space-x-4 bg-white bg-opacity-10"
 			initial={{ width: 0 }}
 			animate={{ width: "100%" }}
 			transition={{ delay: 0.1, duration: 2, ease: "easeOut" }}
@@ -38,26 +38,26 @@ const Header: React.FC = React.memo(() => (
 			</motion.p>
 
 			<motion.div
-				className="space-x-2 flex xs:hidden md:flex"
+				className="space-x-2 flex "
 				initial={{ scale: 0, opacity: 0 }}
 				animate={{ scale: 1, opacity: 1 }}
 				transition={{ delay: 0.6, duration: 0.5, ease: "easeOut" }}
 			>
 				<motion.button
-					className="glassmorphism rounded-full p-2 backdrop-blur-2xl"
+					className="glassBg bg-white bg-opacity-10 xs:hidden md:flex rounded-full p-2 "
 					whileHover={{ scale: 1.1 }}
 					onClick={() => window.open("/gallery", "_self")}
 				>
 					<img className="w-6 h-6 filter invert" src="/assets/icons/reload.svg" />
 				</motion.button>
 				<motion.button
-					className="glassmorphism rounded-full p-2 backdrop-blur-2xl"
+					className="glassBg bg-white bg-opacity-10 xs:hidden md:flex rounded-full p-2 "
 					whileHover={{ scale: 1.1 }}
 				>
 					<img className="w-6 h-6 filter invert" src="/assets/icons/contact.svg" />
 				</motion.button>
 				<motion.button
-					className="glassmorphism font-black rounded-full p-2 backdrop-blur-2xl"
+					className="glassBg bg-white bg-opacity-10 font-black rounded-full p-2"
 					whileHover={{ scale: 1.1 }}
 				>
 					<img className="w-6 h-6 filter invert" src="/assets/icons/call.svg" />

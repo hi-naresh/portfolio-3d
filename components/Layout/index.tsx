@@ -2,6 +2,7 @@ import { CONFIG } from "@libs/config";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import React, { type FC, type ReactNode } from "react";
+import PageWrapper from "@components/Utils/PageWrapper";
 // import Header from "@components/Layout/Header";
 
 export interface ILayout {
@@ -18,15 +19,9 @@ export const Layout: FC<ILayout> = ({ title, children }) => {
 				title={title}
 				canonical={`${CONFIG.SEO.publishDomain}${router.pathname}`}
 			/>
-			<>
-				{/*<Navbar />*/}
-				{/*<Header />*/}
-				{/*<div className="container mx-auto">*/}
-				{/*	<Alert />*/}
-				{/*</div>*/}
+			<PageWrapper>
 				{children}
-				{/*<Footer />*/}
-			</>
+			</PageWrapper>
 		</div>
 	);
 };

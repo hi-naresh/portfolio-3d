@@ -91,7 +91,7 @@ import AnimatedNeonSvg from "@components/Animations/Neon";
 import AnimatedTextWithHover from "@components/Animations/Text2";
 import ModelCode from "@components/Home/Main/ModelJSX";
 import { Footer } from "@components/Layout/Footer";
-import LoadingScreen from "../../../pages/loading";
+import LoadingScreen from "../../Layout/loading";
 
 const HeroSection = () => {
 	const [isLoaded, setIsLoaded] = useState(false); // Tracks if the content is fully loaded
@@ -157,8 +157,8 @@ const HeroSection = () => {
 					>
 						<ambientLight intensity={0.28} />
 						<pointLight position={[-15, 0, 0]} color="#FF005D" intensity={200} />
-						<pointLight position={[15, 0, 0]} color="#4BECE9" intensity={200} />
-						<pointLight position={[0, 10, 0]} color="#FFFFFF" intensity={200} />
+						<pointLight position={[5, 15, -5]} color="#4BECE9" intensity={200} />
+						{/*<pointLight position={[0, 10, 0]} color="#FFFFFF" intensity={200} />*/}
 						<OrbitControls enableZoom={false} enableRotate={false} />
 						<ModelCode />
 					</Canvas>

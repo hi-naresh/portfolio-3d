@@ -4,6 +4,8 @@ import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import GlowingText from "@components/Animations/GlowHollowText";
+import {useDeviceOrientation} from "@libs/hooks/useDeviceOrientation";
+import {useIsMobile} from "@libs/hooks/useIsMobile";
 
 export default function ModelCode(props) {
     const group = useRef();
@@ -16,6 +18,29 @@ export default function ModelCode(props) {
     const lightRef = useRef(); // Reference for the moving ambient light
     // const decalTexture = useTexture('/banner.png'); // Replace with the correct image path
     const [isHovered, setIsHovered] = useState(false); // State to track hover
+
+    // Use the device orientation hook
+    // const { orientation, requestAccess, error, permissionDenied } = useDeviceOrientation();
+    const {
+        orientation,
+        requestAccess,
+        revokeAccess,
+        error,
+        resetOrientation
+    } = useDeviceOrientation({
+    });
+
+    const [accessGranted, setAccessGranted] = useState(false);
+
+    // Request access to the device orientation
+    useEffect(() => {
+        const requestOrientationAccess = async () => {
+            const granted = await requestAccess();
+            setAccessGranted(granted);
+        };
+        requestOrientationAccess();
+    }, [requestAccess]);
+
 
     useEffect(() => {
         headRef.current = nodes.Head;
@@ -60,11 +85,14 @@ export default function ModelCode(props) {
         return () => window.removeEventListener("resize", adjustModelForScreenSize);
     }, [nodes]);
 
-    // Make the head follow the mouse
+    const isMobile = useIsMobile();
+
+    // Make the head follow the device orientation (or mouse for fallback)
     useFrame((state) => {
+        
         const { mouse } = state;
 
-        if (headRef.current) {
+        if (headRef.current || !isMobile && !accessGranted) {
             const { mouse } = state;
             const targetRotationX = -mouse.y * Math.PI / 3;
             const targetRotationY = mouse.x * Math.PI / 4;
@@ -85,13 +113,30 @@ export default function ModelCode(props) {
             );
         }
 
-        // Update the light position to follow the cursor
-        if (lightRef.current) {
-            const { width, height } = state.viewport;
-            lightRef.current.position.set(mouse.x * width * 1.5, mouse.y * height * 1.5, 3); // Adjust Z for depth
-        }
-    });
+        if (headRef.current || orientation && accessGranted) {
+            // Use device orientation values to control the head's rotation
+            const targetRotationX = THREE.MathUtils.degToRad(orientation.beta ?? 0);  // Up/Down tilt
+            const targetRotationY = THREE.MathUtils.degToRad(orientation.gamma ?? 0); // Left/Right tilt
 
+            // Increase the sensitivity for the Y-axis (vertical) rotation
+            const ySensitivity = -1.5;  // Increase this factor to make the Y-axis more sensitive
+            const xSensitivity = 1.5;  // Increase this factor to make the X-axis more sensitive
+
+            // Apply the rotation smoothly
+            headRef.current.rotation.x = THREE.MathUtils.lerp(
+                headRef.current.rotation.x,
+                targetRotationX *xSensitivity * -0.5,  // Scale for subtle movement
+                0.1
+            );
+            headRef.current.rotation.y = THREE.MathUtils.lerp(
+                headRef.current.rotation.y,
+                targetRotationY * ySensitivity * 0.8,  // Scale for subtle movement
+                0.1
+            );
+        }
+
+
+    });
     const handleGlassesClick = () => {
         if (glassesRef.current) {
             setTransition(true);
@@ -142,7 +187,7 @@ export default function ModelCode(props) {
                             roughness={0.5}
                             metalness={0.2}
                             color="rgb(100, 90, 90)"/>
-                        
+
                     </skinnedMesh>
 
                     {/* Glasses with Text Attached */}
@@ -170,7 +215,7 @@ export default function ModelCode(props) {
                                 <GlowingText/>
                             </RenderTexture>
                         </meshStandardMaterial>
-                        
+
                     </skinnedMesh>
 
 

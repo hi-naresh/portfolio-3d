@@ -4,7 +4,7 @@ import projects from "../../data/projects";
 import React from "react";
 
 const NavControls = (
-    { nextSlide, prevSlide, currentIndex }: { nextSlide: () => void; prevSlide: () => void; currentIndex: number }
+    { nextSlide, prevSlide , currentIndex }: { nextSlide: () => void; prevSlide: () => void; currentIndex: number }
 ) => {
     return (
         <motion.div
@@ -19,7 +19,7 @@ const NavControls = (
                 animate={{ width: '30rem' }}
                 transition={{ delay: 0.1, duration: 2, ease: "easeOut" }}
             >
-                <CircleButton onClick={prevSlide} icon="/icons/site/icon9.svg" />
+                <CircleButton onClick={prevSlide}  icon="/icons/site/icon9.svg" />
                 <motion.p
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
