@@ -15,7 +15,7 @@ export default function ModelCode(props) {
     const glassesRef = useRef(); // Reference for the glasses
     const glassesRef1 = useRef(); // Reference for the second glasses mesh
     const [ transition,setTransition] = useState(false);
-    const lightRef = useRef(); // Reference for the moving ambient light
+    // const lightRef = useRef(); // Reference for the moving ambient light
     // const decalTexture = useTexture('/banner.png'); // Replace with the correct image path
     const [isHovered, setIsHovered] = useState(false); // State to track hover
 
@@ -24,9 +24,9 @@ export default function ModelCode(props) {
     const {
         orientation,
         requestAccess,
-        revokeAccess,
-        error,
-        resetOrientation
+        // revokeAccess,
+        // error,
+        // resetOrientation
     } = useDeviceOrientation({
     });
 
@@ -38,7 +38,9 @@ export default function ModelCode(props) {
             const granted = await requestAccess();
             setAccessGranted(granted);
         };
-        requestOrientationAccess();
+        requestOrientationAccess().then(r => 
+            console.log("Requesting access to device orientation")
+        );
     }, [requestAccess]);
 
 
@@ -89,53 +91,49 @@ export default function ModelCode(props) {
 
     // Make the head follow the device orientation (or mouse for fallback)
     useFrame((state) => {
-        
         const { mouse } = state;
+        
+        if (headRef.current){
+            if (isMobile){
+                const targetRotationX = THREE.MathUtils.degToRad(orientation.beta ?? 0);  // Up/Down tilt
+                const targetRotationY = THREE.MathUtils.degToRad(orientation.gamma ?? 0); // Left/Right tilt
 
-        if (headRef.current || !isMobile && !accessGranted) {
-            const { mouse } = state;
-            const targetRotationX = -mouse.y * Math.PI / 3;
-            const targetRotationY = mouse.x * Math.PI / 4;
-            const clampedRotationX = THREE.MathUtils.clamp(
-                targetRotationX,
-                -Math.PI,
-                Math.PI / 60
-            );
-            headRef.current.rotation.x = THREE.MathUtils.lerp(
-                headRef.current.rotation.x,
-                clampedRotationX,
-                0.1
-            );
-            headRef.current.rotation.y = THREE.MathUtils.lerp(
-                headRef.current.rotation.y,
-                targetRotationY,
-                0.1
-            );
+                // Increase the sensitivity for the Y-axis (vertical) rotation
+                const ySensitivity = -1.5;  // Increase this factor to make the Y-axis more sensitive
+                const xSensitivity = 1.5;  // Increase this factor to make the X-axis more sensitive
+
+                // Apply the rotation smoothly
+                headRef.current.rotation.x = THREE.MathUtils.lerp(
+                    headRef.current.rotation.x,
+                    targetRotationX *xSensitivity * -0.5,  // Scale for subtle movement
+                    0.1
+                );
+                headRef.current.rotation.y = THREE.MathUtils.lerp(
+                    headRef.current.rotation.y,
+                    targetRotationY * ySensitivity * 0.8,  // Scale for subtle movement
+                    0.1
+                );
+            }else {
+                const { mouse } = state;
+                const targetRotationX = -mouse.y * Math.PI / 3;
+                const targetRotationY = mouse.x * Math.PI / 4;
+                const clampedRotationX = THREE.MathUtils.clamp(
+                    targetRotationX,
+                    -Math.PI,
+                    Math.PI / 60
+                );
+                headRef.current.rotation.x = THREE.MathUtils.lerp(
+                    headRef.current.rotation.x,
+                    clampedRotationX,
+                    0.1
+                );
+                headRef.current.rotation.y = THREE.MathUtils.lerp(
+                    headRef.current.rotation.y,
+                    targetRotationY,
+                    0.1
+                );
+            }
         }
-
-        if (headRef.current || orientation && accessGranted) {
-            // Use device orientation values to control the head's rotation
-            const targetRotationX = THREE.MathUtils.degToRad(orientation.beta ?? 0);  // Up/Down tilt
-            const targetRotationY = THREE.MathUtils.degToRad(orientation.gamma ?? 0); // Left/Right tilt
-
-            // Increase the sensitivity for the Y-axis (vertical) rotation
-            const ySensitivity = -1.5;  // Increase this factor to make the Y-axis more sensitive
-            const xSensitivity = 1.5;  // Increase this factor to make the X-axis more sensitive
-
-            // Apply the rotation smoothly
-            headRef.current.rotation.x = THREE.MathUtils.lerp(
-                headRef.current.rotation.x,
-                targetRotationX *xSensitivity * -0.5,  // Scale for subtle movement
-                0.1
-            );
-            headRef.current.rotation.y = THREE.MathUtils.lerp(
-                headRef.current.rotation.y,
-                targetRotationY * ySensitivity * 0.8,  // Scale for subtle movement
-                0.1
-            );
-        }
-
-
     });
     const handleGlassesClick = () => {
         if (glassesRef.current) {
@@ -144,7 +142,7 @@ export default function ModelCode(props) {
             if (blackOverlay) {
                 blackOverlay.style.opacity = "1";
                 setTimeout(() => {
-                    window.location.href = "/gallery"; // Navigate to the virtual reality scene
+                    window.location.href = "/gallery/prodo"; // Navigate to the virtual reality scene
                 }, 1000);
             }
         }

@@ -9,11 +9,11 @@ export const useLoading = () => {
     };
 
     const handleComplete = () => {
-      setTimeout(() => {
+        setLoading(false);
+        //wait for 2 seconds , while animating the loader
         setTimeout(() => {
-          setLoading(false);
-        }, 300); // Transition time for animation to move
-      }, 200); // Minimum 1 second delay
+            setLoading(false);
+        }, 2000);
     };
 
     window.addEventListener('routeChangeStart', handleStart);

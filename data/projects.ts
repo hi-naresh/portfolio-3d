@@ -5,6 +5,7 @@ const projects = [
 		title: 'Prodo',
 		description: 'Prodo is a productivity tool designed to streamline workflows and task management for individuals and teams. It features seamless integration with calendars, task tracking, and real-time collaboration.',
 		tech: 'Flutter, Gemini API, Firebase',
+		available: 'Soon on Play Store!',
 		link: '#'
 	},
 	{
@@ -29,6 +30,7 @@ const projects = [
 		title: 'AuroPay',
 		description: 'AuroPay is a secure payment gateway solution designed to handle transactions for e-commerce platforms and service-based applications. It supports multiple currencies and payment methods, ensuring smooth and secure transactions.',
 		tech: 'Flutter, Node.js, RazorPay API, Web3, Infura, MetaMask',
+		available: 'Under University Project!',
 		link: '#'
 	},
 	{
@@ -77,6 +79,7 @@ const projects = [
 		title: 'Know Yourself Better',
 		description: 'Know Yourself Better is an all-in-one self-mastery mobile app based on Sri Aurobindo\'s teachings, offering mental, physical, emotional, and spiritual well-being resources. It covers all aspects of life and well-being.',
 		tech: 'Flutter, Firebase, Gemini API, GCP',
+		available: 'Soon on AppStore!',
 		link: '#'
 	},
 	{

@@ -86,6 +86,7 @@ interface ProjectCardProps {
         title: string;
         description: string;
         tech: string;
+        available: string;
         link: string;
     },
     position: {
@@ -100,12 +101,13 @@ interface ProjectCardProps {
     initialLoad: boolean,
     nextSlide?: () => void,
     prevSlide?: () => void,
-    isPrev?: boolean
+    isPrev?: boolean,
+    currentIndex?: number 
 }
 
 // eslint-disable-next-line react/display-name
 const ProjectCardSlider: React.FC<ProjectCardProps> = memo(
-    ({project, position, isActive, initialLoad, nextSlide, prevSlide, isPrev}) => (
+    ({project, position, isActive, initialLoad, nextSlide, prevSlide, isPrev, currentIndex}) => (
         <motion.div
             className={`absolute glassmorphism ${
                 position.zIndex === 10 ? "opacity-100" : "opacity-0"
@@ -147,13 +149,13 @@ const ProjectCardSlider: React.FC<ProjectCardProps> = memo(
         >
             {isActive ? (
                 <CardContainer className="w-full h-[60vh] md:h-[50vh] lg:h-[60vh]">
-                    <CardDetails isDetail={true} project={project}/>
+                    <CardDetails currentIndex={currentIndex} isDetail={true} project={project}/>
                 </CardContainer>
             ) : (
                 <div
                     onClick={isPrev ? prevSlide : nextSlide}
                     className="flex w-full h-[97%] hover:scale-105 hover:border-2 hover:border-white/60 hover:rounded-4xl opacity-70 hover:opacity-100 transition-transform">
-                    <CardDetails isDetail={false} project={project}/>
+                    <CardDetails currentIndex={currentIndex} isDetail={false} project={project}/>
                 </div>
             )}
         </motion.div>

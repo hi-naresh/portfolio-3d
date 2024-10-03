@@ -10,15 +10,17 @@ import MobileProjectSlider from "@components/Gallery/MobileSlider";
 import {useIsMobile} from "@libs/hooks/useIsMobile";
 import {EmblaOptionsType} from "embla-carousel";
 
-const Gallery3D: React.FC = () => {
-	const [currentIndex, setCurrentIndex] = useState(2); // Active card index
+interface Gallery3DProps {
+	initialIndex?: number;  // Allow an optional initial index for the slider
+}
+
+const Gallery3D: React.FC<Gallery3DProps> = ({ initialIndex = 0 }) => {
+	const [currentIndex, setCurrentIndex] = useState(initialIndex);  // Set the initialIndex as the default state
 	const [initialLoad, setInitialLoad] = useState(true);
-	const handleMouseMove = useParallaxEffect(); // Mouse movement for parallax
-	// const [lightsOn, setLightsOn] = useState(true); // State for lights on/off
-	// const toggleLights = () => setLightsOn((prevState) => !prevState); // Function to toggle lights
+	const handleMouseMove = useParallaxEffect();  // Mouse movement for parallax
 	const isMobile = useIsMobile();
-	const OPTIONS: EmblaOptionsType = { loop: true }
-	
+	const OPTIONS: EmblaOptionsType = { loop: true };
+
 	const nextSlide = useCallback(() => {
 		setCurrentIndex((prevIndex) => (prevIndex + 1) % projects.length);
 	}, []);
@@ -27,21 +29,20 @@ const Gallery3D: React.FC = () => {
 		setCurrentIndex((prevIndex) => (prevIndex - 1 + projects.length) % projects.length);
 	}, []);
 
-	// Get position and styling for each card
 	const getPosition = useMemo(() => {
 		return (index: number) => {
 			const offset = index - currentIndex;
 			if (offset === 0) {
 				// Active card
-				return { translateX: 0, scale: isMobile?0.9 :1, zIndex: 10, opacity: 1, rotateY: 0, translateZ: 0 };
+				return { translateX: 0, scale: isMobile ? 0.9 : 1, zIndex: 10, opacity: 1, rotateY: 0, translateZ: 0 };
 			}
 			if (offset === -1 || (offset === projects.length - 1 && currentIndex === 0)) {
 				// Left card
-				return { translateX: isMobile? -200: -600, scale: isMobile? 0.5: 0.8, zIndex: 5, opacity: 0.9, rotateY: 60, translateZ: -380 };
+				return { translateX: isMobile ? -200 : -600, scale: isMobile ? 0.5 : 0.8, zIndex: 5, opacity: 0.9, rotateY: 60, translateZ: -380 };
 			}
 			if (offset === 1 || (offset === -(projects.length - 1) && currentIndex === projects.length - 1)) {
 				// Right card
-				return { translateX:isMobile? 200: 600, scale: isMobile? 0.5: 0.8, zIndex: 5, opacity: 0.9, rotateY: -60, translateZ: -380 };
+				return { translateX: isMobile ? 200 : 600, scale: isMobile ? 0.5 : 0.8, zIndex: 5, opacity: 0.9, rotateY: -60, translateZ: -380 };
 			}
 			// Hidden cards
 			return { translateX: 0, scale: 0, zIndex: 1, opacity: 0, rotateY: 0, translateZ: 0 };
@@ -49,11 +50,6 @@ const Gallery3D: React.FC = () => {
 	}, [currentIndex]);
 
 	useEffect(() => setInitialLoad(false), []);
-	
-	//boolean function to check if the card is previous without passing the index
-	const isPrev = (index: number) => {
-		return index === currentIndex - 1 || (index === projects.length - 1 && currentIndex === 0);
-	}
 
 	return (
 		<motion.div
@@ -77,28 +73,28 @@ const Gallery3D: React.FC = () => {
 					backgroundImage: "url('/images/wall5.webp')",
 					background: "url('/images/wall5.webp') center/cover",
 					backgroundPosition: `var(--parallaxBgX) var(--parallaxBgY)`,
-					backgroundSize: isMobile? "300%": "115%",
+					backgroundSize: isMobile ? "300%" : "115%",
 					backgroundRepeat: "no-repeat",
 				}}
 			/>
 			<Header />
 
-			{isMobile ?(
-				<MobileProjectSlider slides={projects} options={OPTIONS}
-				 isMobile/>
-			): (
+			{isMobile ? (
+				<MobileProjectSlider slides={projects} options={OPTIONS} isMobile />
+			) : (
 				<motion.div
 					className="relative w-full max-w-[100%] h-[600px] flex items-center justify-center overflow-hidden z-10"
-					style={{perspective: "900px", transformStyle: "preserve-3d"}}
+					style={{ perspective: "900px", transformStyle: "preserve-3d" }}
 				>
 					{/* Cards Slider */}
 					{projects.map((project, index) => (
 						<ProjectCard
 							key={project.id}
+							currentIndex={currentIndex}
 							project={project}
+							isPrev={index === (currentIndex - 1 + projects.length) % projects.length}
 							nextSlide={nextSlide}
 							prevSlide={prevSlide}
-							isPrev={isPrev(index)}
 							position={getPosition(index)}
 							isActive={index === currentIndex} // Check if card is active
 							initialLoad={initialLoad}
@@ -106,9 +102,8 @@ const Gallery3D: React.FC = () => {
 					))}
 				</motion.div>
 			)}
-			{!isMobile && (
-				<NavControls nextSlide={nextSlide} prevSlide={prevSlide} currentIndex={currentIndex}/>
-			)}
+
+			{!isMobile && <NavControls nextSlide={nextSlide} prevSlide={prevSlide} currentIndex={currentIndex} />}
 		</motion.div>
 	);
 };
