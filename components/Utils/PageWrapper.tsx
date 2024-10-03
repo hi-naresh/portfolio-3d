@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useEffect, useState } from 'react';
 import {useLoading} from "@libs/hooks/useLoading";
 import LoadingAnimation from "../Layout/loading";

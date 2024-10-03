@@ -12,8 +12,8 @@ export const useLoading = () => {
       setTimeout(() => {
         setTimeout(() => {
           setLoading(false);
-        }, 1200); // Transition time for animation to move
-      }, 800); // Minimum 1 second delay
+        }, 300); // Transition time for animation to move
+      }, 200); // Minimum 1 second delay
     };
 
     window.addEventListener('routeChangeStart', handleStart);

@@ -4,7 +4,7 @@ const projects = [
 		image: '/images/projects/prodo.png',
 		title: 'Prodo',
 		description: 'Prodo is a productivity tool designed to streamline workflows and task management for individuals and teams. It features seamless integration with calendars, task tracking, and real-time collaboration.',
-		tech: 'React, Node.js, MongoDB',
+		tech: 'Flutter, Gemini API, Firebase',
 		link: '#'
 	},
 	{
@@ -12,23 +12,23 @@ const projects = [
 		image: '/images/projects/jscrapper.webp',
 		title: 'JScrapper',
 		description: 'JScrapper is a high-performance web scraping tool that automates data extraction from websites. It supports multiple formats including JSON, CSV, and integrates with APIs for real-time data collection.',
-		tech: 'Node.js, Puppeteer, MongoDB',
-		link: '#'
+		tech: 'Java, JavaFX JSoup, SpringBoot, Scene Builder',
+		link: 'https://github.com/hi-naresh/jscrapper.git'
 	},
 	{
 		id: 3,
 		image: '/images/projects/auroverse.webp',
 		title: 'AuroVerse 3D WebApp',
 		description: 'AuroVerse is an immersive 3D web application that allows users to explore a virtual world. Built with WebGL and Three.js, it provides a rich interactive experience with dynamic environments and real-time user interactions.',
-		tech: 'Three.js, WebGL, React',
-		link: '#'
+		tech: 'R3F, React, Three.js, GSAP, Framer, Firebase',
+		link: 'https://auroverse.vercel.app/'
 	},
 	{
 		id: 4,
 		image: '/images/projects/auropay.webp',
 		title: 'AuroPay',
 		description: 'AuroPay is a secure payment gateway solution designed to handle transactions for e-commerce platforms and service-based applications. It supports multiple currencies and payment methods, ensuring smooth and secure transactions.',
-		tech: 'React, Node.js, Stripe API',
+		tech: 'Flutter, Node.js, RazorPay API, Web3, Infura, MetaMask',
 		link: '#'
 	},
 	{
@@ -36,16 +36,16 @@ const projects = [
 		image: '/images/projects/aurobees.webp',
 		title: 'AuroBees',
 		description: 'AuroBees is a decentralized task management and micro-tasking platform powered by blockchain. It allows users to post tasks and reward task completers with cryptocurrency, making it an efficient decentralized gig economy app.',
-		tech: 'Ethereum, Solidity, IPFS',
-		link: '#'
+		tech: 'Next Js, Tailwind, Firebase, GCP',
+		link: 'https://aurobees.netlify.app/'
 	},
 	{
 		id: 7,
 		image: '/images/projects/escape.webp',
 		title: 'EscapeRoom',
 		description: 'EscapeRoom is a 3D multiplayer game where users must solve puzzles and navigate complex environments to escape virtual rooms. It features real-time multiplayer interactions and various themed rooms to challenge players.',
-		tech: 'Unity, C#, Photon Networking',
-		link: '#'
+		tech: 'React JS, Apollo, Firebase',
+		link: 'https://escaperoom.in/'
 	},
 	// {
 	// 	id: 8,
@@ -60,23 +60,23 @@ const projects = [
 		image: '/images/projects/personal3d.webp',
 		title: 'Personal 3D Portfolio',
 		description: 'A visually stunning 3D personal portfolio showcasing projects, skills, and achievements. It features interactive elements, 3D models, and smooth transitions to give users a highly engaging experience.',
-		tech: 'Three.js, React, GSAP',
-		link: '#'
+		tech: 'Next JS, R3F, Three.js, GSAP, Framer,Axios, Tailwind CSS',
+		link: 'https://nareshjhawar.in/'
 	},
 	{
 		id: 10,
 		image: '/images/projects/varushi.webp',
 		title: 'Varushi Apparel',
 		description: 'Varushi Apparel is an e-commerce platform for a modern apparel brand. It provides a seamless shopping experience with product filters, integrated payment gateways, and a responsive design for mobile and desktop users.',
-		tech: 'Shopify, React, Tailwind CSS',
-		link: '#'
+		tech: 'Shopify, Woo-Commerce, CSS, JavaScript',
+		link: 'https://www.varushiapparel.com/'
 	},
 	{
 		id: 12,
 		image: '/images/projects/knowyourself.webp',
 		title: 'Know Yourself Better',
 		description: 'Know Yourself Better is an all-in-one self-mastery mobile app based on Sri Aurobindo\'s teachings, offering mental, physical, emotional, and spiritual well-being resources. It covers all aspects of life and well-being.',
-		tech: 'Flutter, Firebase, Gemini AI',
+		tech: 'Flutter, Firebase, Gemini API, GCP',
 		link: '#'
 	},
 	{
@@ -84,40 +84,40 @@ const projects = [
 		image: '/images/projects/kriraAI.webp',
 		title: 'KriraAI Agency',
 		description: 'KriraAI Agency is a smart sports analytics platform powered by AI. It provides insights into player performance, game strategies, and predictive analysis for professional sports teams and coaches.',
-		tech: 'Python, TensorFlow, Flask',
-		link: '#'
+		tech: 'Next JS, Tailwind, Firebase, Framer, Lottie',
+		link: 'https://kriraai.com/'
 	},
 	{
 		id: 14,
 		image: '/images/projects/sailcWS.webp',
-		title: 'SAILC WS Web App',
+		title: 'SAILC Support Web App',
 		description: 'SAILC WS Web App is a collaboration and document-sharing tool designed for teams working in a secure environment. It supports file encryption, version control, and real-time collaboration for documents and spreadsheets.',
-		tech: 'Django, PostgreSQL, AWS S3',
-		link: '#'
+		tech: 'React, Node.js, Firebase',
+		link: 'https://knowyourselfbetter.netlify.app/'
 	},
 	{
 		id: 15,
 		image: '/images/projects/AI.webp',
 		title: 'Chapter Creator AI Tool',
 		description: 'Chapter Creator is an AI-powered content creation tool that helps writers, educators, and students create structured chapters for books and academic content. It automates chapter summaries, outlines, and references.',
-		tech: 'OpenAI GPT-4, React, Node.js',
-		link: '#'
+		tech: 'Python , Flask, Gemini API',
+		link: 'https://github.com/hi-naresh/mood-shift'
 	},
 	{
 		id: 16,
 		image: '/images/projects/AI.webp',
 		title: 'Value Analysis AI Tool',
 		description: 'Value Analysis AI Tool is a data-driven application that helps businesses analyze the value proposition of their products or services. It uses AI to process market trends, customer feedback, and financial data to provide insights.',
-		tech: 'Python, Pandas, Scikit-learn',
-		link: '#'
+		tech: 'Python , Flask, Gemini API, Pandas, Scikit-learn',
+		link: 'https://github.com/hi-naresh/value-analysis.git'
 	},
 	{
 		id: 17,
 		image: '/images/projects/AI.webp',
 		title: 'Mood Shift Tool',
 		description: 'Mood Shift is a mental health tool that tracks users\' emotional well-being and provides AI-generated suggestions to improve mood. It integrates with wearable devices to track physiological data and suggest personalized activities.',
-		tech: 'React Native, Firebase, IBM Watson',
-		link: '#'
+		tech: 'Python , Flask, Gemini API, Scikit-learn, TensorFlow',
+		link: 'https://github.com/hi-naresh/mood-shift'
 	}
 ];
 

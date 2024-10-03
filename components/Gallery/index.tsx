@@ -57,7 +57,7 @@ const Gallery3D: React.FC = () => {
 
 	return (
 		<motion.div
-			// onMouseMove={handleMouseMove}
+			onMouseMove={handleMouseMove}
 			initial="hidden"
 			animate="visible"
 			variants={{
