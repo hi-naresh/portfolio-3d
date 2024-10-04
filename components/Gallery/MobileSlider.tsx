@@ -1,32 +1,26 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-import {EmblaCarouselType, EmblaEventType, EmblaOptionsType} from 'embla-carousel';
-import {motion} from "framer-motion";
+import { EmblaCarouselType, EmblaEventType, EmblaOptionsType } from 'embla-carousel';
+import { motion } from "framer-motion";
 import CircleButton from "@components/Layout/Buttons/CircleButton";
-import projects from "../../data/projects";
+import projectData from "../../data/projectData";
 import Link from "next/link";
+import { Project } from "../../@types/project";
+import { handleLikeClick, handleRedirectClick, handleShareClick } from "@libs/guestService";
+import NavBar from "@components/Gallery/MobileNav";
 
 const TWEEN_FACTOR_BASE = 0.42;
 
-const numberWithinRange = (number: number, min: number, max: number): number =>
+const numberWithinRange = (number: number, min: number, max: number) =>
     Math.min(Math.max(number, min), max);
 
-type ProjectType = {
-    id: number;
-    image: string;
-    title: string;
-    description: string;
-    tech: string;
-    link: string;
-};
-
 type PropType = {
-    slides: ProjectType[]; // The slides will be ProjectType objects
+    slides: Project[];
     options?: EmblaOptionsType;
     isMobile: boolean;
 };
 
-const EmblaCarousel: React.FC<PropType> = ({ slides, options }) => {
+const MobileCarousel: React.FC<PropType> = ({ slides, options }) => {
     const [emblaRef, emblaApi] = useEmblaCarousel(options);
     const tweenFactor = useRef(0);
     const tweenNodes = useRef<HTMLElement[]>([]);
@@ -34,6 +28,8 @@ const EmblaCarousel: React.FC<PropType> = ({ slides, options }) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
     const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
+    const [viewDetails, setViewDetails] = useState<boolean[]>(Array(slides.length).fill(false));  // Track view state per slide
+    const [stats, setStats] = useState({ likes: 0, shares: 0, redirects: 0 });
 
     const onPrevButtonClick = useCallback(() => {
         if (!emblaApi) return;
@@ -75,7 +71,7 @@ const EmblaCarousel: React.FC<PropType> = ({ slides, options }) => {
                             const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
                             const scale = numberWithinRange(tweenValue, 0.85, 1.15).toString();
                             tweenNode.style.transform = `scale(${scale})`;
-                            tweenNode.style.transition = 'transform 0.3s ease';
+                            tweenNode.style.transition = 'transform 0.5s ease';
                         } else {
                             tweenNode.style.transform = 'scale(1)';
                         }
@@ -109,48 +105,74 @@ const EmblaCarousel: React.FC<PropType> = ({ slides, options }) => {
         onSelect(emblaApi);
     }, [emblaApi, setTweenNodes, setTweenFactor, tweenScale, onSelect]);
 
+    // Toggle view details state for the current slide
+    const toggleDetails = (index: number) => {
+        setViewDetails((prevState) => {
+            const newState = [...prevState];
+            newState[index] = !newState[index]; // Toggle the state
+            return newState;
+        });
+    };
+
     return (
         <div className="w-full flex-row justify-center items-center mx-auto">
             <div className="overflow-hidden" ref={emblaRef}>
                 <div className="flex -ml-4">
-                    {slides.map((project) => (
-                        <div className="flex-shrink-0 pl-4 w-[70%] transition-transform duration-300" 
+                    {slides.map((project, index) => (
+                        <div className="flex-shrink-0 pl-4 w-[70%] transition-transform duration-500"
                              key={project.id}>
-                            <div
-                                className="embla__slide__content h-full p-2 pb-4 border rounded-2xl bg-white/20 glassmorphism text-white">
-                                {/* Display project details */}
-                                <img
-                                    src={project.image}
-                                    alt={project.title}
-                                    className="w-full h-48 object-cover rounded-2xl"
-                                />
-                                <div className="p-2.5 m-3 rounded-2xl bg-black border-[0.5px] border-white/40 bg-opacity-20">
-                                    <h2 className="text-white text-lg text-center md:text-xl font-semibold">{project.title}</h2>
-                                </div>
+                            <div className="embla__slide__content h-full p-[0.3rem] flex flex-col items-center justify-center border rounded-2xl bg-white/20 glassmorphism text-white relative">
 
-                                {/* Description */}
-                                {/*<div className="p-4 rounded-2xl bg-black border-[0.5px] border-white/40 bg-opacity-20">*/}
-                                {/*    <p className="text-white text-sm md:text-base">{project.description}</p>*/}
-                                {/*</div>*/}
+                                {/* Conditionally render image or details */}
+                                {!viewDetails[index] ? (
+                                    <div className=" duration-500">
+                                        <img
+                                            src={project.image}
+                                            alt={project.title}
+                                            className="w-full h-52 p-0.5 object-cover rounded-2xl"
+                                        />
+                                        <div
+                                            className="p-2.5 m-3 rounded-2xl bg-black border-[0.5px] border-white/40 bg-opacity-20">
+                                            <h2 className="text-white text-lg text-center md:text-xl font-semibold">{project.title}</h2>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className=" flex flex-col items-center justify-center duration-500 my-2 h-50">
+                                            {/*<h2 className="text-white text-lg md:text-xl font-semibold">{project.title}</h2>*/}
+                                            <p className="p-2.5 m-1 text-white text-sm md:text-base mt-2 rounded-2xl bg-black border-[0.5px] border-white/60 bg-opacity-40 text-center">{project.description}</p>
+                                            <div className="p-2.5 m-1 text-white text-sm md:text-base mt-2 rounded-2xl bg-black border-[0.5px] border-white/60 bg-opacity-40 text-center">
+                                                Tech: {project.tech}</div>
+                                    </div>
+                                )}
 
-                                {/* Tech Stack */}
-                                <div className="p-2.5 m-3 rounded-2xl bg-black border-[0.5px] border-white/40 bg-opacity-20">
-                                    <span className="text-white text-sm md:text-base">Tech Used: {project.tech}</span>
-                                </div>
-                                <div className="flex space-x-4 justify-center">
+                                {/* View/Hide Details Button */}
+                                <button
+                                    onClick={() => toggleDetails(index)}
+                                    className=" w-[90%] p-3 text-center bg-black/30 border border-white/30 rounded-2xl"
+                                >
+                                    {viewDetails[index] ? "Hide Details" : "View Details"}
+                                </button>
+
+                                {/* Buttons */}
+                                <div className="flex space-x-4 justify-center mt-4 my-2">
                                     <button
-                                        className="p-3 rounded-full bg-black border-[0.5px] border-white/40 bg-opacity-20">
+                                        className="p-3 rounded-full bg-black border-[0.5px] border-white/40 bg-opacity-20"
+                                        onClick={() => handleShareClick(project, setStats)}
+                                    >
                                         <img className="w-5 h-5 md:w-6 md:h-6 filter invert"
                                              src="/assets/icons/share.svg" alt="Share"/>
                                     </button>
                                     <button
-                                        className="p-3 rounded-full bg-black border-[0.5px] border-white/40 bg-opacity-20">
+                                        className="p-3 rounded-full bg-black border-[0.5px] border-white/40 bg-opacity-20"
+                                        onClick={() => handleLikeClick(project, setStats, () => {})}
+                                    >
                                         <img className="w-5 h-5 md:w-6 md:h-6 filter invert"
                                              src="/assets/icons/like.svg" alt="Like"/>
                                     </button>
                                     <Link
                                         href={project.link}
                                         className="p-3 rounded-full bg-black border-[0.5px] border-white/40 bg-opacity-20"
+                                        onClick={() => handleRedirectClick(project, setStats)}
                                     >
                                         <img className="w-5 h-5 md:w-6 md:h-6 filter invert"
                                              src="/assets/icons/redirect.svg" alt="Redirect"/>
@@ -163,38 +185,16 @@ const EmblaCarousel: React.FC<PropType> = ({ slides, options }) => {
                 </div>
             </div>
 
-            {/*//NavBar*/}
-            <motion.div
-                className=" mt-12 w-[100%] flex justify-center items-center"
-                initial={{width: 0}}
-                animate={{width: '100%'}}
-                transition={{delay: 0.5, duration: 2, ease: 'easeOut'}}
-            >
-                <motion.div
-                    className="glassmorphism p-1 rounded-full flex justify-between items-center"
-                    initial={{width: 0}}
-                    animate={{width: '20rem'}}
-                    transition={{delay: 0.1, duration: 2, ease: "circOut"}}
-                >
-                    <CircleButton onClick={onPrevButtonClick} disabled={prevBtnDisabled}
-                                  icon="/icons/site/icon9.svg"/>
-                    <motion.p
-                        initial={{opacity: 0}}
-                        animate={{opacity: 1}}
-                            transition={{delay: 2, duration: 2}}
-                            className="text-white pt-2 h-10 flex-col justify-center items-center text-lg font-bold"
-                        >
-                            {projects[selectedIndex].title}
-                        </motion.p>
-                        <div className="transform rotate-180">
-                            <CircleButton onClick={onNextButtonClick} disabled={nextBtnDisabled}
-                                          icon="/icons/site/icon9.svg"/>
-                        </div>
-                    </motion.div>
-                </motion.div>
-
+            {/* NavBar */}
+            <NavBar
+                selectedIndex={selectedIndex}
+                prev={prevBtnDisabled}
+                next={nextBtnDisabled}
+                onPrev={onPrevButtonClick}
+                onNext={onNextButtonClick}
+            />
         </div>
     );
 };
 
-export default EmblaCarousel;
+export default MobileCarousel;

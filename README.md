@@ -1,6 +1,6 @@
 # Web portfolio
 
-This is a web portfolio that I created to showcase my projects and skills.
+This is a web portfolio that I created to showcase my projectData and skills.
 
 ## Live Demo
 

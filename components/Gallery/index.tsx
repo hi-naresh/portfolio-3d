@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import useParallaxEffect from "@libs/hooks/useParallaxEffect";
-import projects from "../../data/projects";
+import projectData from "../../data/projectData";
 import ProjectCard from "@components/Card";
 import Header from "@components/Layout/Header";
 import NavControls from "@components/Gallery/NavControls";
@@ -11,22 +11,22 @@ import {useIsMobile} from "@libs/hooks/useIsMobile";
 import {EmblaOptionsType} from "embla-carousel";
 
 interface Gallery3DProps {
-	initialIndex?: number;  // Allow an optional initial index for the slider
+	initialIndex?: number;
 }
 
 const Gallery3D: React.FC<Gallery3DProps> = ({ initialIndex = 0 }) => {
-	const [currentIndex, setCurrentIndex] = useState(initialIndex);  // Set the initialIndex as the default state
+	const [currentIndex, setCurrentIndex] = useState(initialIndex); 
 	const [initialLoad, setInitialLoad] = useState(true);
 	const handleMouseMove = useParallaxEffect();  // Mouse movement for parallax
 	const isMobile = useIsMobile();
 	const OPTIONS: EmblaOptionsType = { loop: true };
 
 	const nextSlide = useCallback(() => {
-		setCurrentIndex((prevIndex) => (prevIndex + 1) % projects.length);
+		setCurrentIndex((prevIndex) => (prevIndex + 1) % projectData.length);
 	}, []);
 
 	const prevSlide = useCallback(() => {
-		setCurrentIndex((prevIndex) => (prevIndex - 1 + projects.length) % projects.length);
+		setCurrentIndex((prevIndex) => (prevIndex - 1 + projectData.length) % projectData.length);
 	}, []);
 
 	const getPosition = useMemo(() => {
@@ -36,18 +36,21 @@ const Gallery3D: React.FC<Gallery3DProps> = ({ initialIndex = 0 }) => {
 				// Active card
 				return { translateX: 0, scale: isMobile ? 0.9 : 1, zIndex: 10, opacity: 1, rotateY: 0, translateZ: 0 };
 			}
-			if (offset === -1 || (offset === projects.length - 1 && currentIndex === 0)) {
+			if (offset === -1 || (offset === projectData.length - 1 && currentIndex === 0)) {
 				// Left card
 				return { translateX: isMobile ? -200 : -600, scale: isMobile ? 0.5 : 0.8, zIndex: 5, opacity: 0.9, rotateY: 60, translateZ: -380 };
 			}
-			if (offset === 1 || (offset === -(projects.length - 1) && currentIndex === projects.length - 1)) {
+			if (offset === 1 || (offset === -(projectData.length - 1) && currentIndex === projectData.length - 1)) {
 				// Right card
 				return { translateX: isMobile ? 200 : 600, scale: isMobile ? 0.5 : 0.8, zIndex: 5, opacity: 0.9, rotateY: -60, translateZ: -380 };
 			}
 			// Hidden cards
 			return { translateX: 0, scale: 0, zIndex: 1, opacity: 0, rotateY: 0, translateZ: 0 };
 		};
-	}, [currentIndex]);
+	}, [
+		currentIndex,
+		isMobile,
+	]);
 
 	useEffect(() => setInitialLoad(false), []);
 
@@ -80,19 +83,19 @@ const Gallery3D: React.FC<Gallery3DProps> = ({ initialIndex = 0 }) => {
 			<Header />
 
 			{isMobile ? (
-				<MobileProjectSlider slides={projects} options={OPTIONS} isMobile />
+				<MobileProjectSlider slides={projectData} options={OPTIONS} isMobile />
 			) : (
 				<motion.div
 					className="relative w-full max-w-[100%] h-[600px] flex items-center justify-center overflow-hidden z-10"
 					style={{ perspective: "900px", transformStyle: "preserve-3d" }}
 				>
 					{/* Cards Slider */}
-					{projects.map((project, index) => (
+					{projectData.map((project, index) => (
 						<ProjectCard
 							key={project.id}
 							currentIndex={currentIndex}
 							project={project}
-							isPrev={index === (currentIndex - 1 + projects.length) % projects.length}
+							isPrev={index === (currentIndex - 1 + projectData.length) % projectData.length}
 							nextSlide={nextSlide}
 							prevSlide={prevSlide}
 							position={getPosition(index)}

@@ -8,7 +8,7 @@ const AnimatedNeonSvg = () => {
     return (
         <div className="relative flex items-center justify-center">
             {/*<img src={"/images/neon.svg"} />*/}
-            {isMobile ? <img src={"/images/neon.svg"}/> : <motion.svg
+            {isMobile ? <img src={"/images/neon.svg"} alt={"Background"}/> : <motion.svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 800 800"
                 style={{

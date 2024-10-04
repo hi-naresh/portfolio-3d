@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import useMouseRotation from '@libs/hooks/useMouseRotation';
 import useWindowHeight from '@libs/hooks/useWindowHeight';
-import { FloatingProjects } from "../../data/projects";
+import { FloatingProjects } from "../../data/projectData";
 import FloatGalleryItem from "@components/FloatGallery/FloatItem";
 
 const ITEMS_PER_ROW = 5;

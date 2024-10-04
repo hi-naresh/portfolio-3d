@@ -1,7 +1,7 @@
 import { Layout } from "@components/Layout";
 import { useLocaleParser } from "@libs/localeParser";
 import type {  NextPage } from "next";
-import HeroSection from "@components/Home/Main";
+import HeroSection from "@components/Home";
 
 const IndexPage: NextPage = () => {
 	const parser = useLocaleParser();

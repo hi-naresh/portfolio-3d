@@ -19,7 +19,7 @@ import React from "react";
 import { GetServerSideProps } from "next";
 import Gallery3D from "@components/Gallery";
 import PageWrapper from "@components/Utils/PageWrapper";
-import projects from "../../data/projects";  // Assuming you have a list of projects
+import projectData from "../../data/projectData";  // Assuming you have a list of projectData
 
 interface ProjectPageProps {
     projectIndex: number;
@@ -29,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     const { projectName } = params as { projectName: string };
 
     // Find the project index based on the project name
-    const projectIndex = projects.findIndex(
+    const projectIndex = projectData.findIndex(
         (project) => project.title.toLowerCase().replace(/\s+/g, '-') === projectName
     );
 

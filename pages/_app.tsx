@@ -1,14 +1,11 @@
 import Favicon from "@assets/icon.svg";
 import { CONFIG } from "@libs/config";
-import { pageview } from "@libs/ga";
 import { DefaultSeo } from "next-seo";
 import { ThemeProvider } from "next-themes";
 import { AppProps } from "next/app";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import Script from "next/script";
 import NextProgress from "nextjs-progressbar";
-import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 
 import "@styles/blog.scss";
@@ -20,18 +17,6 @@ import "highlight.js/styles/tomorrow-night-bright.css";
 import "react-toastify/dist/ReactToastify.css";
 
 const App = ({ Component, pageProps }: AppProps) => {
-	const router = useRouter();
-
-	// useEffect(() => {
-	// 	const handleRouteChange = (url: string) => {
-	// 		pageview(url);
-	// 	};
-	//
-	// 	router.events.on("routeChangeComplete", handleRouteChange);
-	//
-	// 	return () =>
-	// 		router.events.off("routeChangeComplete", handleRouteChange);
-	// }, [router.events]);
 
 	return (
 		<>
@@ -44,12 +29,12 @@ const App = ({ Component, pageProps }: AppProps) => {
 				<meta name="HandheldFriendly" content="true" />
 				<meta
 					name="copyright"
-					content="Barış DEMİRCİ, demirci.baris38@gmail.com"
+					content="Naresh Jhawar, hello.nareshjhawar@gmail.com"
 				/>
 				<meta name="theme-color" content={CONFIG.SEO.themeColor} />
 				<meta
 					name="author"
-					content="Barış DEMİRCİ, demirci.baris38@gmail.com"
+					content="Naresh Jhawar, hello.nareshjhawar@gmail.com"
 				/>
 				<meta name="keywords" content={CONFIG.SEO.keywords.join(",")} />
 				<meta name="description" content={CONFIG.SEO.description} />

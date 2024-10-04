@@ -71,74 +71,29 @@
 // export default CardDetails;
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { getProjectStats, incrementProjectStat } from "../../data/repo";
+import { getProjectStats } from "../../data/repo";
 import ReviewModal from "@components/Forms/ReviewForm";
-
-interface CardProps {
-    id: number;
-    image: string;
-    title: string;
-    description: string;
-    tech: string;
-    available: string;
-    link: string;
-}
-
-const projectSlug = (title: string) => title.toLowerCase().replace(/\s+/g, '-');
+import { Project } from "../../@types/project";
+import {handleLikeClick, handleRedirectClick, handleShareClick} from "@libs/guestService";
 
 export const CardDetails = ({
                                 project,
                                 isDetail,
                                 currentIndex,
                             }: {
-    project: CardProps;
+    project: Project;
     isDetail: boolean;
     currentIndex: number | undefined;
 }) => {
     const [stats, setStats] = useState({ likes: 0, shares: 0, redirects: 0 });
     const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
     const [showTooltip, setShowTooltip] = useState({ like: false, share: false, redirect: false });
-    const [name, setName] = useState("");
-    const [review, setReview] = useState("");
 
     // Fetch stats from the mock repo when the component mounts
     useEffect(() => {
         const projectStats = getProjectStats(project.id);
         setStats(projectStats);
     }, [project.id]);
-
-    // Handle the Like button click
-    const handleLikeClick = () => {
-        incrementProjectStat(project.id, "likes");
-        setStats((prevStats) => ({ ...prevStats, likes: prevStats.likes + 1 }));
-        setIsReviewModalOpen(true); // Open the review modal
-    };
-
-    const handleShareClick = () => {
-        incrementProjectStat(project.id, "shares");
-        setStats((prevStats) => ({ ...prevStats, shares: prevStats.shares + 1 }));
-        const slug = projectSlug(project.title);
-        const shareUrl = `${window.location.origin}/gallery/${slug}`;
-        navigator.clipboard.writeText(shareUrl).then(() => {
-            alert("Project link copied to clipboard!");
-        });
-    };
-
-    // Handle the redirect button click
-    const handleRedirectClick = () => {
-        incrementProjectStat(project.id, "redirects");
-        setStats((prevStats) => ({ ...prevStats, redirects: prevStats.redirects + 1 }));
-    };
-
-    // Handle the review modal submission
-    const handleReviewSubmit = () => {
-        if (!name) {
-            alert("Name is required.");
-            return;
-        }
-        alert(`Thank you for your review, ${name}!`);
-        setIsReviewModalOpen(false);
-    };
 
     return (
         <div className="flex flex-col md:flex-row h-full w-full">
@@ -170,19 +125,18 @@ export const CardDetails = ({
                     </div>
 
                     {/* Buttons */}
-                    <div className="flex space-x-4 justify-center relative">
+                    <div className="flex space-x-8 justify-center relative">
                         {/* Like Button */}
                         <button
                             className="p-3 rounded-full bg-black border-[0.5px] border-white/40 bg-opacity-20 relative"
-                            onClick={handleLikeClick}
+                            onClick={() => handleLikeClick(project, setStats, setIsReviewModalOpen)}
                             onMouseEnter={() => setShowTooltip({ ...showTooltip, like: true })}
                             onMouseLeave={() => setShowTooltip({ ...showTooltip, like: false })}
                         >
                             <img className="w-5 h-5 md:w-6 md:h-6 filter invert" src="/assets/icons/like.svg" alt="Like" />
                             {showTooltip.like && (
-                                <span
-                                    className="absolute w-[15rem] bg-black/60 mt-1 ml-10 left-1/2  transform -translate-x-1/2 px-2 py-1 font-black text-center  text-sm rounded-xl">
-                                    Like this project
+                                <span className="absolute w-[15rem] bg-black/60 mt-1 ml-10 left-1/2  transform -translate-x-1/2 px-2 py-1 font-black text-center  text-sm rounded-xl">
+                                  Like this project
                                 </span>
                             )}
                         </button>
@@ -190,15 +144,14 @@ export const CardDetails = ({
                         {/* Share Button */}
                         <button
                             className="p-3 rounded-full bg-black border-[0.5px] border-white/40 bg-opacity-20 relative"
-                            onClick={handleShareClick}
+                            onClick={() => handleShareClick(project, setStats)}
                             onMouseEnter={() => setShowTooltip({ ...showTooltip, share: true })}
                             onMouseLeave={() => setShowTooltip({ ...showTooltip, share: false })}
                         >
                             <img className="w-5 h-5 md:w-6 md:h-6 filter invert" src="/assets/icons/share.svg" alt="Share" />
                             {showTooltip.share && (
-                                <span
-                                    className="absolute w-[15rem] bg-black/60 mt-1 ml-10 left-1/2  transform -translate-x-1/2 px-2 py-1 font-black text-center  text-sm rounded-xl">
-                                    Share this project
+                                <span className="absolute w-[15rem] bg-black/60 mt-1 ml-10 left-1/2  transform -translate-x-1/2 px-2 py-1 font-black text-center  text-sm rounded-xl">
+                                  Share this project
                                 </span>
                             )}
                         </button>
@@ -213,12 +166,12 @@ export const CardDetails = ({
                                 <img className="w-5 h-5 md:w-6 md:h-6 filter invert" src="/assets/icons/redirect.svg" alt="Coming Soon" />
                                 {showTooltip.redirect && (
                                     <span className="absolute w-[15rem] bg-black/60 mt-1 ml-10 left-1/2  transform -translate-x-1/2 px-2 py-1 font-black text-center  text-sm rounded-xl">
-                                        {project.available}
-                                    </span>
+                    {project.available}
+                  </span>
                                 )}
                             </div>
                         ) : (
-                            <Link href={project.link} onClick={handleRedirectClick} target="__blank">
+                            <Link href={project.link} onClick={() => handleRedirectClick(project, setStats)} target="__blank">
                                 <div
                                     className="p-3 rounded-full bg-black border-[0.5px] border-white/40 bg-opacity-20 relative"
                                     onMouseEnter={() => setShowTooltip({ ...showTooltip, redirect: true })}
@@ -226,10 +179,9 @@ export const CardDetails = ({
                                 >
                                     <img className="w-5 h-5 md:w-6 md:h-6 filter invert" src="/assets/icons/redirect.svg" alt="Redirect" />
                                     {showTooltip.redirect && (
-                                        <span
-                                            className="absolute w-[10rem] bg-black/60 mt-1 ml-10 left-1/2  transform -translate-x-1/2 px-2 py-1 font-black text-center  text-sm rounded-xl">
-                                            Go to Live Project
-                                        </span>
+                                        <span className="absolute w-[10rem] bg-black/60 mt-1 ml-10 left-1/2  transform -translate-x-1/2 px-2 py-1 font-black text-center  text-sm rounded-xl">
+                      Check live!
+                    </span>
                                     )}
                                 </div>
                             </Link>
@@ -246,7 +198,15 @@ export const CardDetails = ({
                     {/* Review Modal */}
                     {isReviewModalOpen && (
                         <ReviewModal
-                            onSubmit={handleReviewSubmit}
+                            onSubmit={() => {
+                                // @ts-ignore
+                                if (!name) {
+                                    alert("Name is required.");
+                                    return;
+                                }
+                                alert(`Thank you for your review, ${name}!`);
+                                setIsReviewModalOpen(false);
+                            }}
                             onClose={() => setIsReviewModalOpen(false)}
                         />
                     )}

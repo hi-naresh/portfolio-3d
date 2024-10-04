@@ -1,97 +1,12 @@
-// import React from 'react';
-// import { Canvas } from "@react-three/fiber";
-// import { OrbitControls} from '@react-three/drei';
-// import { motion } from 'framer-motion';
-// import AnimatedNeonSvg from "@components/Animations/Neon";
-// import AnimatedTextWithHover from "@components/Animations/Text2";
-// import ModelCode from "@components/Home/Main/ModelJSX";
-// import {Footer} from "@components/Layout/Footer";
-// // import {BackgroundLines} from "@components/ui/background_lines";
-//
-//
-// const HeroSection = () => {
-// 	// const images = [
-// 	// 	'/images/projects/work1.webp',
-// 	// 	'/images/projects/work2.webp',
-// 	// 	'/images/projects/work3.webp',
-// 	// 	'/images/projects/work4.webp',
-// 	// 	'/images/projects/work5.webp',
-// 	// 	'/images/projects/work6.webp',
-// 	// ];
-//	
-// 	return (
-// 		<div className={"w-screen fixed bg-black"}>
-// 			{/*<BackgroundLines*/}
-// 			{/*	svgOptions={{duration:12}}*/}
-// 			{/*	className="flex items-center justify-center w-full flex-col px-4">*/}
-// 				<section className="relative h-screen w-full overflow-hidden ">
-// 					<motion.div
-// 						className="absolute inset-0 flex justify-center items-center transition duration-500 ease-in-out"
-// 					>
-// 						<div
-// 							className="lg:w-[150%] md:w-[200%] sm:w-[300%] xs:w-[300%] overflow-clip md:mt-44"
-// 						>
-// 							<AnimatedNeonSvg />
-// 						</div>
-// 					</motion.div>
-// 					<div
-// 						className="absolute z-10 hover:z-50 hover:opacity-90 bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-1/6 text-center  ">
-// 						<AnimatedTextWithHover text="JHAWAR"
-// 							// imageUrls={images}
-// 						/>
-// 					</div>
-// 					<div
-// 						className="pointer-events-none absolute z-40 h-96 bottom-0 w-full bg-gradient-to-t from-black to-transparent  "></div>
-//
-// 					<Canvas
-// 						camera={{
-// 							position: [0, 1.3, 3.2],
-// 							fov: 35
-// 						}}
-// 						gl={{antialias: false}}
-//
-// 						style={{
-// 							background: 'transparent',
-// 						}}
-// 						className={"pt-[3rem]"}
-// 					>
-// 						{/*<Environment*/}
-// 						{/*	background*/}
-// 						{/*	backgroundBlurriness={0.5}*/}
-// 						{/*	preset={"lobby"}*/}
-// 						{/*	blur={0.25} />*/}
-// 						<ambientLight intensity={0.28}/>
-// 						<pointLight position={[-15, 0, 0]} color="#FF005D" intensity={200}/>
-// 						<pointLight position={[15, 0, 0]} color="#4BECE9" intensity={200}/>
-// 						<pointLight position={[0, 10, 0]} color="#FFFFFF" intensity={200}/>
-// 						<OrbitControls enableZoom={false} enableRotate={false}/>
-// 						{/*<Model url="/model/model.glb"/>*/}
-// 						<ModelCode/>
-// 					</Canvas>
-// 					{/* Black overlay for fade to black effect */}
-// 					<Footer />
-//
-// 					<div
-// 						id="black-overlay"
-// 						className="absolute z-50 inset-0 bg-black opacity-0 transition-opacity duration-1000"
-// 						style={{pointerEvents: 'none'}}
-// 					></div>
-// 				</section>
-// 			{/*</BackgroundLines>*/}
-// 		</div>
-// 	);
-// };
-// export default HeroSection;
-
 import React, { useState, useEffect } from 'react';
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from '@react-three/drei';
 import { motion } from 'framer-motion';
 import AnimatedNeonSvg from "@components/Animations/Neon";
 import AnimatedTextWithHover from "@components/Animations/Text2";
-import ModelCode from "@components/Home/Main/ModelJSX";
+import ModelCode from "@components/Home/Model";
 import { Footer } from "@components/Layout/Footer";
-import LoadingScreen from "../../Layout/loading";
+import LoadingScreen from "../Layout/loading";
 
 const HeroSection = () => {
 	const [isLoaded, setIsLoaded] = useState(false); // Tracks if the content is fully loaded

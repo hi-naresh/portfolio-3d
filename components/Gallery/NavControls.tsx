@@ -1,6 +1,6 @@
 import {motion} from "framer-motion";
 import CircleButton from "@components/Layout/Buttons/CircleButton";
-import projects from "../../data/projects";
+import projectData from "../../data/projectData";
 import React from "react";
 
 const NavControls = (
@@ -26,7 +26,7 @@ const NavControls = (
                     transition={{ delay: 2, duration: 2 }}
                     className="text-white pt-2 h-10 flex-col justify-center items-center text-md"
                 >
-                    {projects[currentIndex].title}
+                    {projectData[currentIndex].title}
                 </motion.p>
                 <div className="transform rotate-180">
                     <CircleButton onClick={nextSlide} icon="/icons/site/icon9.svg" />

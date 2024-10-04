@@ -3,9 +3,9 @@ import { RenderTexture} from "@react-three/drei";
 import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import GlowingText from "@components/Animations/GlowHollowText";
-import {useDeviceOrientation} from "@libs/hooks/useDeviceOrientation";
-import {useIsMobile} from "@libs/hooks/useIsMobile";
+import GlowingText from "components/Animations/GlowHollowText";
+import {useDeviceOrientation} from "libs/hooks/useDeviceOrientation";
+import {useIsMobile} from "libs/hooks/useIsMobile";
 
 export default function ModelCode(props) {
     const group = useRef();
@@ -224,15 +224,6 @@ export default function ModelCode(props) {
                         material={materials.avaturn_hair_0_material}
                         skeleton={nodes.avaturn_hair_0.skeleton}
                     />
-
-                    {/*/!* Shoes with custom material *!/*/}
-                    {/*<skinnedMesh*/}
-                    {/*    name="avaturn_shoes_0"*/}
-                    {/*    geometry={nodes.avaturn_shoes_0.geometry}*/}
-                    {/*    material={materials.avaturn_shoes_0_material}*/}
-                    {/*    skeleton={nodes.avaturn_shoes_0.skeleton}*/}
-                    {/*>*/}
-                    {/*</skinnedMesh>*/}
 
                     {/* Face details */}
                     <skinnedMesh

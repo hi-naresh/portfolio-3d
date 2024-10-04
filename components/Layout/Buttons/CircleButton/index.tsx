@@ -3,7 +3,6 @@ import React, { memo } from "react";
 interface ControlButtonProps {
 	onClick: () => void;
 	icon: string;
-	//optional disabled prop
 	disabled?: boolean;
 }
 

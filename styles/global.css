@@ -1,3 +1,6 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -19,7 +22,7 @@
 
 .hover-text.hovered {
     color: white;
-    -webkit-text-stroke: 0;
+    -webkit-text-stroke: 0px white;
     background: linear-gradient(135deg, #ff005d, #4bece9);
     -webkit-background-clip: text;
     background-clip: text;
@@ -141,8 +144,6 @@ header, nav, .gallery-container {
     }
 }
 
-@import url(https://fonts.googleapis.com/css?family=Montserrat);
-
 /* Stroke animation for text */
 .text-copy {
     fill: none;
@@ -251,7 +252,6 @@ header, nav, .gallery-container {
     }
 }
 
-
 @layer components {
     @keyframes move {
         0% {
@@ -280,24 +280,4 @@ header, nav, .gallery-container {
         animation: move 2s linear infinite;
         position: absolute;
     }
-}
-
-
-/* Mobile-specific styles */
-
-
-.swiper-slide {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 10px;
-}
-
-.swiper-slide-active {
-    transform: scale(1);
-}
-
-.swiper-slide {
-    transform: scale(0.85);
-    transition: transform 0.3s ease-in-out;
 }

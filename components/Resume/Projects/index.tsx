@@ -14,7 +14,7 @@
 // 	return (
 // 		<section>
 // 			<h2 className="mt-6 pb-1 text-2xl font-semibold">
-// 				{parser.get("projects")}
+// 				{parser.get("projectData")}
 // 			</h2>
 // 			<div className="flex gap-x-10">
 // 				<div className="w-1/2">

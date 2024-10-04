@@ -24,8 +24,8 @@
 // 			href: "/#about",
 // 		},
 // 		{
-// 			name: parser.get("projects"),
-// 			href: "/#projects",
+// 			name: parser.get("projectData"),
+// 			href: "/#projectData",
 // 		},
 // 		{
 // 			name: parser.get("sponsors"),

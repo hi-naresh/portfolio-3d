@@ -3,7 +3,6 @@ import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import React, { type FC, type ReactNode } from "react";
 import PageWrapper from "@components/Utils/PageWrapper";
-// import Header from "@components/Layout/Header";
 
 export interface ILayout {
 	title: string;
