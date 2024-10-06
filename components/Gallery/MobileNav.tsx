@@ -114,15 +114,16 @@ const NavBar = ({
             {/* Next Button with pop effect */}
             <motion.div
                 initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
+                animate={{ scale: 1, opacity: 1}}
                 transition={{ delay: 2.2, duration: 0.5, ease: "easeOut" }}
-                className="transform rotate-180"
             >
-                <CircleButton
-                    onClick={onNextButtonClick}
-                    disabled={nextBtnDisabled}
-                    icon="/icons/site/icon9.svg"
-                />
+                <div className="transform rotate-180">
+                    <CircleButton
+                        onClick={onNextButtonClick}
+                        disabled={nextBtnDisabled}
+                        icon="/icons/site/icon9.svg"
+                    />
+                </div>
             </motion.div>
         </motion.div>
     </motion.div>

@@ -98,7 +98,7 @@ export const CardDetails = ({
     return (
         <div className="flex flex-col md:flex-row h-full w-full">
             {/* Image Section */}
-            <div className={`m-1.5 pl-1 ${isDetail ? "md:w-1/2 w-full" : "w-full"} h-[100%] rounded-2xl overflow-hidden`}>
+            <div className={`mx-1.5 pl-1 ${isDetail ? "md:w-1/2 w-full" : "w-full"} h-[100%] rounded-2xl overflow-hidden`}>
                 <img
                     src={project.image}
                     alt={project.title}
@@ -165,7 +165,7 @@ export const CardDetails = ({
                             >
                                 <img className="w-5 h-5 md:w-6 md:h-6 filter invert" src="/assets/icons/redirect.svg" alt="Coming Soon" />
                                 {showTooltip.redirect && (
-                                    <span className="absolute w-[15rem] bg-black/60 mt-1 ml-10 left-1/2  transform -translate-x-1/2 px-2 py-1 font-black text-center  text-sm rounded-xl">
+                                    <span className="absolute max-w-[15rem] bg-black/60 mt-1 ml-10 left-1/2  transform -translate-x-1/2 px-1 py-1 font-black text-center  text-sm rounded-xl">
                     {project.available}
                   </span>
                                 )}

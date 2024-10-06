@@ -1,9 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { EmblaCarouselType, EmblaEventType, EmblaOptionsType } from 'embla-carousel';
-import { motion } from "framer-motion";
-import CircleButton from "@components/Layout/Buttons/CircleButton";
-import projectData from "../../data/projectData";
 import Link from "next/link";
 import { Project } from "../../@types/project";
 import { handleLikeClick, handleRedirectClick, handleShareClick } from "@libs/guestService";
