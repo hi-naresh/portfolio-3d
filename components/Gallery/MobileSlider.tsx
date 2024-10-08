@@ -112,7 +112,7 @@ const MobileCarousel: React.FC<PropType> = ({ slides, options }) => {
     };
 
     return (
-        <div className="w-full flex-row justify-center items-center mx-auto">
+        <div className="w-full z-50 mt-16 flex-row justify-center items-center mx-auto">
             <div className="overflow-hidden" ref={emblaRef}>
                 <div className="flex -ml-4">
                     {slides.map((project, index) => (

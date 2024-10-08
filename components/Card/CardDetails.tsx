@@ -96,7 +96,7 @@ export const CardDetails = ({
     }, [project.id]);
 
     return (
-        <div className="flex flex-col md:flex-row h-full w-full">
+        <div className="flex flex-col z-50 md:flex-row h-full w-full">
             {/* Image Section */}
             <div className={`mx-1.5 pl-1 ${isDetail ? "md:w-1/2 w-full" : "w-full"} h-[100%] rounded-2xl overflow-hidden`}>
                 <img
@@ -135,8 +135,8 @@ export const CardDetails = ({
                         >
                             <img className="w-5 h-5 md:w-6 md:h-6 filter invert" src="/assets/icons/like.svg" alt="Like" />
                             {showTooltip.like && (
-                                <span className="absolute w-[15rem] bg-black/60 mt-1 ml-10 left-1/2  transform -translate-x-1/2 px-2 py-1 font-black text-center  text-sm rounded-xl">
-                                  Like this project
+                                <span className="absolute w-[5rem] bg-black/60 mt-1 ml-10 left-1/2  transform -translate-x-1/2 px-2 py-1 font-black text-center  text-sm rounded-xl">
+                                  Like it!
                                 </span>
                             )}
                         </button>
@@ -150,8 +150,8 @@ export const CardDetails = ({
                         >
                             <img className="w-5 h-5 md:w-6 md:h-6 filter invert" src="/assets/icons/share.svg" alt="Share" />
                             {showTooltip.share && (
-                                <span className="absolute w-[15rem] bg-black/60 mt-1 ml-10 left-1/2  transform -translate-x-1/2 px-2 py-1 font-black text-center  text-sm rounded-xl">
-                                  Share this project
+                                <span className="absolute w-[5rem] bg-black/60 mt-1 ml-10 left-1/2  transform -translate-x-1/2 px-2 py-1 font-black text-center  text-sm rounded-xl">
+                                  Share it!
                                 </span>
                             )}
                         </button>
@@ -179,8 +179,7 @@ export const CardDetails = ({
                                 >
                                     <img className="w-5 h-5 md:w-6 md:h-6 filter invert" src="/assets/icons/redirect.svg" alt="Redirect" />
                                     {showTooltip.redirect && (
-                                        <span className="absolute w-[10rem] bg-black/60 mt-1 ml-10 left-1/2  transform -translate-x-1/2 px-2 py-1 font-black text-center  text-sm rounded-xl">
-                      Check live!
+                                        <span className="absolute w-[6rem] bg-black/60 mt-1 ml-10 left-1/2  transform -translate-x-1/2 px-2 py-1 font-black text-center  text-sm rounded-xl">Check live!
                     </span>
                                     )}
                                 </div>

@@ -9,7 +9,7 @@ const ContactForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
     return (
         <motion.div
-            className="relative w-full max-w-[28rem] p-6 glassmorphism-dark rounded-[30px] "
+            className="relative w-full xs:m-4 xs:mt-20 md:m-0 md:mt-0 max-w-[28rem] p-6 glassmorphism-dark rounded-[30px] "
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
             exit={{  scale: 0.8 }}
@@ -79,9 +79,8 @@ const ContactForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                 {/* Submit Button */}
                 <button
                     type="submit"
-                    className="w-full py-3 text-lg font-medium text-white rounded-2xl bg-secondary/90 hover:bg-black transition duration-300"
-                >
-                    Send Message
+                    className="w-full py-3 text-lg font-medium text-white rounded-3xl bg-secondary/90 hover:bg-black transition duration-300"
+                >Send Message
                 </button>
             </form>
 

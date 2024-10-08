@@ -263,7 +263,7 @@ const Gallery3D: React.FC<Gallery3DProps> = ({ initialIndex = 0 }) => {
                     {!showContact && !isDisappeared && (
                         <>
                             {isMobile ? (
-                                <MobileProjectSlider slides={projectData} options={OPTIONS} isMobile/>
+                                    <MobileProjectSlider slides={projectData} options={OPTIONS} isMobile/>
                             ) : (
                                 <motion.div
                                     className="relative w-full max-w-[100%] h-[600px] flex items-center justify-center overflow-hidden z-10"
