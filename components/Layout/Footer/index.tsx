@@ -4,7 +4,7 @@ import type { FC } from "react";
 
 export const Footer: FC = () => (
 	<div className="fixed bottom-0 z-50 w-screen">
-		<div className=" flex mx-6 flex-col items-center px-3 pb-5 pt-5 text-center text-sm text-gray-600 dark:text-gray-400 md:flex-row">
+		<div className=" flex mx-6 flex-col xs:flex-col-reverse items-center px-3 pb-5 pt-5 text-center text-sm text-gray-600 dark:text-gray-400 md:flex-row">
 			<div className={" rounded-full p-1 px-3"}>
 				<div className=" ">
 					&copy; 2021 - {CONFIG.NOW} All rights reserved by Naresh Jhawar.
