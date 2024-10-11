@@ -234,7 +234,7 @@ const Gallery3D: React.FC<Gallery3DProps> = ({ initialIndex = 0 }) => {
                 //     hidden: {opacity: 0},
                 //     visible: {opacity: 1},
                 // }}
-                transition={{duration: 1, ease: "easeOut"}}
+                transition={{duration: 0.4, ease: "easeOut"}}
                 className="relative vignette w-full h-screen flex items-center justify-center overflow-hidden"
             >
                 {/* Background Image */}

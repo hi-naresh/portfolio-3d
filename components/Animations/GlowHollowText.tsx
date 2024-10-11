@@ -8,7 +8,7 @@ const TypewriterText = () => {
     const typingSpeed = 100; // Typing speed in milliseconds
     const delayBetweenLoops = 2000; // Delay between loops in milliseconds
     const isMobile = useIsMobile();
-    
+
     useEffect(() => {
         let index = 0; // Tracks the current letter index
         let typingInterval: string | number | NodeJS.Timeout | undefined; // Stores the interval ID
@@ -39,7 +39,7 @@ const TypewriterText = () => {
 
     return (
         <Text
-            fontSize={isMobile ? 0.04 : 0.14} // Adjust font size accordingly
+            fontSize={isMobile ? 0.04 : 0.12} // Adjust font size accordingly
             color= {isMobile ? "#fff" : "#000"}// Make the text fill color black (invisible)
             outlineWidth={0.004} // Set the outline width for hollow text
             outlineColor="#fff" // The color of the text outline

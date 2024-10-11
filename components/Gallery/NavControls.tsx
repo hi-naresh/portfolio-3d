@@ -12,7 +12,7 @@ const NavControls = (
             initial={{ scaleX: 0,scaleY: 0}}
             animate={{ scaleX: 1,scaleY: 1 }}
             exit={{ scaleX: 0, scaleY:0,opacity: 0 }}
-            transition={{ delay: 0.2, duration: 2, ease: 'easeOut' }}
+            transition={{ delay: 0.2, duration: 1, ease: 'easeOut' }}
         >
             <motion.div
                 className="glassmorphism w-[30rem] p-1 rounded-full flex justify-between items-center space-x-6 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg"

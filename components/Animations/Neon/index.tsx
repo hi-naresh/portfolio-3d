@@ -43,12 +43,12 @@ const AnimatedNeonSvg = () => {
                         }}
                     >
                         <stop
-                            stopColor="hsl(338, 100%, 50%)"
+                            stopColor="hsl(211, 57%, 45%)"
                             stopOpacity="1"
                             offset="0%"
                         ></stop>
                         <stop
-                            stopColor="hsl(179, 87%, 61%)"
+                            stopColor="hsl(0, 0%, 90%)"
                             stopOpacity="1"
                             offset="100%"
                         ></stop>
@@ -97,7 +97,7 @@ const AnimatedNeonSvg = () => {
                         ></feGaussianBlur>
                     </filter>
                 </defs>
-                <g strokeWidth="64" stroke="url(#nnneon-grad)" fill="none">
+                <g strokeWidth={isMobile ? "54" :"80"} stroke="url(#nnneon-grad)" fill="none">
                     {/* Main Neon Circle */}
                     <motion.circle
                         r="209.5" // Radius
@@ -115,41 +115,41 @@ const AnimatedNeonSvg = () => {
                         }}
                     />
                     {/* Second Rotating Circle */}
-                    <motion.circle
-                        r="209.5"
-                        cx="568"
-                        cy="400"
-                        filter="url(#nnneon-filter2)"
-                        opacity="0.25"
-                        animate={{
-                            scale: [1, 1.1, 1],
-                            rotate: [0, 360], // Slow rotation
-                            opacity: [0.25, 0.5, 0.25], // Fading effect
-                        }}
-                        transition={{
-                            duration: 15,
-                            repeat: Infinity,
-                            ease: 'easeInOut',
-                        }}
-                    />
+                    {/*<motion.circle*/}
+                    {/*    r="209.5"*/}
+                    {/*    cx="568"*/}
+                    {/*    cy="400"*/}
+                    {/*    filter="url(#nnneon-filter2)"*/}
+                    {/*    opacity="0.25"*/}
+                    {/*    animate={{*/}
+                    {/*        scale: [1, 1.1, 1],*/}
+                    {/*        rotate: [0, 360], // Slow rotation*/}
+                    {/*        opacity: [0.25, 0.5, 0.25], // Fading effect*/}
+                    {/*    }}*/}
+                    {/*    transition={{*/}
+                    {/*        duration: 15,*/}
+                    {/*        repeat: Infinity,*/}
+                    {/*        ease: 'easeInOut',*/}
+                    {/*    }}*/}
+                    {/*/>*/}
                     {/* Third Rotating Circle (Reverse Rotation) */}
-                    <motion.circle
-                        r="209.5"
-                        cx="232"
-                        cy="400"
-                        filter="url(#nnneon-filter2)"
-                        opacity="0.25"
-                        animate={{
-                            scale: [1, 1.1, 1],
-                            rotate: [0, -360], // Slow rotation in the opposite direction
-                            opacity: [0.25, 0.5, 0.25],
-                        }}
-                        transition={{
-                            duration: 15,
-                            repeat: Infinity,
-                            ease: 'easeInOut',
-                        }}
-                    />
+                    {/*<motion.circle*/}
+                    {/*    r="209.5"*/}
+                    {/*    cx="232"*/}
+                    {/*    cy="400"*/}
+                    {/*    filter="url(#nnneon-filter2)"*/}
+                    {/*    opacity="0.25"*/}
+                    {/*    animate={{*/}
+                    {/*        scale: [1, 1.1, 1],*/}
+                    {/*        rotate: [0, -360], // Slow rotation in the opposite direction*/}
+                    {/*        opacity: [0.25, 0.5, 0.25],*/}
+                    {/*    }}*/}
+                    {/*    transition={{*/}
+                    {/*        duration: 15,*/}
+                    {/*        repeat: Infinity,*/}
+                    {/*        ease: 'easeInOut',*/}
+                    {/*    }}*/}
+                    {/*/>*/}
                     {/* Final Static Circle */}
                     <motion.circle
                         r="209.5"

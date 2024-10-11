@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 
-export default function ThreeSixtyBackground({ children }: { children: React.ReactNode }) {
+export default function HomeBg({ children }: { children: React.ReactNode }) {
     const [texture, setTexture] = useState<THREE.Texture | null>(null); // State to hold the texture
     const [initialAzimuthal, setInitialAzimuthal] = useState(0); // Store the initial azimuthal angle
     const [initialPolar, setInitialPolar] = useState(Math.PI / 2); // Store the initial polar angle (vertical)
@@ -11,7 +11,7 @@ export default function ThreeSixtyBackground({ children }: { children: React.Rea
     // Ensure texture loading happens only on the client side
     useEffect(() => {
         const loader = new THREE.TextureLoader();
-        loader.load('/images/15.jpg', (loadedTexture) => {
+        loader.load('/images/20.jpg', (loadedTexture) => {
             setTexture(loadedTexture);
         });
     }, []);

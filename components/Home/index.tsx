@@ -70,9 +70,9 @@ const HeroSection = () => {
 						className="pt-[3rem]"
 						onCreated={() => setIsLoaded(true)} // Mark as loaded when the canvas is created
 					>
-						<ambientLight intensity={0.28} />
-						<pointLight position={[-15, 0, 0]} color="#FF005D" intensity={200} />
-						<pointLight position={[5, 15, -5]} color="#4BECE9" intensity={200} />
+						{/*<ambientLight intensity={0.28} />*/}
+						<pointLight position={[-5, 0, 0]} color="#47709c" intensity={100} />
+						<pointLight position={[5, 10, -5]} color="#47709c" intensity={200} />
 						{/*<pointLight position={[0, 10, 0]} color="#FFFFFF" intensity={200} />*/}
 						<OrbitControls enableZoom={false} enableRotate={false} />
 						<ModelCode />

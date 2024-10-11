@@ -35,9 +35,11 @@ const RotatingCircularText = ({ text }: { text: string }) => {
                             className="absolute letter inline-block font-bold text-[6rem] 
                             lg:text-[4rem] md:text-[2rem] sm:text-[1.5rem] xs:text-[1.5rem]                        
                             scale-110 
-                            text-white 
+                             
+                            outline-white
+                            text-transparent
                             drop-shadow-[0_0_10px_rgba(255,255,255,1)] 
-                            stroke-white text-transparent"
+                            stroke-white "
                             style={{
                                 WebkitTextStroke: '2px white',
                                 animationDelay: `${index * 0.1}s`,

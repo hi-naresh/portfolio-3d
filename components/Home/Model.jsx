@@ -7,6 +7,7 @@ import GlowingText from "components/Animations/GlowHollowText";
 import {useDeviceOrientation} from "libs/hooks/useDeviceOrientation";
 import {useIsMobile} from "libs/hooks/useIsMobile";
 
+
 export default function ModelCode(props) {
     const group = useRef();
     const { nodes, materials } = useGLTF("/model/mymodel.glb");
@@ -199,21 +200,30 @@ export default function ModelCode(props) {
                         onPointerOver={() => setIsHovered(true)}
                         onPointerOut={() => setIsHovered(false)}
                     >
-                        {/*<Outline visibleEdgeColor="white" hiddenEdgeColor="white" blur  edgeStrength={10} />*/}
+                        {/* Add ambient light specific to this object */}
+                        <ambientLight intensity={0.12} color="#ffffff"/>
+
+                        {/* Add point light to highlight the inside of the glasses */}
+                        <pointLight
+                            intensity={0.5}
+                            distance={10}
+                            color="#ffffff"
+                            position={[0, 0, 0]}
+                        />
+                        
                         {/* Change material when hovered */}
                         <meshStandardMaterial
                             roughness={0.1}
                             metalness={0.2}
                             resolution={128}
-                            thickness={0.9}
+                            thickness={0.1}
                             anisotropy={3}
-                            // emissive={isHovered ? "white" : "black"} // Glow effect when hovered
                         >
+                            {/* Optionally, you can still apply texture here */}
                             <RenderTexture attach="map" anisotropy={16}>
                                 <GlowingText/>
                             </RenderTexture>
                         </meshStandardMaterial>
-
                     </skinnedMesh>
 
 
@@ -239,3 +249,36 @@ export default function ModelCode(props) {
 }
 
 useGLTF.preload("/model/mymodel.glb");
+
+
+const VideoTextureGlasses = ({videoUrl, isHovered, glassesRef1}) => {
+    const videoRef = useRef();
+
+    useEffect(() => {
+        const video = document.createElement('video');
+        video.src = videoUrl;
+        video.loop = true; // Loop the video
+        video.muted = true; // Mute video
+        video.play(); // Autoplay the video
+
+        // Create a VideoTexture and set its properties
+        const videoTexture = new THREE.VideoTexture(video);
+        videoTexture.minFilter = THREE.LinearFilter;
+        videoTexture.magFilter = THREE.LinearFilter;
+        videoTexture.format = THREE.RGBFormat;
+
+        // Assign the video texture to the glasses material map
+        if (glassesRef1.current) {
+            glassesRef1.current.material.map = videoTexture;
+            glassesRef1.current.material.needsUpdate = true;
+        }
+
+        // Clean up the video when the component unmounts
+        return () => {
+            video.pause();
+            video.src = '';
+        };
+    }, [videoUrl, glassesRef1]);
+
+    return null; // This component doesn't render anything itself
+};
