@@ -6,9 +6,10 @@ import * as THREE from "three";
 import GlowingText from "components/Animations/GlowHollowText";
 import {useDeviceOrientation} from "libs/hooks/useDeviceOrientation";
 import {useIsMobile} from "libs/hooks/useIsMobile";
+import {motion} from "framer-motion";
 
 
-export default function ModelCode(props) {
+export default function ModelCode({ props, onPopupTrigger }) {
     const group = useRef();
     const { nodes, materials } = useGLTF("/model/mymodel.glb");
 
@@ -19,6 +20,18 @@ export default function ModelCode(props) {
     // const lightRef = useRef(); // Reference for the moving ambient light
     // const decalTexture = useTexture('/banner.png'); // Replace with the correct image path
     const [isHovered, setIsHovered] = useState(false); // State to track hover
+    // const [isPopupVisible, setPopupVisible] = useState(false);
+
+    // const handleBodyClick = () => {
+    //     props.onPopupTrigger(); // Call the function to show the popup
+    // };
+    // Click handler for the body
+    const handleBodyClick = () => {
+        if (onPopupTrigger) {
+            onPopupTrigger(); // Trigger the popup
+        }
+    }
+
 
     // Use the device orientation hook
     // const { orientation, requestAccess, error, permissionDenied } = useDeviceOrientation();
@@ -93,7 +106,7 @@ export default function ModelCode(props) {
     // Make the head follow the device orientation (or mouse for fallback)
     useFrame((state) => {
         const { mouse } = state;
-        
+
         if (headRef.current){
             if (isMobile){
                 const targetRotationX = THREE.MathUtils.degToRad(orientation.beta ?? 0);  // Up/Down tilt
@@ -166,12 +179,20 @@ export default function ModelCode(props) {
                     <primitive object={nodes.Hips}/>
 
                     {/* Body */}
+                    {/*<skinnedMesh*/}
+                    {/*    name="avaturn_body"*/}
+                    {/*    geometry={nodes.avaturn_body.geometry}*/}
+                    {/*    material={materials.avaturn_body_material}*/}
+                    {/*    skeleton={nodes.avaturn_body.skeleton}*/}
+                    {/*/>*/}
                     <skinnedMesh
                         name="avaturn_body"
                         geometry={nodes.avaturn_body.geometry}
                         material={materials.avaturn_body_material}
                         skeleton={nodes.avaturn_body.skeleton}
+                        onClick={handleBodyClick} // Show popup on click
                     />
+
 
                     {/* Glasses with Transmission Material */}
                     <skinnedMesh
@@ -200,17 +221,6 @@ export default function ModelCode(props) {
                         onPointerOver={() => setIsHovered(true)}
                         onPointerOut={() => setIsHovered(false)}
                     >
-                        {/* Add ambient light specific to this object */}
-                        <ambientLight intensity={0.12} color="#ffffff"/>
-
-                        {/* Add point light to highlight the inside of the glasses */}
-                        <pointLight
-                            intensity={0.5}
-                            distance={10}
-                            color="#ffffff"
-                            position={[0, 0, 0]}
-                        />
-                        
                         {/* Change material when hovered */}
                         <meshStandardMaterial
                             roughness={0.1}
@@ -233,6 +243,7 @@ export default function ModelCode(props) {
                         geometry={nodes.avaturn_hair_0.geometry}
                         material={materials.avaturn_hair_0_material}
                         skeleton={nodes.avaturn_hair_0.skeleton}
+                        onClick={handleBodyClick} // Show popup on click
                     />
 
                     {/* Face details */}
@@ -241,44 +252,14 @@ export default function ModelCode(props) {
                         geometry={nodes.avaturn_look_0.geometry}
                         material={materials.avaturn_look_0_material}
                         skeleton={nodes.avaturn_look_0.skeleton}
+                        onClick={handleBodyClick} // Show popup on click
                     />
                 </group>
             </group>
+
+
         </group>
     );
 }
 
 useGLTF.preload("/model/mymodel.glb");
-
-
-const VideoTextureGlasses = ({videoUrl, isHovered, glassesRef1}) => {
-    const videoRef = useRef();
-
-    useEffect(() => {
-        const video = document.createElement('video');
-        video.src = videoUrl;
-        video.loop = true; // Loop the video
-        video.muted = true; // Mute video
-        video.play(); // Autoplay the video
-
-        // Create a VideoTexture and set its properties
-        const videoTexture = new THREE.VideoTexture(video);
-        videoTexture.minFilter = THREE.LinearFilter;
-        videoTexture.magFilter = THREE.LinearFilter;
-        videoTexture.format = THREE.RGBFormat;
-
-        // Assign the video texture to the glasses material map
-        if (glassesRef1.current) {
-            glassesRef1.current.material.map = videoTexture;
-            glassesRef1.current.material.needsUpdate = true;
-        }
-
-        // Clean up the video when the component unmounts
-        return () => {
-            video.pause();
-            video.src = '';
-        };
-    }, [videoUrl, glassesRef1]);
-
-    return null; // This component doesn't render anything itself
-};

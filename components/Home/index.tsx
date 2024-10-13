@@ -7,10 +7,12 @@ import AnimatedTextWithHover from "@components/Animations/Text2";
 import ModelCode from "@components/Home/Model";
 import { Footer } from "@components/Layout/Footer";
 import LoadingScreen from "../Layout/loading";
+import PopupDetails from "@components/Home/PopDetails";
 
 const HeroSection = () => {
 	const [isLoaded, setIsLoaded] = useState(false); // Tracks if the content is fully loaded
 	const [minimumTimePassed, setMinimumTimePassed] = useState(false); // Tracks if 2 seconds have passed
+	const [isPopupVisible, setPopupVisible] = useState(false);
 
 	// 1. Simulate page loading (set the loading state to true when the page is fully loaded)
 	useEffect(() => {
@@ -25,7 +27,7 @@ const HeroSection = () => {
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			setMinimumTimePassed(true);
-		}, 3000); // Minimum of 2 seconds for loading screen
+		}, 2000); // Minimum of 2 seconds for loading screen
 
 		return () => clearTimeout(timer); // Clean up the timer
 	}, []);
@@ -64,22 +66,30 @@ const HeroSection = () => {
 					<div className="pointer-events-none absolute z-40 h-96 bottom-0 w-full bg-gradient-to-t from-black to-transparent"></div>
 
 					<Canvas
-						camera={{ position: [0, 1.3, 3.2], fov: 35 }}
-						gl={{ antialias: false }}
-						style={{ background: 'transparent' }}
+						camera={{position: [0, 1.3, 3.2], fov: 35}}
+						gl={{antialias: false}}
+						style={{background: 'transparent'}}
 						className="pt-[3rem]"
 						onCreated={() => setIsLoaded(true)} // Mark as loaded when the canvas is created
 					>
 						{/*<ambientLight intensity={0.28} />*/}
-						<pointLight position={[-5, 0, 0]} color="#47709c" intensity={100} />
-						<pointLight position={[5, 10, -5]} color="#47709c" intensity={200} />
-						{/*<pointLight position={[0, 10, 0]} color="#FFFFFF" intensity={200} />*/}
-						<OrbitControls enableZoom={false} enableRotate={false} />
-						<ModelCode />
-					</Canvas>
+						<pointLight intensity={1.5} color="#47709c" distance={10} decay={3}
+									position={[0.920, 0.16, 0.960]}/>
+						<pointLight intensity={1.6} color="#fff" distance={3} decay={2}
+									position={[-0.3, -0.16, 2.060]}/>
+						<directionalLight intensity={0.6} color="#47709c" 
+									position={[-0.320, 1.16, 0.90]}/>
+						<OrbitControls enableZoom={false} enableRotate={false}/>
+						{/*<ModelCode/>*/}
+						<ModelCode onPopupTrigger={() => setPopupVisible(true)} props={undefined} />
 
+					</Canvas>
+					{isPopupVisible && (
+						<PopupDetails setPopupVisible={setPopupVisible}/>
+					)}
+					
 					{/* Footer */}
-					<Footer />
+					<Footer/>
 
 					{/* Black overlay for fade effect */}
 					<div
