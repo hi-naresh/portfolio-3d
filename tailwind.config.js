@@ -246,10 +246,16 @@ module.exports = {
 					'0%': { transform: 'rotate(0deg)' },
 					'100%': { transform: 'rotate(360deg)' },
 				},
+				pulseExpand: {
+					'0%': { transform: 'scale(1)', opacity: '1' },
+					'50%': { transform: 'scale(1.5)', opacity: '0.5' },
+					'100%': { transform: 'scale(2)', opacity: '0' },
+				},
 			},
 			animation: {
 				glow: 'glow 4.5s ease-in-out infinite',
 				'spin-slow': 'spinSlow 12s linear infinite', // Adjust speed as needed
+				'pulse-slow': 'pulseExpand 2s infinite ease-in-out',
 
 			}
 		},

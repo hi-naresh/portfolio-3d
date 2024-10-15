@@ -6,7 +6,7 @@ import { EffectComposer, Noise } from '@react-three/postprocessing'; // Import N
 
 export default function ThreeSixtyBackground({ children }: { children: React.ReactNode }) {
     const [texture, setTexture] = useState<THREE.Texture | null>(null); // State to hold the texture
-    const [initialAzimuthal, setInitialAzimuthal] = useState(0); // Store the initial azimuthal angle
+    const [initialAzimuthal, setInitialAzimuthal] = useState(Math.PI/4); // Store the initial azimuthal angle
     const [initialPolar, setInitialPolar] = useState(Math.PI / 2); // Store the initial polar angle (vertical)
 
     // Ensure texture loading happens only on the client side
@@ -44,12 +44,14 @@ export default function ThreeSixtyBackground({ children }: { children: React.Rea
             if (controlsRef.current) {
                 // If still in the initial view, set the default camera position to center of the texture
                 if (initialView) {
-                    const initialAzimuth = Math.PI - 30; // Look at the horizontal center of the image (custom value if needed)
-                    const initialPolar = Math.PI / 2; // Start looking straight at the vertical center (equator)
+                    const initialAzimuth =  controlsRef.current.getAzimuthalAngle(); // Look at the horizontal center of the image (custom value if needed)
+                    // const initialPolar = Math.PI / 2; // Start looking straight at the vertical center (equator)
+                    // const currentAzimuthalAngle = controlsRef.current.getAzimuthalAngle(); // Get current horizontal look
+                    // const smoothedAzimuthal = THREE.MathUtils.lerp(currentAzimuthalAngle, initialAzimuth, 0.001); // Smooth over time
                     controlsRef.current.setAzimuthalAngle(initialAzimuth); // Set initial horizontal look
-                    controlsRef.current.setPolarAngle(initialPolar); // Set initial vertical look
-                    setInitialAzimuthal(initialAzimuth); // Store this as the base azimuthal angle
-                    setInitialPolar(initialPolar); // Store this as the base polar angle
+                    // controlsRef.current.setPolarAngle(initialPolar); // Set initial vertical look
+                    // setInitialAzimuthal(initialAzimuth); // Store this as the base azimuthal angle
+                    // setInitialPolar(initialPolar); // Store this as the base polar angle
                 } else {
                     // Adjust rotation based on mouse movement relative to the initial camera orientation
                     const azimuthalAngle = initialAzimuthal + (mousePosition.x * Math.PI) / 8; // Apply horizontal rotation
@@ -73,16 +75,20 @@ export default function ThreeSixtyBackground({ children }: { children: React.Rea
         <div className=" w-screen z-10 h-screen bg-transparent">
             <Canvas camera={{ position: [70, 20, 40], fov: 70 }} style={{ height: '100vh', width: '100vw' }}>
                 {texture && (
+                    texture.wrapS = THREE.RepeatWrapping,
+                    texture.wrapT = THREE.RepeatWrapping,
+                    texture.offset.set(-0.4, -0.05),
                     <mesh scale={[1, 1, 1]}> {/* Create an elliptical shape by scaling the X axis */}
                         <sphereGeometry args={[200, 60, 40]} />
-                        <meshBasicMaterial map={texture} side={THREE.BackSide} />
+                        <meshBasicMaterial 
+                            map={texture} side={THREE.BackSide} />
                     </mesh>
                 )}
 
                 {/* Noise Effect */}
-                <EffectComposer>
-                    <Noise opacity={0.05} /> 
-                </EffectComposer>
+                {/*<EffectComposer>*/}
+                {/*    <Noise opacity={0.05} /> */}
+                {/*</EffectComposer>*/}
 
                 <CameraController />
             </Canvas>

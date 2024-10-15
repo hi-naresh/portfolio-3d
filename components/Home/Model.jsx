@@ -1,29 +1,37 @@
-import React, { useEffect, useRef, useState } from "react";
-import {Text, useVideoTexture} from "@react-three/drei";
+import React, { useEffect, useRef, useState} from "react";
 import { useGLTF } from "@react-three/drei";
-import {useFrame, useThree} from "@react-three/fiber";
+import {useFrame} from "@react-three/fiber";
 import * as THREE from "three";
 import {useDeviceOrientation} from "libs/hooks/useDeviceOrientation";
 import {useIsMobile} from "libs/hooks/useIsMobile";
+import ToolTip from "@components/Home/Tooltip";
+import VideoMaterial from "@components/Home/VideoMaterial"; // For displaying HTML tooltips in the 3D scene
 
 export default function ModelCode({ props, onPopupTrigger }) {
     const group = useRef();
     const { nodes, materials } = useGLTF("/model/mymodel.glb");
 
+    // Handlers for tooltips
+    const [hoveredPart, setHoveredPart] = useState(null);
+
+    // Hover and unhover handlers
+    const handlePointerOver = (meshName) => {
+        setHoveredPart(meshName);
+    }
+    const handlePointerOut = () => setHoveredPart(null);
+    
     const headRef = useRef(); // Reference for the head
     const glassesRef = useRef(); // Reference for the glasses
     const glassesRef1 = useRef(); // Reference for the second glasses mesh
     const [ transition,setTransition] = useState(false);
     // const lightRef = useRef(); // Reference for the moving ambient light
-    // const decalTexture = useTexture('/banner.png'); // Replace with the correct image path
-    const [isHovered, setIsHovered] = useState(false); // State to track hover
-    // const [isPopupVisible, setPopupVisible] = useState(false);
-    
+
     const handleBodyClick = () => {
         if (onPopupTrigger) {
             onPopupTrigger(); // Trigger the popup
         }
     }
+    
     
     // Use the device orientation hook
     // const { orientation, requestAccess, error, permissionDenied } = useDeviceOrientation();
@@ -147,10 +155,8 @@ export default function ModelCode({ props, onPopupTrigger }) {
             const blackOverlay = document.getElementById("black-overlay");
             if (blackOverlay) {
                 blackOverlay.style.opacity = "1";
-                setTimeout(() => {
-                    window.location.href = "/gallery/prodo"; // Navigate to the virtual reality scene
-                }, 1000);
             }
+            window.location.href = "/gallery/prodo";
         }
     };
 
@@ -169,14 +175,19 @@ export default function ModelCode({ props, onPopupTrigger }) {
                 <group name="Armature">
                     {/* Attach Hips object */}
                     <primitive object={nodes.Hips}/>
-                    
+                    {/*Face */}
                     <skinnedMesh
                         name="avaturn_body"
                         geometry={nodes.avaturn_body.geometry}
                         material={materials.avaturn_body_material}
                         skeleton={nodes.avaturn_body.skeleton}
-                        // onClick={handleBodyClick} // Show popup on click
-                    />
+                        onPointerOver={() => handlePointerOver('avaturn_body')}
+                        onPointerOut={handlePointerOut}
+                    >
+                        {hoveredPart === "avaturn_body" && (
+                            <ToolTip position={[-0.2, 1.5, 0]}>Click on Body</ToolTip>
+                        )}
+                    </skinnedMesh>
                     
                     {/* Glasses with Transmission Material */}
                     <skinnedMesh
@@ -186,7 +197,12 @@ export default function ModelCode({ props, onPopupTrigger }) {
                         skeleton={nodes.avaturn_glasses_0.skeleton}
                         ref={glassesRef}
                         onPointerDown={handleGlassesClick}
+                        onPointerOver={() => handlePointerOver('avaturn_glasses_0')}
+                        onPointerOut={handlePointerOut}
                     >
+                        {hoveredPart === "avaturn_glasses_0" && (
+                            <ToolTip position={[-0.09, 1.7, 0]}>Click on Headset</ToolTip>
+                        )}
                         <meshStandardMaterial
                             roughness={0.15}
                             metalness={0.1}
@@ -202,14 +218,17 @@ export default function ModelCode({ props, onPopupTrigger }) {
                         skeleton={nodes.avaturn_glasses_1.skeleton}
                         ref={glassesRef1}
                         onClick={handleGlassesClick}
-                        onPointerOver={() => setIsHovered(true)}
-                        onPointerOut={() => setIsHovered(false)}
+                        onPointerOver={() => handlePointerOver('avaturn_glasses_1')}
+                        onPointerOut={handlePointerOut}
                     >
                         <VideoMaterial
                             url="/images/glass.mp4"
                         />
+                        {hoveredPart === "avaturn_glasses_1" && (
+                            <ToolTip position={[-0.09, 1.7, 0]}>Click on Headset</ToolTip>
+                        )}
                     </skinnedMesh>
-                    
+
                     {/* Hair */}
                     <skinnedMesh
                         name="avaturn_hair_0"
@@ -217,84 +236,34 @@ export default function ModelCode({ props, onPopupTrigger }) {
                         material={materials.avaturn_hair_0_material}
                         skeleton={nodes.avaturn_hair_0.skeleton}
                         onClick={handleBodyClick} // Show popup on click
-                    />
+                        onPointerOver={(e) => handlePointerOver("avaturn_hair_0")}
+                        onPointerOut={handlePointerOut}
+                    >
+                        {hoveredPart === "avaturn_hair_0" && (
+                            <ToolTip position={[-0.2, 1.5, 0]}>Click on Body</ToolTip>
+                        )}
+                    </skinnedMesh>
 
-                    {/* Face details */}
+                    {/* Look details */}
                     <skinnedMesh
                         name="avaturn_look_0"
                         geometry={nodes.avaturn_look_0.geometry}
                         material={materials.avaturn_look_0_material}
                         skeleton={nodes.avaturn_look_0.skeleton}
                         onClick={handleBodyClick} // Show popup on click
-                    />
+                        onPointerOver={() => handlePointerOver('avaturn_look_0')}
+                        onPointerOut={handlePointerOut}
+                    >
+                        {hoveredPart === "avaturn_look_0" && (
+                            <ToolTip position={[-0.2, 1.5, 0]}>Click on Body</ToolTip>
+                        )}
+                    </skinnedMesh>
+
                 </group>
             </group>
 
 
         </group>
-    );
-}
-
-// const VideoTextureGlasses = ({videoUrl, isHovered, glassesRef1}) => {
-//     const videoRef = useRef();
-//
-//     useEffect(() => {
-//         const video = document.createElement('video');
-//         video.src = videoUrl;
-//         video.loop = true; // Loop the video
-//         video.muted = true; // Mute video
-//         video.play(); // Autoplay the video
-//
-//         // Create a VideoTexture and set its properties
-//         const videoTexture = new THREE.VideoTexture(video);
-//         videoTexture.minFilter = THREE.LinearFilter;
-//         videoTexture.magFilter = THREE.LinearFilter;
-//         videoTexture.format = THREE.RGBFormat;
-//
-//         // Assign the video texture to the glasses material map
-//         if (glassesRef1.current) {
-//             glassesRef1.current.material.map = videoTexture;
-//             glassesRef1.current.material.needsUpdate = true;
-//         }
-//
-//         // Clean up the video when the component unmounts
-//         return () => {
-//             video.pause();
-//             video.src = '';
-//         };
-//     }, [videoUrl, glassesRef1]);
-//
-//     return null; // This component doesn't render anything itself
-// };
-
-function VideoMaterial({ url }) {
-    // Load the video texture
-    const texture = useVideoTexture(url);
-
-    // Ensure the video isn't flipped along the Y-axis
-    texture.flipY = false;
-
-    // Ensure the texture doesn't repeat unnecessarily
-    texture.wrapS = THREE.RepeatWrapping;
-    texture.wrapT = THREE.RepeatWrapping;
-
-    texture.repeat.set(3, 3);  // Example of making the texture repeat
-    texture.offset.set(0.85, -0.45);  // Example to move texture slightly
-
-    // Optional: You can adjust anisotropy for better quality
-    texture.anisotropy = 8;
-
-    return (
-        <meshBasicMaterial
-            map={texture}               // Video texture applied to the material
-            thickness={0.1}             // Adds a thickness to simulate glass
-            clearcoat={0.1}               // Adds a clear coating on top of the material
-            clearcoatRoughness={0.9}    // Defines the roughness of the clear coat
-            transparent={true}          // Allows transparency
-            opacity={0.8}               // Controls the opacity of the material (set to 1.0 to make the video fully visible)
-            side={THREE.FrontSide}      // Ensures the video is rendered on the front side
-            toneMapped={true}          // Disable tone mapping for video textures
-        />
     );
 }
 

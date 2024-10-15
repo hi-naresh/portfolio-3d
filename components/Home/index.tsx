@@ -25,18 +25,14 @@ const HeroSection = () => {
 					<motion.div className="absolute inset-0 flex justify-center items-center transition duration-500 ease-in-out">
 						<div className="lg:w-[100%] xl:w-[100%] xl:scale-100 lg:scale-[140%] md:w-[200%] md:scale-[460%] sm:w-[100%] xs:w-[100%] sm:scale-[160%] xs:scale-[160%] overflow-clip xs:-mt-40 md:mt-44">
 							<AnimatedNeonSvg />
-							{/*/!*<img src={"/images/neon.svg"} />*!/*/}
-							{/*{*/}
-							{/*	isMobile ? <img src={"/images/neon.svg"} /> : <AnimatedNeonSvg />*/}
-							{/*}*/}
 						</div>
 					</motion.div>
 
-					<div className="absolute z-10 hover:z-50 hover:opacity-90 bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-1/6 text-center">
-						<AnimatedTextWithHover text="JHAWAR" />
-					</div>
-
-					<div className="pointer-events-none absolute z-40 h-96 bottom-0 w-full bg-gradient-to-t from-black to-transparent"></div>
+					{/*shifted to footer*/}
+					{/*<div className="absolute z-10 hover:z-50 hover:opacity-90 bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-1/6 text-center">*/}
+					{/*	<AnimatedTextWithHover text="JHAWAR" />*/}
+					{/*</div>*/}
+					{/*<div className="pointer-events-none absolute z-40 h-96 bottom-0 w-full bg-gradient-to-t from-black to-transparent"></div>*/}
 
 					<Canvas
 						camera={{position: [0, 1.3, 3.2], fov: 35}}
@@ -53,23 +49,18 @@ const HeroSection = () => {
 						<directionalLight intensity={0.9} color="#197CE2" 
 									position={[-0.320, 1.16, 0.90]}/>
 						<OrbitControls enableZoom={false} enableRotate={false}/>
-						{/*<ModelCode/>*/}
 						<ModelCode onPopupTrigger={() => setPopupVisible(true)} props={undefined} />
-						{/*<EffectComposer>*/}
-						{/*	<Noise opacity={0.01} />*/}
-						{/*</EffectComposer>*/}
 					</Canvas>
 					{isPopupVisible && (
 						<PopupDetails setPopupVisible={setPopupVisible}/>
 					)}
-
-					<div className={"absolute w-screen top-0 right-0 z-50"}>
-						<InfoContainer />
-					</div>
-					
+					{!isPopupVisible && (
+							<div className={"absolute w-screen top-0 right-0 z-0"}>
+								<InfoContainer/>
+							</div>
+					)}
 					{/* Footer */}
 					<Footer/>
-
 					{/* Black overlay for fade effect */}
 					<div
 						id="black-overlay"
