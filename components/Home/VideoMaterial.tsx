@@ -17,8 +17,6 @@ function VideoMaterial({ url }) {
     return (
         <meshBasicMaterial
             map={texture}               // Video texture applied to the material
-            // clearcoat={0.1}               // Adds a clear coating on top of the material
-            // clearcoatRoughness={0.9}    // Defines the roughness of the clear coat
             transparent={true}          // Allows transparency
             opacity={0.8}               // Controls the opacity of the material (set to 1.0 to make the video fully visible)
             side={THREE.FrontSide}      // Ensures the video is rendered on the front side

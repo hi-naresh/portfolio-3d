@@ -6,7 +6,7 @@ import AnimatedTextWithHover from "@components/Animations/Text2";
 export const Footer: FC = () => (
 	<div className="fixed bottom-0 z-50 w-screen">
 		<div
-			className=" z-10 hover:z-0 hover:opacity-90 text-center">
+			className=" z-0 hover:z-0 hover:opacity-90 text-center">
 			<AnimatedTextWithHover text="JHAWAR"/>
 		</div>
 		<div

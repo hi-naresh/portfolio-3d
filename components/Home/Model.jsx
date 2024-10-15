@@ -14,11 +14,18 @@ export default function ModelCode({ props, onPopupTrigger }) {
     // Handlers for tooltips
     const [hoveredPart, setHoveredPart] = useState(null);
 
-    // Hover and unhover handlers
-    const handlePointerOver = (meshName) => {
-        setHoveredPart(meshName);
-    }
-    const handlePointerOut = () => setHoveredPart(null);
+    // Hover and unhover handlers attached at group level
+    const handlePointerOver = (e) => {
+        if (e.object && e.object.name) {
+            setHoveredPart(e.object.name); // Set the name of the mesh being hovered
+        }
+    };
+
+    const handlePointerOut = (e) => {
+        if (e.object && e.object.name === hoveredPart) {
+            setHoveredPart(null); // Clear the hovered part when pointer leaves
+        }
+    };
     
     const headRef = useRef(); // Reference for the head
     const glassesRef = useRef(); // Reference for the glasses
@@ -170,7 +177,10 @@ export default function ModelCode({ props, onPopupTrigger }) {
     });
 
     return (
-        <group ref={group} {...props} castShadow dispose={null}>
+        <group ref={group} {...props} castShadow dispose={null}
+               onPointerOver={handlePointerOver}
+               onPointerOut={handlePointerOut}
+        >
             <group name="Scene">
                 <group name="Armature">
                     {/* Attach Hips object */}
@@ -181,11 +191,11 @@ export default function ModelCode({ props, onPopupTrigger }) {
                         geometry={nodes.avaturn_body.geometry}
                         material={materials.avaturn_body_material}
                         skeleton={nodes.avaturn_body.skeleton}
-                        onPointerOver={() => handlePointerOver('avaturn_body')}
-                        onPointerOut={handlePointerOut}
+                        // onPointerOver={() => handlePointerOver('avaturn_body')}
+                        // onPointerOut={handlePointerOut}
                     >
                         {hoveredPart === "avaturn_body" && (
-                            <ToolTip position={[-0.2, 1.5, 0]}>Click on Body</ToolTip>
+                            <ToolTip style={{ pointerEvents: "none" }} position={[-0.21, 1.52, 0]}>Click on Body</ToolTip>
                         )}
                     </skinnedMesh>
                     
@@ -197,11 +207,11 @@ export default function ModelCode({ props, onPopupTrigger }) {
                         skeleton={nodes.avaturn_glasses_0.skeleton}
                         ref={glassesRef}
                         onPointerDown={handleGlassesClick}
-                        onPointerOver={() => handlePointerOver('avaturn_glasses_0')}
-                        onPointerOut={handlePointerOut}
+                        // onPointerOver={() => handlePointerOver('avaturn_glasses_0')}
+                        // onPointerOut={handlePointerOut}
                     >
                         {hoveredPart === "avaturn_glasses_0" && (
-                            <ToolTip position={[-0.09, 1.7, 0]}>Click on Headset</ToolTip>
+                            <ToolTip style={{ pointerEvents: "none" }} position={[-0.1, 1.725, 0]}>Click on Headset</ToolTip>
                         )}
                         <meshStandardMaterial
                             roughness={0.15}
@@ -218,14 +228,12 @@ export default function ModelCode({ props, onPopupTrigger }) {
                         skeleton={nodes.avaturn_glasses_1.skeleton}
                         ref={glassesRef1}
                         onClick={handleGlassesClick}
-                        onPointerOver={() => handlePointerOver('avaturn_glasses_1')}
-                        onPointerOut={handlePointerOut}
                     >
                         <VideoMaterial
                             url="/images/glass.mp4"
                         />
                         {hoveredPart === "avaturn_glasses_1" && (
-                            <ToolTip position={[-0.09, 1.7, 0]}>Click on Headset</ToolTip>
+                            <ToolTip style={{ pointerEvents: "none" }} position={[-0.1, 1.725, 0]}>Click on Headset</ToolTip>
                         )}
                     </skinnedMesh>
 
@@ -236,12 +244,7 @@ export default function ModelCode({ props, onPopupTrigger }) {
                         material={materials.avaturn_hair_0_material}
                         skeleton={nodes.avaturn_hair_0.skeleton}
                         onClick={handleBodyClick} // Show popup on click
-                        onPointerOver={(e) => handlePointerOver("avaturn_hair_0")}
-                        onPointerOut={handlePointerOut}
                     >
-                        {hoveredPart === "avaturn_hair_0" && (
-                            <ToolTip position={[-0.2, 1.5, 0]}>Click on Body</ToolTip>
-                        )}
                     </skinnedMesh>
 
                     {/* Look details */}
@@ -251,18 +254,15 @@ export default function ModelCode({ props, onPopupTrigger }) {
                         material={materials.avaturn_look_0_material}
                         skeleton={nodes.avaturn_look_0.skeleton}
                         onClick={handleBodyClick} // Show popup on click
-                        onPointerOver={() => handlePointerOver('avaturn_look_0')}
-                        onPointerOut={handlePointerOut}
+                        // onPointerOver={() => handlePointerOver('avaturn_look_0')}
+                        // onPointerOut={handlePointerOut}
                     >
                         {hoveredPart === "avaturn_look_0" && (
-                            <ToolTip position={[-0.2, 1.5, 0]}>Click on Body</ToolTip>
+                            <ToolTip style={{ pointerEvents: "none" }} position={[-0.21, 1.52, 0]}>Click on Body</ToolTip>
                         )}
                     </skinnedMesh>
-
                 </group>
             </group>
-
-
         </group>
     );
 }

@@ -3,7 +3,7 @@ import {AnimatePresence, motion} from "framer-motion";
 import { IoClose, IoInformationCircleOutline } from "react-icons/io5"; // Using react-icons for the 'i' icon
 
 const InfoContainer = () => {
-    const [isExpanded, setIsExpanded] = useState(true); // State to track if the container is expanded
+    const [isExpanded, setIsExpanded] = useState(false); // State to track if the container is expanded
 
     const toggleExpand = () => {
         setIsExpanded(!isExpanded); // Toggle the expanded state
@@ -15,7 +15,13 @@ const InfoContainer = () => {
         if (isExpanded) {
             timer = setTimeout(() => {
                 setIsExpanded(false); // Auto-collapse after 3 seconds
-            }, 3000);
+            }, 4000);
+        }else {
+            timer = setTimeout(
+                () => {
+                    setIsExpanded(true); // Auto-expand after 3 seconds
+                },4000
+            )
         }
 
         // Clear the timer when the component unmounts or when the state changes
@@ -33,11 +39,29 @@ const InfoContainer = () => {
                     whileTap={{scale: 0.95}}
                     className={`fixed right-0 m-6 mt-0 flex items-center justify-center rounded-full text-white glassBg`}
                 >
-                    {isExpanded ? (
-                        <IoClose className={"p-1"} size={36}/>
-                    ) : (
-                        <IoInformationCircleOutline className={"p-0.5"} size={36}/>
-                    )}
+                    <AnimatePresence mode="wait">
+                        {isExpanded ? (
+                            <motion.div
+                                key={"close"}
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                exit={{ scale: 0 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <IoClose className={"p-1"} size={36} />
+                            </motion.div>
+                        ) : (
+                            <motion.div
+                                key={"info"}
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                exit={{ scale: 0 }}
+                                transition={{ duration: 0.3, delay: 0.3 }} // Delay the entrance of this icon
+                            >
+                                <IoInformationCircleOutline className={"p-0.5"} size={36} />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </motion.button>
 
                 {/* Expandable Info Container */}
@@ -47,13 +71,13 @@ const InfoContainer = () => {
                         initial={{opacity: 0, scale: 0.7}}
                         animate={{opacity: 1, scale: 1}}
                         exit={{opacity: 0, scale: 0}}
-                        transition={{duration: 0.6, ease: "easeInOut"}}
-                        className="bg-white/10 mt-12 glassmorphism rounded-2xl p-2 w-full max-w-[460px] text-center text-white "
+                        transition={{ duration: 0.6, ease: "easeInOut"}}
+                        className="bg-white/10 mt-12 xs:mr-24 md:mr-0 glassmorphism rounded-2xl p-2 w-full max-w-[460px] text-center text-white "
                     >
-                        <p className="glassBg rounded-2xl mt-0 p-1 text-sm">
+                        <p className="glassBg rounded-2xl mt-0 p-1 text-xs">
                             <strong>Click on the headset</strong> to view projects.
                         </p>
-                        <p className="glassBg rounded-2xl mt-2 p-1 text-sm">
+                        <p className="glassBg rounded-2xl mt-2 p-1 text-xs">
                             <strong>Click on the model</strong> to view developer info.
                         </p>
                     </motion.div>
