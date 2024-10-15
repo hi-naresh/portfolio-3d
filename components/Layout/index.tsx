@@ -19,7 +19,7 @@ export const Layout: FC<ILayout> = ({ title, children }) => {
 				canonical={`${CONFIG.SEO.publishDomain}${router.pathname}`}
 			/>
 			<PageWrapper>
-				{children}
+			{children}
 			</PageWrapper>
 		</div>
 	);

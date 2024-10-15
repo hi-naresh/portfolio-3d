@@ -43,12 +43,12 @@ const AnimatedNeonSvg = () => {
                         }}
                     >
                         <stop
-                            stopColor="hsl(211, 57%, 45%)"
+                            stopColor="hsl(211, 92%, 38%)"
                             stopOpacity="1"
                             offset="0%"
                         ></stop>
                         <stop
-                            stopColor="hsl(0, 0%, 90%)"
+                            stopColor="hsl(205, 36%, 65%)"
                             stopOpacity="1"
                             offset="100%"
                         ></stop>

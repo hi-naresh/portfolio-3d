@@ -100,7 +100,7 @@ const Header: React.FC<HeaderProps> = React.memo(({ handleContactClick,goBack })
 			className="absolute z-50 top-0 md:mt-16 xs:mt-4 w-full flex justify-center px-4 sm:px-6"
 			initial={{scaleX: 0}} // Expand from center
 			animate={{scaleX: 1}}
-			// exit={{scale: 0}}
+			exit={{scale: 0,opacity: 0}}
 			transition={{delay: 0.1, duration: 1.0, ease: "easeInOut"}}
 		>
 			<motion.div
@@ -117,6 +117,7 @@ const Header: React.FC<HeaderProps> = React.memo(({ handleContactClick,goBack })
 					transition={{delay: 1.8, duration: 0.5, ease: "easeOut"}} // Delayed until width completes
 				>
 					<motion.button
+						title={"Back"}
 						className="glassBg bg-white bg-opacity-10 md:flex rounded-full p-1.5 " // Applying backdrop blur for glassmorphism
 						whileHover={{scale: 1.2}} // Pop out further on hover
 						transition={{duration: 0.2}}
@@ -146,6 +147,7 @@ const Header: React.FC<HeaderProps> = React.memo(({ handleContactClick,goBack })
 					transition={{delay: 2.0, duration: 0.5, ease: "easeOut"}} // Delayed until width completes
 				>
 					<motion.button
+						title={"Reload"}
 						className="glassBg bg-white bg-opacity-10 rounded-full p-1.5 " // Applying backdrop blur for glassmorphism
 						whileHover={{scale: 1.2}} // Pop out further on hover
 						transition={{duration: 0.2}}
@@ -155,6 +157,7 @@ const Header: React.FC<HeaderProps> = React.memo(({ handleContactClick,goBack })
 					</motion.button>
 
 					<motion.button
+						title={"Contact"}
 						className="glassBg bg-white bg-opacity-10 rounded-full p-1.5 " // Applying backdrop blur for glassmorphism
 						whileHover={{scale: 1.2}} // Pop out further on hover
 						transition={{duration: 0.2}}
@@ -164,6 +167,7 @@ const Header: React.FC<HeaderProps> = React.memo(({ handleContactClick,goBack })
 					</motion.button>
 
 					<motion.button
+						title={"Call"}
 						className="glassBg bg-white bg-opacity-10 font-black rounded-full p-1.5 "
 						whileHover={{scale: 1.2}} // Pop out further on hover
 						transition={{duration: 0.2}}

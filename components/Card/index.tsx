@@ -13,7 +13,7 @@ const ProjectCardSlider: React.FC<ProjectCardProps> = memo(
             } rounded-4xl bg-white bg-opacity-5 project-card`}
             initial={{
                 opacity: initialLoad ? 0 : 1,
-                scale: initialLoad ? 0.8 : position.scale,
+                scale: initialLoad ? 0 : position.scale,
                 x: 0,
                 rotateY: 0,
                 zIndex: 1,

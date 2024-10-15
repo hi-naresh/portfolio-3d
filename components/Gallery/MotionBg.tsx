@@ -2,6 +2,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { useState, useEffect, useRef } from 'react';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
+import { EffectComposer, Noise } from '@react-three/postprocessing'; // Import Noise effect
 
 export default function ThreeSixtyBackground({ children }: { children: React.ReactNode }) {
     const [texture, setTexture] = useState<THREE.Texture | null>(null); // State to hold the texture
@@ -10,8 +11,9 @@ export default function ThreeSixtyBackground({ children }: { children: React.Rea
 
     // Ensure texture loading happens only on the client side
     useEffect(() => {
+       //load the texture and then only load child components
         const loader = new THREE.TextureLoader();
-        loader.load('/images/15.jpg', (loadedTexture) => {
+        loader.load('/images/151.jpg', (loadedTexture) => {
             setTexture(loadedTexture);
         });
     }, []);
@@ -42,7 +44,7 @@ export default function ThreeSixtyBackground({ children }: { children: React.Rea
             if (controlsRef.current) {
                 // If still in the initial view, set the default camera position to center of the texture
                 if (initialView) {
-                    const initialAzimuth = Math.PI- 30; // Look at the horizontal center of the image (custom value if needed)
+                    const initialAzimuth = Math.PI - 30; // Look at the horizontal center of the image (custom value if needed)
                     const initialPolar = Math.PI / 2; // Start looking straight at the vertical center (equator)
                     controlsRef.current.setAzimuthalAngle(initialAzimuth); // Set initial horizontal look
                     controlsRef.current.setPolarAngle(initialPolar); // Set initial vertical look
@@ -68,7 +70,7 @@ export default function ThreeSixtyBackground({ children }: { children: React.Rea
     };
 
     return (
-        <div className="w-screen z-10 h-screen bg-transparent">
+        <div className=" w-screen z-10 h-screen bg-transparent">
             <Canvas camera={{ position: [70, 20, 40], fov: 70 }} style={{ height: '100vh', width: '100vw' }}>
                 {texture && (
                     <mesh scale={[1, 1, 1]}> {/* Create an elliptical shape by scaling the X axis */}
@@ -76,9 +78,15 @@ export default function ThreeSixtyBackground({ children }: { children: React.Rea
                         <meshBasicMaterial map={texture} side={THREE.BackSide} />
                     </mesh>
                 )}
+
+                {/* Noise Effect */}
+                <EffectComposer>
+                    <Noise opacity={0.05} /> 
+                </EffectComposer>
+
                 <CameraController />
             </Canvas>
-            <div className="absolute top-0 left-0 w-screen h-screen z-10">{children}</div>
+            <div className="absolute top-0 left-0 w-full h-screen z-10">{children}</div>
         </div>
     );
 }

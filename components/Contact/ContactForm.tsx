@@ -79,7 +79,7 @@ const ContactForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                 {/* Submit Button */}
                 <button
                     type="submit"
-                    className="w-full py-3 text-lg font-medium text-white rounded-3xl bg-secondary/90 hover:bg-black transition duration-300"
+                    className="w-full py-3 text-lg font-medium text-white rounded-3xl bg-primary/90 border-[1px] border-white/20 hover:bg-black transition duration-300"
                 >Send Message
                 </button>
             </form>
@@ -87,11 +87,11 @@ const ContactForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
             {/* Close Button */}
             <button
                 onClick={onClose}
-                className="absolute top-0 right-0 m-6 p-2 rounded-full bg-white/60 hover:bg-white/80 transition duration-200"
+                className="absolute top-0 right-0 m-6 p-2 rounded-full bg-white/95 hover:bg-white/80 transition duration-200"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-black"
+                    className="h-6 w-6 text-primary"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -99,7 +99,7 @@ const ContactForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                     <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        strokeWidth={2}
+                        strokeWidth={3}
                         d="M6 18L18 6M6 6l12 12"
                     />
                 </svg>

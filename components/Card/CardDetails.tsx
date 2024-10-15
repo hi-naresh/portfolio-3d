@@ -128,6 +128,7 @@ export const CardDetails = ({
                     <div className="flex space-x-8 justify-center relative">
                         {/* Like Button */}
                         <button
+                            title={currentIndex === 0 ? "Like it!" : ""}
                             className="p-3 rounded-full bg-black border-[0.5px] border-white/40 bg-opacity-20 relative"
                             onClick={() => handleLikeClick(project, setStats, setIsReviewModalOpen)}
                             onMouseEnter={() => setShowTooltip({ ...showTooltip, like: true })}
@@ -143,6 +144,7 @@ export const CardDetails = ({
 
                         {/* Share Button */}
                         <button
+                            title="Share it!"
                             className="p-3 rounded-full bg-black border-[0.5px] border-white/40 bg-opacity-20 relative"
                             onClick={() => handleShareClick(project, setStats)}
                             onMouseEnter={() => setShowTooltip({ ...showTooltip, share: true })}
@@ -159,13 +161,14 @@ export const CardDetails = ({
                         {/* Redirect Button */}
                         {project.link === "#" ? (
                             <div
+                                title={project.available}
                                 className="p-3 rounded-full bg-black border-[0.5px] border-white/40 bg-opacity-20 relative"
                                 onMouseEnter={() => setShowTooltip({ ...showTooltip, redirect: true })}
                                 onMouseLeave={() => setShowTooltip({ ...showTooltip, redirect: false })}
                             >
                                 <img className="w-5 h-5 md:w-6 md:h-6 filter invert" src="/assets/icons/redirect.svg" alt="Coming Soon" />
                                 {showTooltip.redirect && (
-                                    <span className="absolute max-w-[15rem] bg-black/60 mt-1 ml-10 left-1/2  transform -translate-x-1/2 px-1 py-1 font-black text-center  text-sm rounded-xl">
+                                    <span className="absolute min-w-[6rem] max-w-[15rem] bg-black/60 mt-1 ml-10 left-1/2  transform -translate-x-1/2 px-1 py-1 font-black text-center  text-sm rounded-xl">
                     {project.available}
                   </span>
                                 )}

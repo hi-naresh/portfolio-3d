@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from '@react-three/drei';
 import { motion } from 'framer-motion';
@@ -6,46 +6,19 @@ import AnimatedNeonSvg from "@components/Animations/Neon";
 import AnimatedTextWithHover from "@components/Animations/Text2";
 import ModelCode from "@components/Home/Model";
 import { Footer } from "@components/Layout/Footer";
-import LoadingScreen from "../Layout/loading";
 import PopupDetails from "@components/Home/PopDetails";
+import InfoContainer from "@components/Home/InfoBox";
 
 const HeroSection = () => {
-	const [isLoaded, setIsLoaded] = useState(false); // Tracks if the content is fully loaded
-	const [minimumTimePassed, setMinimumTimePassed] = useState(false); // Tracks if 2 seconds have passed
 	const [isPopupVisible, setPopupVisible] = useState(false);
-
-	// 1. Simulate page loading (set the loading state to true when the page is fully loaded)
-	useEffect(() => {
-		// Trigger the loading to complete once everything is loaded (Canvas onCreated or window load)
-		const handleLoad = () => setIsLoaded(true);
-		window.addEventListener('load', handleLoad);
-
-		return () => window.removeEventListener('load', handleLoad); // Clean up the event listener
-	}, []);
-
-	// 2. Enforce a minimum of 2 seconds for the loading screen
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			setMinimumTimePassed(true);
-		}, 2000); // Minimum of 2 seconds for loading screen
-
-		return () => clearTimeout(timer); // Clean up the timer
-	}, []);
-
-	const isFullyLoaded = isLoaded && minimumTimePassed; // Content is fully loaded when both conditions are met
-
+	const [isLoaded, setIsLoaded] = useState(false);
 	return (
 		<div className="w-screen fixed bg-black">
-			{/* Loading Screen */}
-			{!isFullyLoaded && (
-				<LoadingScreen />
-			)}
-
 			{/* Main Content */}
 			<motion.div
 				className="relative"
 				initial={{ opacity: 0 }}
-				animate={{ opacity: isFullyLoaded ? 1 : 0 }}
+				animate={{ opacity:  1 }}
 				transition={{ duration: 1 }}
 			>
 				<section className="relative h-screen w-full overflow-hidden">
@@ -73,20 +46,26 @@ const HeroSection = () => {
 						onCreated={() => setIsLoaded(true)} // Mark as loaded when the canvas is created
 					>
 						{/*<ambientLight intensity={0.28} />*/}
-						<pointLight intensity={1.5} color="#47709c" distance={10} decay={3}
+						<pointLight intensity={1.5} color="#197CE2" distance={10} decay={3}
 									position={[0.920, 0.16, 0.960]}/>
-						<pointLight intensity={1.6} color="#fff" distance={3} decay={2}
-									position={[-0.3, -0.16, 2.060]}/>
-						<directionalLight intensity={0.6} color="#47709c" 
+						<pointLight intensity={1.8} color="#fff" distance={30} decay={2}
+									position={[-0.2, -0.16, 3.060]}/>
+						<directionalLight intensity={0.9} color="#197CE2" 
 									position={[-0.320, 1.16, 0.90]}/>
 						<OrbitControls enableZoom={false} enableRotate={false}/>
 						{/*<ModelCode/>*/}
 						<ModelCode onPopupTrigger={() => setPopupVisible(true)} props={undefined} />
-
+						{/*<EffectComposer>*/}
+						{/*	<Noise opacity={0.01} />*/}
+						{/*</EffectComposer>*/}
 					</Canvas>
 					{isPopupVisible && (
 						<PopupDetails setPopupVisible={setPopupVisible}/>
 					)}
+
+					<div className={"absolute w-screen top-0 right-0 z-50"}>
+						<InfoContainer />
+					</div>
 					
 					{/* Footer */}
 					<Footer/>

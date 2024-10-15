@@ -1,13 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { RenderTexture} from "@react-three/drei";
+import {Text, useVideoTexture} from "@react-three/drei";
 import { useGLTF } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
+import {useFrame, useThree} from "@react-three/fiber";
 import * as THREE from "three";
-import GlowingText from "components/Animations/GlowHollowText";
 import {useDeviceOrientation} from "libs/hooks/useDeviceOrientation";
 import {useIsMobile} from "libs/hooks/useIsMobile";
-import {motion} from "framer-motion";
-
 
 export default function ModelCode({ props, onPopupTrigger }) {
     const group = useRef();
@@ -21,26 +18,21 @@ export default function ModelCode({ props, onPopupTrigger }) {
     // const decalTexture = useTexture('/banner.png'); // Replace with the correct image path
     const [isHovered, setIsHovered] = useState(false); // State to track hover
     // const [isPopupVisible, setPopupVisible] = useState(false);
-
-    // const handleBodyClick = () => {
-    //     props.onPopupTrigger(); // Call the function to show the popup
-    // };
-    // Click handler for the body
+    
     const handleBodyClick = () => {
         if (onPopupTrigger) {
             onPopupTrigger(); // Trigger the popup
         }
     }
-
-
+    
     // Use the device orientation hook
     // const { orientation, requestAccess, error, permissionDenied } = useDeviceOrientation();
     const {
         orientation,
         requestAccess,
-        // revokeAccess,
-        // error,
-        // resetOrientation
+        revokeAccess,
+        error,
+        resetOrientation
     } = useDeviceOrientation({
     });
 
@@ -177,23 +169,15 @@ export default function ModelCode({ props, onPopupTrigger }) {
                 <group name="Armature">
                     {/* Attach Hips object */}
                     <primitive object={nodes.Hips}/>
-
-                    {/* Body */}
-                    {/*<skinnedMesh*/}
-                    {/*    name="avaturn_body"*/}
-                    {/*    geometry={nodes.avaturn_body.geometry}*/}
-                    {/*    material={materials.avaturn_body_material}*/}
-                    {/*    skeleton={nodes.avaturn_body.skeleton}*/}
-                    {/*/>*/}
+                    
                     <skinnedMesh
                         name="avaturn_body"
                         geometry={nodes.avaturn_body.geometry}
                         material={materials.avaturn_body_material}
                         skeleton={nodes.avaturn_body.skeleton}
-                        onClick={handleBodyClick} // Show popup on click
+                        // onClick={handleBodyClick} // Show popup on click
                     />
-
-
+                    
                     {/* Glasses with Transmission Material */}
                     <skinnedMesh
                         name="avaturn_glasses_0"
@@ -204,9 +188,9 @@ export default function ModelCode({ props, onPopupTrigger }) {
                         onPointerDown={handleGlassesClick}
                     >
                         <meshStandardMaterial
-                            roughness={0.5}
-                            metalness={0.2}
-                            color="rgb(100, 90, 90)"/>
+                            roughness={0.15}
+                            metalness={0.1}
+                            color="rgb(100, 100, 100)"/>
 
                     </skinnedMesh>
 
@@ -221,22 +205,11 @@ export default function ModelCode({ props, onPopupTrigger }) {
                         onPointerOver={() => setIsHovered(true)}
                         onPointerOut={() => setIsHovered(false)}
                     >
-                        {/* Change material when hovered */}
-                        <meshStandardMaterial
-                            roughness={0.1}
-                            metalness={0.2}
-                            resolution={128}
-                            thickness={0.1}
-                            anisotropy={3}
-                        >
-                            {/* Optionally, you can still apply texture here */}
-                            <RenderTexture attach="map" anisotropy={16}>
-                                <GlowingText/>
-                            </RenderTexture>
-                        </meshStandardMaterial>
+                        <VideoMaterial
+                            url="/images/glass.mp4"
+                        />
                     </skinnedMesh>
-
-
+                    
                     {/* Hair */}
                     <skinnedMesh
                         name="avaturn_hair_0"
@@ -259,6 +232,69 @@ export default function ModelCode({ props, onPopupTrigger }) {
 
 
         </group>
+    );
+}
+
+// const VideoTextureGlasses = ({videoUrl, isHovered, glassesRef1}) => {
+//     const videoRef = useRef();
+//
+//     useEffect(() => {
+//         const video = document.createElement('video');
+//         video.src = videoUrl;
+//         video.loop = true; // Loop the video
+//         video.muted = true; // Mute video
+//         video.play(); // Autoplay the video
+//
+//         // Create a VideoTexture and set its properties
+//         const videoTexture = new THREE.VideoTexture(video);
+//         videoTexture.minFilter = THREE.LinearFilter;
+//         videoTexture.magFilter = THREE.LinearFilter;
+//         videoTexture.format = THREE.RGBFormat;
+//
+//         // Assign the video texture to the glasses material map
+//         if (glassesRef1.current) {
+//             glassesRef1.current.material.map = videoTexture;
+//             glassesRef1.current.material.needsUpdate = true;
+//         }
+//
+//         // Clean up the video when the component unmounts
+//         return () => {
+//             video.pause();
+//             video.src = '';
+//         };
+//     }, [videoUrl, glassesRef1]);
+//
+//     return null; // This component doesn't render anything itself
+// };
+
+function VideoMaterial({ url }) {
+    // Load the video texture
+    const texture = useVideoTexture(url);
+
+    // Ensure the video isn't flipped along the Y-axis
+    texture.flipY = false;
+
+    // Ensure the texture doesn't repeat unnecessarily
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+
+    texture.repeat.set(3, 3);  // Example of making the texture repeat
+    texture.offset.set(0.85, -0.45);  // Example to move texture slightly
+
+    // Optional: You can adjust anisotropy for better quality
+    texture.anisotropy = 8;
+
+    return (
+        <meshBasicMaterial
+            map={texture}               // Video texture applied to the material
+            thickness={0.1}             // Adds a thickness to simulate glass
+            clearcoat={0.1}               // Adds a clear coating on top of the material
+            clearcoatRoughness={0.9}    // Defines the roughness of the clear coat
+            transparent={true}          // Allows transparency
+            opacity={0.8}               // Controls the opacity of the material (set to 1.0 to make the video fully visible)
+            side={THREE.FrontSide}      // Ensures the video is rendered on the front side
+            toneMapped={true}          // Disable tone mapping for video textures
+        />
     );
 }
 

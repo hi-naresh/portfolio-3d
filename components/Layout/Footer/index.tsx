@@ -7,7 +7,7 @@ export const Footer: FC = () => (
 		<div className=" flex mx-6 flex-col xs:flex-col-reverse items-center px-3 pb-5 pt-5 text-center text-sm text-gray-600 dark:text-gray-400 md:flex-row">
 			<div className={" rounded-full p-1 px-3"}>
 				<div className=" ">
-					&copy; 2021 - {CONFIG.NOW} All rights reserved by Naresh Jhawar.
+					&copy; 2023 - {CONFIG.NOW} All rights reserved by Naresh Jhawar.
 				</div>
 			</div>
 			<div className="mt-2 flex flex-row gap-2 md:flex-auto md:flex-row-reverse">

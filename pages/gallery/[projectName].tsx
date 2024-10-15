@@ -14,7 +14,6 @@
 //
 // export default GalleryScreen;
 
-// pages/gallery/[projectName].tsx
 import React from "react";
 import { GetServerSideProps } from "next";
 import Gallery3D from "@components/Gallery";

@@ -143,6 +143,7 @@ const Gallery3D: React.FC<Gallery3DProps> = ({ initialIndex = 0 }) => {
     const [showContact, setShowContact] = useState(false); // To toggle between gallery and contact form
     const [isDisappeared, setIsDisappeared] = useState(false); // Control slider/nav disappearance
     const [initialLoad, setInitialLoad] = useState(true);
+    const [showHeader, setShowHeader] = useState(true);
 
     const handleMouseMove = useParallaxEffect(); // Mouse movement for parallax
     const isMobile = useIsMobile();
@@ -207,7 +208,7 @@ const Gallery3D: React.FC<Gallery3DProps> = ({ initialIndex = 0 }) => {
     
     const goBack = () => {
         setIsDisappeared(true);
-        //make everything disappear with black bg
+        setShowHeader(false);
         setTimeout(() => {
             window.location.href = "/";
         }, 200);
@@ -226,95 +227,100 @@ const Gallery3D: React.FC<Gallery3DProps> = ({ initialIndex = 0 }) => {
 
     return (
         <ThreeSixtyBackground>
-            <motion.div
-                onMouseMove={handleMouseMove}
-                initial="hidden"
-                animate="visible"
-                // variants={{
-                //     hidden: {opacity: 0},
-                //     visible: {opacity: 1},
-                // }}
-                transition={{duration: 0.4, ease: "easeOut"}}
-                className="relative vignette w-full h-screen flex items-center justify-center overflow-hidden"
-            >
-                {/* Background Image */}
-
                 <motion.div
-                    initial={{opacity: 0.05, scale: 1}}
-                    animate={{opacity: 1, scale: showContact ? 1.2 : 1}}
-                    transition={{duration: showContact ? 0.8 : 4, ease: showContact ? "easeInOut" : "easeInOut"}}
-                    className="absolute inset-0 z-10"
-                    // style={{
-                    //     backgroundImage: "url('/images/wall5.webp')",
-                    //     background: "url('/images/wall5.webp') center/cover",
-                    //     backgroundPosition: `var(--parallaxBgX) var(--parallaxBgY)`,
-                    //     backgroundSize: isMobile ? "300%" : "115%",
-                    //     backgroundRepeat: "no-repeat",
+                    onMouseMove={handleMouseMove}
+                    initial="hidden"
+                    animate="visible"
+                    exit={
+                        showContact
+                            ? {opacity: 0}
+                            : {opacity: 0, transition: {delay: 0.4}}
+                    }
+                    // variants={{
+                    //     hidden: {opacity: 0},
+                    //     visible: {opacity: 1},
                     // }}
-                />
+                    transition={{duration: 0.4, ease: "easeIn"}}
+                    className="relative vignette w-full h-screen flex items-center justify-center overflow-hidden"
+                >
+                    {/* Background Image */}
+
+                    {/*<motion.div*/}
+                    {/*    initial={{opacity: 0.05, scale: 1}}*/}
+                    {/*    animate={{opacity: 1, scale: showContact ? 1.2 : 1}}*/}
+                    {/*    transition={{duration: showContact ? 0.8 : 4, ease: showContact ? "easeInOut" : "easeInOut"}}*/}
+                    {/*    className="absolute inset-0 z-10"*/}
+                    {/*    style={{*/}
+                    {/*        backgroundImage: "url('/images/wall5.webp')",*/}
+                    {/*        background: "url('/images/wall5.webp') center/cover",*/}
+                    {/*        backgroundPosition: `var(--parallaxBgX) var(--parallaxBgY)`,*/}
+                    {/*        backgroundSize: isMobile ? "300%" : "115%",*/}
+                    {/*        backgroundRepeat: "no-repeat",*/}
+                    {/*    }}*/}
+                    {/*/>*/}
 
 
-                {/* Header */}
-                <Header handleContactClick={handleContactClick} goBack={goBack}/>
+                    {/* Header */}
+                    {showHeader && (
+                            <Header handleContactClick={handleContactClick} goBack={goBack}/>
+                        )
+                    }
 
-                {/* AnimatePresence to handle transitions */}
-                <AnimatePresence>
-
-                    {!showContact && !isDisappeared && (
-                        <>
-                            {isMobile ? (
+                    {/* AnimatePresence to handle transitions */}
+                    <AnimatePresence>
+                        {!showContact && !isDisappeared && (
+                            <>
+                                {isMobile ? (
                                     <MobileProjectSlider slides={projectData} options={OPTIONS} isMobile/>
-                            ) : (
-                                <motion.div
-                                    className="relative w-full max-w-[100%] h-[600px] flex items-center justify-center overflow-hidden z-10"
-                                    style={{perspective: "900px", transformStyle: "preserve-3d"}}
-                                    initial={{scale: 0.7}}
-                                    animate={{scale: 1}}
-                                    exit={{scale: 0.2 }}
-                                    transition={{ duration: 0.6}}
-                                >
-                                    {/* Cards Slider */}
-                                    {projectData.map((project, index) => (
-                                        <ProjectCard
-                                            key={project.id}
-                                            currentIndex={currentIndex}
-                                            project={project}
-                                            isPrev={index === (currentIndex - 1 + projectData.length) % projectData.length}
-                                            nextSlide={nextSlide}
-                                            prevSlide={prevSlide}
-                                            position={getPosition(index)}
-                                            isActive={index === currentIndex} // Check if card is active
-                                            initialLoad={initialLoad}
-                                        />
-                                    ))}
-                                </motion.div>
-                            )}
+                                ) : (
+                                    <motion.div
+                                        className="absolute w-full max-w-[100%] h-[600px] flex items-center justify-center overflow-hidden z-10"
+                                        style={{perspective: "900px", transformStyle: "preserve-3d"}}
+                                        initial={{ scale: 0.7 }}
+                                        animate={{scale: 1}}
+                                        exit={{scale: 0.2 }}
+                                        transition={{ duration: 1.4, ease: "easeIn" }}
+                                    >
+                                        {/* Cards Slider */}
+                                        {projectData.map((project, index) => (
+                                            <ProjectCard
+                                                key={project.id}
+                                                currentIndex={currentIndex}
+                                                project={project}
+                                                isPrev={index === (currentIndex - 1 + projectData.length) % projectData.length}
+                                                nextSlide={nextSlide}
+                                                prevSlide={prevSlide}
+                                                position={getPosition(index)}
+                                                isActive={index === currentIndex} // Check if card is active
+                                                initialLoad={initialLoad}
+                                            />
+                                        ))}
+                                    </motion.div>
+                                )}
 
-                            {/* Nav Controls */}
-                            {!isMobile &&
-                                <NavControls nextSlide={nextSlide} prevSlide={prevSlide} currentIndex={currentIndex}/>}
-                        </>
-                    )}
+                                {/* Nav Controls */}
+                                {!isMobile &&
+                                    <NavControls nextSlide={nextSlide} prevSlide={prevSlide} currentIndex={currentIndex}/>}
+                            </>
+                        )}
 
-                    {/* Contact Form */}
-                    {showContact && (
-                        <motion.div
-                            key="contact-form"
-                            className="absolute z-20 flex items-center justify-center w-full h-full "
-                            initial={{scale: 0.6}}
-                            animate={{scale: 1}}
-                            exit={{scale: 0}}
-                            transition={{duration: 0.6}}
-                        >
-                            <ContactForm onClose={handleCloseContact}/>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                        {/* Contact Form */}
+                        {showContact && (
+                            <motion.div
+                                key="contact-form"
+                                className="absolute z-20 flex items-center justify-center w-full h-full "
+                                initial={{scale: 0.6}}
+                                animate={{scale: 1}}
+                                exit={{scale: 0}}
+                                transition={{duration: 0.6}}
+                            >
+                                <ContactForm onClose={handleCloseContact}/>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
 
-            </motion.div>
-        </ThreeSixtyBackground>
-
-
+                </motion.div>
+            </ThreeSixtyBackground>
     );
 };
 
