@@ -18,15 +18,18 @@ export default function ModelCode({ props, onPopupTrigger }) {
     const handlePointerOver = (e) => {
         if (e.object && e.object.name) {
             setHoveredPart(e.object.name); // Set the name of the mesh being hovered
+            document.body.style.cursor = 'pointer'; // Change the cursor to pointer
         }
     };
 
     const handlePointerOut = (e) => {
         if (e.object && e.object.name === hoveredPart) {
             setHoveredPart(null); // Clear the hovered part when pointer leaves
+            document.body.style.cursor = 'default'; // Reset the cursor to default
         }
     };
-    
+
+
     const headRef = useRef(); // Reference for the head
     const glassesRef = useRef(); // Reference for the glasses
     const glassesRef1 = useRef(); // Reference for the second glasses mesh
@@ -195,7 +198,7 @@ export default function ModelCode({ props, onPopupTrigger }) {
                         // onPointerOut={handlePointerOut}
                     >
                         {hoveredPart === "avaturn_body" && (
-                            <ToolTip style={{ pointerEvents: "none" }} position={[-0.21, 1.52, 0]}>Click on Body</ToolTip>
+                            <ToolTip isVisible={true} style={{ pointerEvents: "none" }} position={[-0.21, 1.52, 0]}>Click to Know me</ToolTip>
                         )}
                     </skinnedMesh>
                     
@@ -211,7 +214,7 @@ export default function ModelCode({ props, onPopupTrigger }) {
                         // onPointerOut={handlePointerOut}
                     >
                         {hoveredPart === "avaturn_glasses_0" && (
-                            <ToolTip style={{ pointerEvents: "none" }} position={[-0.1, 1.725, 0]}>Click on Headset</ToolTip>
+                            <ToolTip isVisible={true} style={{ pointerEvents: "none" }} position={[-0.1, 1.725, 0]}>Click to jump in</ToolTip>
                         )}
                         <meshStandardMaterial
                             roughness={0.15}
@@ -233,7 +236,7 @@ export default function ModelCode({ props, onPopupTrigger }) {
                             url="/images/glass.mp4"
                         />
                         {hoveredPart === "avaturn_glasses_1" && (
-                            <ToolTip style={{ pointerEvents: "none" }} position={[-0.1, 1.725, 0]}>Click on Headset</ToolTip>
+                            <ToolTip isVisible={true} style={{ pointerEvents: "none" }} position={[-0.1, 1.725, 0]}>Click on Headset</ToolTip>
                         )}
                     </skinnedMesh>
 
@@ -258,7 +261,7 @@ export default function ModelCode({ props, onPopupTrigger }) {
                         // onPointerOut={handlePointerOut}
                     >
                         {hoveredPart === "avaturn_look_0" && (
-                            <ToolTip style={{ pointerEvents: "none" }} position={[-0.21, 1.52, 0]}>Click on Body</ToolTip>
+                            <ToolTip isVisible={true} style={{ pointerEvents: "none" }} position={[-0.21, 1.52, 0]}>Click to Know me</ToolTip>
                         )}
                     </skinnedMesh>
                 </group>
