@@ -7,7 +7,8 @@ const AnimatedNeonSvg = () => {
     const isMobile = useIsMobile();
     return (
         <div className="relative flex items-center justify-center">
-            {isMobile ? <img src={"/images/neon.svg"} alt={"Background"}/> : <motion.svg
+            {isMobile ? <img src={"/assets/neon.svg"} alt={"Background"}/> : 
+                <motion.svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 800 800"
                 style={{
@@ -164,7 +165,8 @@ const AnimatedNeonSvg = () => {
                         }}
                     />
                 </g>
-            </motion.svg>}
+            </motion.svg>
+            }
             {/* Rotating Text Around the Ring */}
             <RotatingCircularText text={"NARESH"}/>
         </div>

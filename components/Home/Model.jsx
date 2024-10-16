@@ -5,7 +5,7 @@ import * as THREE from "three";
 import {useDeviceOrientation} from "libs/hooks/useDeviceOrientation";
 import {useIsMobile} from "libs/hooks/useIsMobile";
 import ToolTip from "@components/Home/Tooltip";
-import VideoMaterial from "@components/Home/VideoMaterial"; // For displaying HTML tooltips in the 3D scene
+import VideoMaterial from "@components/Home/VideoMaterial";
 
 export default function ModelCode({ props, onPopupTrigger }) {
     const group = useRef();
@@ -166,7 +166,7 @@ export default function ModelCode({ props, onPopupTrigger }) {
             if (blackOverlay) {
                 blackOverlay.style.opacity = "1";
             }
-            window.location.href = "/gallery/prodo";
+            window.location.href = "/project/prodo";
         }
     };
 
@@ -233,7 +233,7 @@ export default function ModelCode({ props, onPopupTrigger }) {
                         onClick={handleGlassesClick}
                     >
                         <VideoMaterial
-                            url="/images/glass.mp4"
+                            url="/assets/video/glass.mp4"
                         />
                         {hoveredPart === "avaturn_glasses_1" && (
                             <ToolTip isVisible={true} style={{ pointerEvents: "none" }} position={[-0.1, 1.725, 0]}>Click on Headset</ToolTip>

@@ -12,12 +12,13 @@ const AnimatedTextWithHover = ({ text }: { text: string }) => {
                         className="letter inline-block font-bold text-[8rem] 
                         lg:text-[8rem] md:text-[6rem] sm:text-[4rem] xs:text-[4rem]
                         hover:scale-110 
+                        opacity-50 hover:opacity-100
                         hover:text-white 
                         hover:drop-shadow-[0_0_10px_rgba(255,255,255,1)] 
                         stroke-white 
                         text-transparent"
                         style={{
-                            WebkitTextStroke: isMobile?'1px white' : '2px white',
+                            WebkitTextStroke: isMobile?'1px white' : '2px rgba(255,255,255,0.7)',
                             animationDelay: `${index * 0.1}s`,
                         }}
                     >

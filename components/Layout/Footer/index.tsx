@@ -2,13 +2,39 @@ import { CONFIG } from "@libs/config";
 import Link from "next/link";
 import React, { FC } from "react";
 import AnimatedTextWithHover from "@components/Animations/Text2";
+import {AnimatePresence, motion} from "framer-motion";
+// import {TextHoverEffect} from "@components/ui/Text_hover";
 
-export const Footer: FC = () => (
-	<div className="fixed bottom-0 z-50 w-screen">
-		<div
-			className=" z-0 hover:z-0 hover:opacity-90 text-center">
-			<AnimatedTextWithHover text="JHAWAR"/>
-		</div>
+interface IFooter {
+	isVisible?: boolean;
+}
+export const Footer: FC<IFooter> = ({ isVisible = true }) => (
+	<div className="fixed bottom-0 z-0 w-screen">
+		<AnimatePresence>
+		{
+			isVisible && (
+				<motion.div
+					//Y hide and display
+					initial={{y: 200, scaleY: 0}}
+					animate={{y: 0, scaleY: 1}}
+					exit={{y: 200, scaleY: 0}}
+					transition={
+						{
+							type: "spring",
+							stiffness: 260,
+							damping: 20,
+							duration: 0.2,
+						}
+					}
+					className="text-center">
+					{/*<div className="h-[40rem] xs:scale-[100%] md:scale-[50%]  z-0 flex items-center justify-center">*/}
+					{/*	<TextHoverEffect text="JHAWAR"/>*/}
+					{/*</div>*/}
+					<AnimatedTextWithHover text="JHAWAR"/>
+				</motion.div>
+			)
+		}
+		</AnimatePresence>
 		<div
 			className=" flex mx-6 flex-col xs:flex-col-reverse items-center px-3 pb-5 pt-0 text-center text-sm text-gray-600 dark:text-gray-400 md:flex-row">
 			<div className={"z-20 rounded-full p-1 px-3"}>

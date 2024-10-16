@@ -4,28 +4,30 @@ import { motion } from "framer-motion";
 
 export const TextHoverEffect = ({
                                     text,
-                                    duration,
+                                    duration = 0.4, // Hover effect duration
                                 }: {
     text: string;
     duration?: number;
-    automatic?: boolean;
 }) => {
     const svgRef = useRef<SVGSVGElement>(null);
-    const [cursor, setCursor] = useState({ x: 0, y: 0 });
+    const [cursor, setCursor] = useState({ x: 50, y: 50 }); // Initial cursor position in percentages
     const [hovered, setHovered] = useState(false);
-    const [maskPosition, setMaskPosition] = useState({ cx: "50%", cy: "50%" });
 
-    useEffect(() => {
-        if (svgRef.current && cursor.x !== null && cursor.y !== null) {
+    const handleMouseMove = (e: React.MouseEvent<SVGSVGElement>) => {
+        if (svgRef.current) {
             const svgRect = svgRef.current.getBoundingClientRect();
-            const cxPercentage = ((cursor.x - svgRect.left) / svgRect.width) * 100;
-            const cyPercentage = ((cursor.y - svgRect.top) / svgRect.height) * 100;
-            setMaskPosition({
-                cx: `${cxPercentage}%`,
-                cy: `${cyPercentage}%`,
-            });
+            // Calculate the position of the cursor relative to the SVG container
+            const cxPercentage = Math.min(
+                100,
+                Math.max(0, ((e.clientX - svgRect.left) / svgRect.width) * 100)
+            );
+            const cyPercentage = Math.min(
+                100,
+                Math.max(0, ((e.clientY - svgRect.top) / svgRect.height) * 100)
+            );
+            setCursor({ x: cxPercentage, y: cyPercentage });
         }
-    }, [cursor]);
+    };
 
     return (
         <svg
@@ -36,98 +38,66 @@ export const TextHoverEffect = ({
             xmlns="http://www.w3.org/2000/svg"
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            onMouseMove={(e) => setCursor({ x: e.clientX, y: e.clientY })}
-            className="select-none"
+            onMouseMove={handleMouseMove}
+            className="select-none xs:mt-[75vh] md:mt-[98vh]"
         >
             <defs>
-                <linearGradient
-                    id="textGradient"
-                    gradientUnits="userSpaceOnUse"
-                    cx="50%"
-                    cy="50%"
-                    r="25%"
-                >
-                    {hovered && (
-                        <>
-                            <stop offset="0%" stopColor={"var(--yellow-500)"} />
-                            <stop offset="25%" stopColor={"var(--red-500)"} />
-                            <stop offset="50%" stopColor={"var(--blue-500)"} />
-                            <stop offset="75%" stopColor={"var(--cyan-500)"} />
-                            <stop offset="100%" stopColor={"var(--violet-500)"} />
-                        </>
-                    )}
+                {/* Gradient with 3 colors: #47709c, #fff, #47709c */}
+                <linearGradient id="textGradient" gradientUnits="userSpaceOnUse" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#47709c" />
+                    <stop offset="50%" stopColor="#fff" />
+                    <stop offset="100%" stopColor="#47709c" />
                 </linearGradient>
 
-                <motion.radialGradient
+                {/* Mask for hover effect */}
+                <radialGradient
                     id="revealMask"
-                    gradientUnits="userSpaceOnUse"
-                    r="20%"
-                    animate={maskPosition}
-                    transition={{ duration: duration ?? 0, ease: "easeOut" }}
-
-                    // example for a smoother animation below
-
-                    //   transition={{
-                    //     type: "spring",
-                    //     stiffness: 300,
-                    //     damping: 50,
-                    //   }}
+                    cx={`${cursor.x}%`} // Updated to handle edge positions better
+                    cy={`${cursor.y}%`}
+                    r="12%" // Larger radius to cover edge areas
+                    fx={`${cursor.x}%`}
+                    fy={`${cursor.y}%`}
                 >
                     <stop offset="0%" stopColor="white" />
                     <stop offset="100%" stopColor="black" />
-                </motion.radialGradient>
+                </radialGradient>
+
                 <mask id="textMask">
-                    <rect
-                        x="0"
-                        y="0"
-                        width="100%"
-                        height="100%"
-                        fill="url(#revealMask)"
-                    />
+                    <rect x="0" y="0" width="100%" height="100%" fill="url(#revealMask)" />
                 </mask>
             </defs>
+
+            {/* Text with the outline */}
             <text
                 x="50%"
                 y="50%"
                 textAnchor="middle"
                 dominantBaseline="middle"
-                strokeWidth="0.3"
-                className="font-[helvetica] font-bold stroke-neutral-200 dark:stroke-neutral-800 fill-transparent text-7xl  "
-                style={{ opacity: hovered ? 0.7 : 0 }}
+                stroke="#ffffff32" // White with 40% opacity
+                strokeWidth="1"
+                fill="transparent"
+                className="font-[helvetica] font-bold text-6xl"
             >
                 {text}
             </text>
+
+            {/* Text with gradient fill, applied on hover */}
             <motion.text
                 x="50%"
                 y="50%"
                 textAnchor="middle"
                 dominantBaseline="middle"
-                strokeWidth="0.3"
-                className="font-[helvetica] font-bold fill-transparent text-7xl   stroke-neutral-200 dark:stroke-neutral-800"
-                initial={{ strokeDashoffset: 1000, strokeDasharray: 1000 }}
-                animate={{
-                    strokeDashoffset: 0,
-                    strokeDasharray: 1000,
-                }}
-                transition={{
-                    duration: 4,
-                    ease: "easeInOut",
-                }}
+                stroke="url(#textGradient)" // Gradient stroke
+                strokeWidth="1"
+                fill="transparent"
+                className="font-[helvetica] font-bold text-6xl"
+                mask="url(#textMask)" // Mask controlled by the cursor
+                initial={{ opacity: 0 }}
+                animate={{ opacity: hovered ? 1 : 0.4 }} // Animate opacity on hover
+                transition={{ duration }}
             >
                 {text}
             </motion.text>
-            <text
-                x="50%"
-                y="50%"
-                textAnchor="middle"
-                dominantBaseline="middle"
-                stroke="url(#textGradient)"
-                strokeWidth="0.3"
-                mask="url(#textMask)"
-                className="font-[helvetica] font-bold fill-transparent text-7xl  "
-            >
-                {text}
-            </text>
         </svg>
     );
 };

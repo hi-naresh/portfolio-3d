@@ -15,10 +15,10 @@ const ToolTip = ({ position, isVisible, children }) => {
                             animate={{ scale: 1 }}
                             exit={{ scale: 0,opacity: 0 }}
                             transition={{ duration: 0.2 , ease: "easeInOut"}}
-                            className="relative pointer-events-none flex items-center justify-center w-[7rem] h-[7rem] rounded-full bg-white/10 p-4 glassmorphism text-center"
+                            className="relative z-20 pointer-events-none flex items-center justify-center w-[7rem] h-[7rem] rounded-full bg-white/10 p-4 glassmorphism text-center"
                         >
                             {children}
-                            <div className="absolute inset-0 border-2 border-primary rounded-full animate-pulse-slow"></div>
+                            <div className="absolute z-20 inset-0 border-2 border-primary rounded-full animate-pulse-slow"></div>
                         </motion.div>
                     )}
                 </AnimatePresence>

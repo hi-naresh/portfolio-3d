@@ -20,7 +20,7 @@ export const handleShareClick = (
     incrementProjectStat(project.id, "shares");
     setStats((prevStats) => ({ ...prevStats, shares: prevStats.shares + 1 }));
     const slug = project.title.toLowerCase().replace(/\s+/g, '-');
-    const shareUrl = `${window.location.origin}/gallery/${slug}`;
+    const shareUrl = `${window.location.origin}/project/${slug}`;
     navigator.clipboard.writeText(shareUrl).then(() => {
         alert("Project link copied to clipboard!");
     });

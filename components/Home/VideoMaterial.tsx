@@ -18,7 +18,7 @@ function VideoMaterial({ url }) {
         <meshBasicMaterial
             map={texture}               // Video texture applied to the material
             transparent={true}          // Allows transparency
-            opacity={0.8}               // Controls the opacity of the material (set to 1.0 to make the video fully visible)
+            opacity={0.9}               // Controls the opacity of the material (set to 1.0 to make the video fully visible)
             side={THREE.FrontSide}      // Ensures the video is rendered on the front side
             toneMapped={true}          // Disable tone mapping for video textures
         />

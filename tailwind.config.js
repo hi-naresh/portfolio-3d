@@ -29,8 +29,9 @@ module.exports = {
 			current: "currentColor",
 			transparent: "transparent",
 			primary : "#47709c",
+			accent : "#1e4c7c",
 			// 47709c
-			secondary : "#FF005D",
+			secondary : "#00a6ff",
 			black: "#000",
 			"dark": "#030715",
 			white: "#fff",
@@ -659,7 +660,7 @@ module.exports = {
 	],
 };
 
-function addVariablesForColors({ addBase, theme }: any) {
+function addVariablesForColors({ addBase, theme }) {
 	let allColors = flattenColorPalette(theme("colors"));
 	let newVars = Object.fromEntries(
 		Object.entries(allColors).map(([key, val]) => [`--${key}`, val])

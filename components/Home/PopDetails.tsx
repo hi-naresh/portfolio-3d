@@ -43,7 +43,7 @@ const PopupDetails = ({ setPopupVisible }: { setPopupVisible: (visible: boolean)
         }),
         visible: (custom: number) => ({
             rotateY: custom < 2 ? 30 : -30, // Left cards rotateY to 30, Right cards rotateY to -30
-            x: custom < 2 ? "-370px" : "370px", // Position the cards closer to the center
+            x: custom < 2 ? "-340px" : "340px", // Position the cards closer to the center
             y: custom % 2 === 0 ? "-150px" : "150px", // Top or bottom positioning
             opacity: 1,
             scale: 1,
@@ -82,7 +82,7 @@ const PopupDetails = ({ setPopupVisible }: { setPopupVisible: (visible: boolean)
                         exit={{scale: 0}}
                         whileHover={{scale: 1.05}}
                         transition={{duration: 0.5}}
-                        className="absolute text-white flex items-center justify-center text-4xl w-20 h-20 glassmorphism rounded-full z-50"
+                        className="absolute text-white flex items-center justify-center text-4xl w-20 h-20 hover:border-primary glassmorphism rounded-full z-50"
                         onClick={handleExit}
                     >
                         <svg
@@ -116,9 +116,20 @@ const PopupDetails = ({ setPopupVisible }: { setPopupVisible: (visible: boolean)
                             variants={cardVariants}
                             initial="hidden"
                             animate="visible"
+                            whileHover={
+                                {
+                                    scale: 1.05,
+                                    rotateY: 0,
+                                    rotateX: 5,
+                                    borderColor: "rgba(255, 255, 255, 0.5)",
+                                    transition: { duration: 0.4 }
+                                }
+                            }
                             exit="exit"
-                            className="absolute w-[24rem] h-[17.5rem] space-y-4 glassmorphism p-4 rounded-2xl flex flex-col items-center justify-center text-white"
+                            className="absolute w-[23rem] h-[16.5rem] space-y-4 glassmorphism p-4 rounded-2xl flex flex-col items-center justify-center text-white"
                             style={{
+                                // backgroundImage: `url('/images/wall5.webp')`,
+                                // backgroundRepeat: "no-repeat",
                                 transformStyle: "preserve-3d", // Preserves the 3D effect
                                 backfaceVisibility: "hidden", // Ensures the back is not visible
                             }}

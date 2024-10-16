@@ -87,14 +87,16 @@
 
 import React from "react";
 import {AnimatePresence, motion} from "framer-motion";
+import ToggleSwitch from "@components/ui/ToggleSwitch";
 
 interface HeaderProps {
 	handleContactClick: () => void; // Function to handle the contact button click
-	goBack: () => void; // Function to handle the back button click
+	goBack: () => void;
+	handleLightsClick: () => void;
 }
 
 // eslint-disable-next-line react/display-name
-const Header: React.FC<HeaderProps> = React.memo(({ handleContactClick,goBack }) => (
+const Header: React.FC<HeaderProps> = React.memo(({ handleContactClick,goBack,handleLightsClick }) => (
 	// <AnimatePresence>
 		<motion.div
 			className="absolute z-50 top-0 md:mt-16 xs:mt-4 w-full flex justify-center px-4 sm:px-6"
@@ -104,7 +106,7 @@ const Header: React.FC<HeaderProps> = React.memo(({ handleContactClick,goBack })
 			transition={{delay: 0.1, duration: 1.0, ease: "easeInOut"}}
 		>
 			<motion.div
-				className="glassmorphism w-full max-w-[60rem] sm:max-w-[40rem] px-1.5 md:py-[0.35rem] xs:py-1.5 rounded-full flex justify-between items-center space-x-4 bg-white bg-opacity-10"
+				className="glassmorphism w-full max-w-[70rem] sm:max-w-[40rem] px-1.5 md:py-[0.35rem] xs:py-1.5 rounded-full flex justify-between items-center space-x-4 bg-white bg-opacity-10"
 				initial={{scaleX: 0}}
 				animate={{scaleX: 1}}
 				transition={{delay: 0.2, duration: 1.5, ease: "easeInOut"}}
@@ -123,7 +125,7 @@ const Header: React.FC<HeaderProps> = React.memo(({ handleContactClick,goBack })
 						transition={{duration: 0.2}}
 						onClick={goBack}
 					>
-						<img className="w-6 h-6 filter invert" src="/icons/site/icon9.svg" alt="back"/>
+						<img className="w-6 h-6 filter invert" src="/assets/icons/back.svg" alt="back"/>
 					</motion.button>
 				</motion.button>
 
@@ -175,6 +177,7 @@ const Header: React.FC<HeaderProps> = React.memo(({ handleContactClick,goBack })
 					>
 						<img className="w-6 h-6 filter invert" src="/assets/icons/call.svg" alt="call"/>
 					</motion.button>
+					<ToggleSwitch toggleSwitch={handleLightsClick} />
 				</motion.div>
 			</motion.div>
 		</motion.div>

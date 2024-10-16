@@ -25,7 +25,7 @@ const NavControls = (
                     animate={{scale: 1, opacity: 1}}
                     transition={{delay: 1.2, duration: 0.5, ease: "easeOut"}}
                 >
-                    <CircleButton onClick={prevSlide} icon="/icons/site/icon9.svg"/>
+                    <CircleButton onClick={prevSlide} icon="/assets/icons/back.svg"/>
                 </motion.button>
                 <motion.p
                     initial={{opacity: 0}}
@@ -41,7 +41,7 @@ const NavControls = (
                     transition={{delay: 1.2, duration: 0.5, ease: "easeOut"}}
                 >
                     <div className="transform rotate-180">
-                        <CircleButton onClick={nextSlide} icon="/icons/site/icon9.svg"/>
+                        <CircleButton onClick={nextSlide} icon="/assets/icons/back.svg"/>
                     </div>
                 </motion.button>
             </motion.div>

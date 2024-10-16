@@ -89,11 +89,25 @@ const App = ({ Component, pageProps }: AppProps) => {
 						`,
 					}}
 				/>
-				<Script src="https://cdn.polyfill.io/v3/polyfill.min.js" />
-				<NextProgress color={CONFIG.SEO.themeColor} />
-				<DefaultSeo titleTemplate={CONFIG.SEO.layoutTitle} />
+				<Script src="https://cdn.polyfill.io/v3/polyfill.min.js"/>
+				<Script
+					id={"video"}
+					strategy={"afterInteractive"}
+					dangerouslySetInnerHTML={{
+						__html: `
+							const videos = document.querySelectorAll(" .video .video");
+							for (const video of videos) {
+								video.setAttribute("playsinline", "");
+								video.setAttribute("muted", "");
+								video.play();
+							}
+						`,
+					}}
+				/>
+				<NextProgress color={CONFIG.SEO.themeColor}/>
+				<DefaultSeo titleTemplate={CONFIG.SEO.layoutTitle}/>
 				<Component {...pageProps} />
-				<ToastContainer position="bottom-right" />
+				<ToastContainer position="bottom-right"/>
 			</ThemeProvider>
 		</>
 	);
