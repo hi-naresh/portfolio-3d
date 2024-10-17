@@ -34,7 +34,7 @@ const RotatingCircularText = ({ text }: { text: string }) => {
 
                     return newRotation;
                 });
-            }, 12); // Roughly 60fps
+            }, 20); // Roughly 60fps
 
             return () => clearInterval(rotateInterval); // Cleanup interval
         }else{

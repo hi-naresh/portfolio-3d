@@ -1,5 +1,4 @@
 import { Layout } from "@components/Layout";
-import { shimmer } from "@libs/shimmer";
 import type { NextPage } from "next";
 import Image from "next/image";
 import ThreeSixtyBackground from "@components/Gallery/MotionBg";

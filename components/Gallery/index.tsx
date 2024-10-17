@@ -24,21 +24,25 @@ const Gallery3D: React.FC<Gallery3DProps> = ({ initialIndex = 0 }) => {
     const [showHeader, setShowHeader] = useState(true);
     const [lightsOn, setLightsOn] = useState(false);
     const [firstSwitchDone, setFirstSwitchDone] = useState(false); // Track first automatic switch
+    const isMobile = useIsMobile();
 
     const toggleLights = () => setLightsOn((prev) => !prev);
     useEffect(() => {
+        const timeOut = isMobile ? 6000 :3000;
+
         if (!firstSwitchDone) {
             const timer = setTimeout(() => {
                 setLightsOn(true); // Turn on lights after 4 seconds
                 setFirstSwitchDone(true); // Mark first switch as done
-            }, 3000);
+            }, timeOut);
 
             return () => clearTimeout(timer); // Cleanup timeout on unmount
         }
-    }, [firstSwitchDone]);
+    }, [
+        isMobile,
+        firstSwitchDone]);
 
     const handleMouseMove = useParallaxEffect(); // Mouse movement for parallax
-    const isMobile = useIsMobile();
     const OPTIONS: EmblaOptionsType = { loop: true };
 
     const nextSlide = useCallback(() => {

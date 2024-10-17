@@ -174,11 +174,12 @@ export const CardDetails = ({
                                 )}
                             </div>
                         ) : (
-                            <Link href={project.link} onClick={() => handleRedirectClick(project, setStats)} target="__blank">
                                 <div
+                                    title="Checkout project!"
                                     className="p-3 rounded-full bg-black border-[0.5px] border-white/40 bg-opacity-20 relative"
                                     onMouseEnter={() => setShowTooltip({ ...showTooltip, redirect: true })}
                                     onMouseLeave={() => setShowTooltip({ ...showTooltip, redirect: false })}
+                                    onClick={() => handleRedirectClick(project, setStats)}
                                 >
                                     <img className="w-5 h-5 md:w-6 md:h-6 filter invert" src="/assets/icons/redirect.svg" alt="Redirect" />
                                     {showTooltip.redirect && (
@@ -186,7 +187,6 @@ export const CardDetails = ({
                     </span>
                                     )}
                                 </div>
-                            </Link>
                         )}
                     </div>
 

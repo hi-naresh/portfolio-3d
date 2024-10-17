@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {AnimatePresence, motion} from "framer-motion";
-import { IoClose, IoInformationCircleOutline } from "react-icons/io5"; // Using react-icons for the 'i' icon
+import { IoClose, IoInformationCircleOutline } from "react-icons/io5";
 
 const InfoContainer = () => {
     const [isExpanded, setIsExpanded] = useState(false); // State to track if the container is expanded
@@ -20,7 +20,7 @@ const InfoContainer = () => {
             timer = setTimeout(
                 () => {
                     setIsExpanded(true); // Auto-expand after 3 seconds
-                },4000
+                },6000
             )
         }
 
@@ -46,7 +46,7 @@ const InfoContainer = () => {
                                 initial={{ scale: 0 }}
                                 animate={{ scale: 1 }}
                                 exit={{ scale: 0 }}
-                                transition={{ duration: 0.3 }}
+                                transition={{ duration: 0.2 }}
                             >
                                 <IoClose className={"p-1"} size={36} />
                             </motion.div>
@@ -56,7 +56,7 @@ const InfoContainer = () => {
                                 initial={{ scale: 0 }}
                                 animate={{ scale: 1 }}
                                 exit={{ scale: 0 }}
-                                transition={{ duration: 0.3, delay: 0.3 }} // Delay the entrance of this icon
+                                transition={{ duration: 0.2, delay: 0.2 }} // Delay the entrance of this icon
                             >
                                 <IoInformationCircleOutline className={"p-0.5"} size={36} />
                             </motion.div>
@@ -71,7 +71,7 @@ const InfoContainer = () => {
                         initial={{opacity: 0, scale: 0.7}}
                         animate={{opacity: 1, scale: 1}}
                         exit={{opacity: 0, scale: 0}}
-                        transition={{ duration: 0.6, ease: "easeInOut"}}
+                        transition={{ duration: 0.4, ease: "easeInOut"}}
                         className="bg-white/10 mt-12 xs:mr-24 md:mr-0 glassmorphism rounded-2xl p-2 w-full max-w-[460px] text-center text-white "
                     >
                         <p className="glassBg rounded-2xl mt-0 p-1 text-xs">

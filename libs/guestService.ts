@@ -33,4 +33,5 @@ export const handleRedirectClick = (
 ) => {
     incrementProjectStat(project.id, "redirects");
     setStats((prevStats) => ({ ...prevStats, redirects: prevStats.redirects + 1 }));
+    window.open(project.link, "_blank");
 };
