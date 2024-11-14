@@ -1,4 +1,4 @@
-import { Canvas, useFrame } from '@react-three/fiber';
+import {Canvas, useFrame, useThree} from '@react-three/fiber';
 import { useState, useEffect, useRef } from 'react';
 import { OrbitControls} from '@react-three/drei';
 import * as THREE from 'three';
@@ -16,7 +16,13 @@ const loadTexture = (url: string) => {
     });
 };
 
-export default function ThreeSixtyBackground({ children, background }: { children: React.ReactNode, background:string }) {
+export default function ThreeSixtyBackground({
+                                                 children, 
+                                                 image, 
+                                                 bgClass,
+                                                 verticalViewLimit=1,
+                                                 background 
+}: { children: React.ReactNode, verticalViewLimit?:number , bgClass?:string, image?:string, background:string }) {
     const [textures, setTextures] = useState<{ [key: string]: THREE.Texture }>({});
     const [currentTexture, setCurrentTexture] = useState<THREE.Texture | null>(null);
 
@@ -26,7 +32,7 @@ export default function ThreeSixtyBackground({ children, background }: { childre
             try {
                 // Preload the light and dark textures
                 const [lightTexture, darkTexture] = await Promise.all([
-                    loadTexture('/assets/texture/day.jpg'),
+                    loadTexture('/assets/texture/light.jpg'),
                     loadTexture('/assets/texture/dark.jpg'),
                 ]);
 
@@ -44,10 +50,15 @@ export default function ThreeSixtyBackground({ children, background }: { childre
 
     // Update the current texture based on the background prop
     useEffect(() => {
-        if (textures[background]) {
+        if (image)
+        {
+            const texture = new THREE.TextureLoader().load(image);
+            setCurrentTexture(texture);
+        }
+        if (textures[background] && !image) {
             setCurrentTexture(textures[background]);
         }
-    }, [background, textures]);
+    }, [image,background, textures]);
 
     // Mouse movement state
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -95,17 +106,41 @@ export default function ThreeSixtyBackground({ children, background }: { childre
             }
         });
 
+        const { camera } = useThree();
+        const [isZoomingOut, setIsZoomingOut] = useState(true); // Controls FOV animation
+
+        const initialFov = 15; // Starting FOV
+        const targetFov = 70; // Ending FOV
+
+        useFrame(() => {
+            if (isZoomingOut) {
+                // Smoothly interpolate the camera FOV
+                // @ts-ignore
+                camera.fov = THREE.MathUtils.lerp(camera.fov, targetFov, 0.02);
+                camera.updateProjectionMatrix();
+
+                // Stop animation when close enough to target FOV
+                // @ts-ignore
+                if (Math.abs(camera.fov - targetFov) < 0.1) {
+                    // @ts-ignore
+                    camera.fov = targetFov;
+                    setIsZoomingOut(false);
+                }
+            }
+        });
+
         return <OrbitControls ref={controlsRef} enableZoom={false} enablePan={false} enableRotate={false} />;
     };
 
     return (
-        <div className=" w-screen z-10 h-screen bg-transparent">
+        <div className={`w-screen ${bgClass} z-10 h-screen bg-transparent`}>
             <Canvas
                 gl={{antialias: false}}
-                camera={{position: [70, 20, 40], fov: 70}} style={{height: '100vh', width: '100vw'}}>
+                camera={{position: [70, 20, 40], fov: 15}} style={{height: '100vh', width: '100vw'}}>
                 {currentTexture && (
                     currentTexture.wrapS = THREE.RepeatWrapping,
                         currentTexture.wrapT = THREE.RepeatWrapping,
+                        // image&& currentTexture.repeat.set(2,2),
                         currentTexture.offset.set(-0.4, -0.05),
                         <mesh scale={[1, 1, 1]}>
                             <sphereGeometry args={[200, 60, 40]}/>

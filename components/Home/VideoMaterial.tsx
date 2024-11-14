@@ -7,20 +7,19 @@ function VideoMaterial({ url }) {
     const texture = useVideoTexture(url);
     texture.flipY = false;
 
-    // Ensure the texture doesn't repeat unnecessarily
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat.set(3, 3);  // Example of making the texture repeat
-    texture.offset.set(0.85, -0.45);  // Example to move texture slightly
-    texture.anisotropy = 8;
+    texture.repeat.set(3, 3); 
+    texture.offset.set(0.85, -0.45);  
+    // texture.anisotropy = 8;
 
     return (
         <meshBasicMaterial
-            map={texture}               // Video texture applied to the material
-            transparent={true}          // Allows transparency
-            opacity={0.9}               // Controls the opacity of the material (set to 1.0 to make the video fully visible)
-            side={THREE.FrontSide}      // Ensures the video is rendered on the front side
-            toneMapped={true}          // Disable tone mapping for video textures
+            map={texture}               
+            // transparent={true}          
+            // opacity={0.9}           
+            side={THREE.FrontSide}      
+            toneMapped={false}          
         />
     );
 }

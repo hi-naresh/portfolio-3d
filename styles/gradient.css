@@ -6,6 +6,15 @@
     
 }
 
+.Menu-list-item:hover .Mask:first-child {
+    color: #fff;
+    transform: skewX(12deg) translateX(5px);
+}
+.Menu-list-item:hover .Mask + .Mask {
+    color: #fff;
+    transform: skewX(12deg) translateX(-5px);
+}
+
 @keyframes bounceStretch {
     0% {
         transform: translateY(0) scale(1, 1);

@@ -238,6 +238,17 @@ module.exports = {
 			"not-allowed": "not-allowed",
 		},
 		extend: {
+			fontFamily: {
+				gilroy: ['"Gilroy ExtraBold"', 'system-ui', 'sans-serif'],
+			},
+			colors: {
+				'split-pink': '#1664b6',
+				'hover-white': '#FFFFFF', // Define hover color if needed
+			},
+			transitionTimingFunction: {
+				custom: 'cubic-bezier(.16,1.08,.38,.98)', // Smooth easing
+			},
+			
 			keyframes: {
 				glow: {
 					'0%, 100%': { textShadow: '0 0 10px rgba(255,255,255,0.8), 0 0 5px rgba(255,255,255,0.6), 0 0 5px rgba(255,255,255,0.4)' },

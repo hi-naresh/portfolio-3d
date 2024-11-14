@@ -31,3 +31,38 @@ const AnimatedTextWithHover = ({ text }: { text: string }) => {
 };
 
 export default AnimatedTextWithHover;
+
+
+// const AnimatedTextWithHover = ({ text }: { text: string }) => {
+//     const isMobile = useIsMobile();
+//     const chars = text.split('');
+//     const charCount = chars.length;
+//     const angleIncrement = 360 / charCount;
+//
+//     return (
+//         <div className="scene flex items-center justify-center h-192">
+//             <div className="banner">
+//                 {chars.map((char, index) => (
+//                     <div
+//                         key={index}
+//                         className="panel"
+//                         style={{
+//                             transform: `rotateY(${angleIncrement * index}deg) translateZ(200px)`,
+//                         }}
+//                     >
+//                         <span
+//                             className="text-8xl font-bold text-transparent hover:scale-110 hover:opacity-100 opacity-50 hover:text-white hover:drop-shadow-[0_0_10px_rgba(255,255,255,1)]"
+//                             style={{
+//                                 WebkitTextStroke: isMobile ? '1px white' : '2px rgba(255,255,255,0.7)',
+//                             }}
+//                         >
+//                             {char}
+//                         </span>
+//                     </div>
+//                 ))}
+//             </div>
+//         </div>
+//     );
+// };
+//
+// export default AnimatedTextWithHover;

@@ -89,7 +89,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 						`,
 					}}
 				/>
-				<Script src="https://cdn.polyfill.io/v3/polyfill.min.js"/>
+				{/*<Script src="https://cdn.polyfill.io/v3/polyfill.min.js"/>*/}
 				<Script
 					id={"video"}
 					strategy={"afterInteractive"}

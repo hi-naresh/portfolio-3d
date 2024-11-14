@@ -99,7 +99,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = React.memo(({ handleContactClick,goBack,handleLightsClick }) => (
 	// <AnimatePresence>
 		<motion.div
-			className="absolute z-50 top-0 md:mt-16 xs:mt-4 w-full flex justify-center px-4 sm:px-6"
+			className="absolute z-50 top-0 lg:mt-16 xs:mt-4 w-full flex justify-center px-4 sm:px-6"
 			initial={{scaleX: 0}} // Expand from center
 			animate={{scaleX: 1}}
 			exit={{scale: 0,opacity: 0}}

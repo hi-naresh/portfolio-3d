@@ -7,9 +7,10 @@ import {AnimatePresence, motion} from "framer-motion";
 
 interface IFooter {
 	isVisible?: boolean;
+	isFade?: boolean;
 }
-export const Footer: FC<IFooter> = ({ isVisible = true }) => (
-	<div className="fixed bottom-0 z-0 w-screen">
+export const Footer: FC<IFooter> = ({ isVisible = true , isFade=true}) => (
+	<div className="z-0 w-screen">
 		<AnimatePresence>
 		{
 			isVisible && (
@@ -17,16 +18,16 @@ export const Footer: FC<IFooter> = ({ isVisible = true }) => (
 					//Y hide and display
 					initial={{y: 200, scaleY: 0}}
 					animate={{y: 0, scaleY: 1}}
-					exit={{y: 200, scaleY: 0}}
+					exit={{y: 200, scaleY: 0, scaleX: 0}}
 					transition={
 						{
 							type: "spring",
-							stiffness: 260,
-							damping: 20,
-							duration: 0.2,
+							stiffness: 360,
+							damping: 60,
+							duration: 1.6,
 						}
 					}
-					className="text-center">
+					className="text-center  md:-mb-8">
 					{/*<div className="h-[40rem] xs:scale-[100%] md:scale-[50%]  z-0 flex items-center justify-center">*/}
 					{/*	<TextHoverEffect text="JHAWAR"/>*/}
 					{/*</div>*/}
@@ -57,8 +58,12 @@ export const Footer: FC<IFooter> = ({ isVisible = true }) => (
 			</div>
 
 		</div>
-		<div
-			className="pointer-events-none absolute z-10 h-96 bottom-0 w-full bg-gradient-to-t from-black to-transparent"></div>
+		{
+			isFade && (
+				<div
+					className="pointer-events-none absolute z-10 h-96 bottom-0 w-full bg-gradient-to-t from-black to-transparent"></div>
 
+			)
+		}
 	</div>
 );

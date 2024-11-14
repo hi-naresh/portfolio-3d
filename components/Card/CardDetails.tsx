@@ -69,7 +69,6 @@
 // };
 //
 // export default CardDetails;
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { getProjectStats } from "../../data/repo";
 import ReviewModal from "@components/Forms/ReviewForm";

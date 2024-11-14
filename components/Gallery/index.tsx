@@ -105,6 +105,10 @@ const Gallery3D: React.FC<Gallery3DProps> = ({ initialIndex = 0 }) => {
     const goBack = () => {
         setIsDisappeared(true);
         setShowHeader(false);
+        const blackOverlay = document.getElementById("black-overlay");
+        if (blackOverlay) {
+            blackOverlay.style.opacity = "1";
+        }
         setTimeout(() => {
             window.location.href = "/";
         }, 200);
@@ -125,91 +129,95 @@ const Gallery3D: React.FC<Gallery3DProps> = ({ initialIndex = 0 }) => {
         <ThreeSixtyBackground
             background={lightsOn ? 'light' : 'dark'} // Pass either 'light' or 'dark' based on the toggle
         >
-                <motion.div
-                    onMouseMove={handleMouseMove}
-                    initial="hidden"
-                    animate="visible"
-                    exit={
-                        showContact
-                            ? {opacity: 0}
-                            : {opacity: 0, transition: {delay: 0.4}}
-                    }
-                    // variants={{
-                    //     hidden: {opacity: 0},
-                    //     visible: {opacity: 1},
-                    // }}
-                    transition={{duration: 0.4, ease: "easeIn"}}
-                    className="relative  w-full h-screen flex items-center justify-center overflow-hidden"
-                >
-                    {/* Header */}
-                    {showHeader && (
-                            <Header
-                                handleLightsClick={toggleLights}
-                                handleContactClick={handleContactClick} goBack={goBack}/>
-                        )
-                    }
+            <motion.div
+                onMouseMove={handleMouseMove}
+                initial={{
+                    scale: 0.7,
+                }
+                }
+                animate={{
+                    scale: 1,
+                }}
+                exit={
+                    showContact
+                        ? {opacity: 0}
+                        : {opacity: 0, transition: {delay: 0.4}}
+                }
+                // variants={{
+                //     hidden: {opacity: 0},
+                //     visible: {opacity: 1},
+                // }}
+                transition={{delay: 0.8, duration: 0.6, ease: "easeIn"}}
+                className="relative  w-full h-screen flex items-center justify-center overflow-hidden"
+            >
+                {/* Header */}
+                {showHeader && (
+                    <Header
+                        handleLightsClick={toggleLights}
+                        handleContactClick={handleContactClick} goBack={goBack}/>
+                )
+                }
 
-                    {/* AnimatePresence to handle transitions */}
-                    <AnimatePresence>
-                        {!showContact && !isDisappeared && (
-                            <>
-                                {isMobile ? (
-                                    <MobileProjectSlider slides={projectData} options={OPTIONS} isMobile/>
-                                ) : (
-                                    <motion.div
-                                        className="absolute w-full max-w-[100%] h-[600px] flex items-center justify-center overflow-hidden z-10"
-                                        style={{perspective: "900px", transformStyle: "preserve-3d"}}
-                                        initial={{ scale: 0.7 }}
-                                        animate={{scale: 1}}
-                                        exit={{scale: 0.2 }}
-                                        transition={{ duration: 1.4, ease: "easeIn" }}
-                                    >
-                                        {/*<button*/}
-                                        {/*    onClick={toggleLights}*/}
-                                        {/*    className="absolute bottom-0 bg-white text-black px-4 py-2 rounded-lg "*/}
-                                        {/*>*/}
-                                        {/*    {lightsOn ? "Turn Lights Off" : "Turn Lights On"}*/}
-                                        {/*</button>*/}
-                                        {/* Cards Slider */}
-                                        {projectData.map((project, index) => (
-                                            <ProjectCard
-                                                key={project.id}
-                                                currentIndex={currentIndex}
-                                                project={project}
-                                                isPrev={index === (currentIndex - 1 + projectData.length) % projectData.length}
-                                                nextSlide={nextSlide}
-                                                prevSlide={prevSlide}
-                                                position={getPosition(index)}
-                                                isActive={index === currentIndex} // Check if card is active
-                                                initialLoad={initialLoad}
-                                            />
-                                        ))}
-                                    </motion.div>
-                                )}
+                {/* AnimatePresence to handle transitions */}
+                <AnimatePresence>
+                    {!showContact && !isDisappeared && (
+                        <>
+                            {isMobile ? (
+                                <MobileProjectSlider slides={projectData} options={OPTIONS} isMobile/>
+                            ) : (
+                                <motion.div
+                                    className="absolute w-full max-w-[100%] h-[600px] flex items-center justify-center overflow-hidden z-10"
+                                    style={{perspective: "900px", transformStyle: "preserve-3d"}}
+                                    initial={{scale: 0.7}}
+                                    animate={{scale: 1}}
+                                    exit={{scale: 0.2}}
+                                    transition={{duration: 1.4, ease: "easeIn"}}
+                                >
+                                    {/* Cards Slider */}
+                                    {projectData.map((project, index) => (
+                                        <ProjectCard
+                                            key={project.id}
+                                            currentIndex={currentIndex}
+                                            project={project}
+                                            isPrev={index === (currentIndex - 1 + projectData.length) % projectData.length}
+                                            nextSlide={nextSlide}
+                                            prevSlide={prevSlide}
+                                            position={getPosition(index)}
+                                            isActive={index === currentIndex} // Check if card is active
+                                            initialLoad={initialLoad}
+                                        />
+                                    ))}
+                                </motion.div>
+                            )}
 
-                                {/* Nav Controls */}
-                                {!isMobile &&
-                                    <NavControls nextSlide={nextSlide} prevSlide={prevSlide} currentIndex={currentIndex}/>}
-                            </>
-                        )}
+                            {/* Nav Controls */}
+                            {!isMobile &&
+                                <NavControls nextSlide={nextSlide} prevSlide={prevSlide} currentIndex={currentIndex}/>}
+                        </>
+                    )}
 
-                        {/* Contact Form */}
-                        {showContact && (
-                            <motion.div
-                                key="contact-form"
-                                className="absolute z-20 flex items-center justify-center w-full h-full "
-                                initial={{scale: 0.6}}
-                                animate={{scale: 1}}
-                                exit={{scale: 0}}
-                                transition={{duration: 0.6}}
-                            >
-                                <ContactForm onClose={handleCloseContact}/>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+                    {/* Contact Form */}
+                    {showContact && (
+                        <motion.div
+                            key="contact-form"
+                            className="absolute z-20 flex items-center justify-center w-full h-full "
+                            initial={{scale: 0.6}}
+                            animate={{scale: 1}}
+                            exit={{scale: 0}}
+                            transition={{duration: 0.6}}
+                        >
+                            <ContactForm onClose={handleCloseContact}/>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
 
-                </motion.div>
-            </ThreeSixtyBackground>
+            </motion.div>
+            <div
+                id="black-overlay"
+                className="absolute z-50 inset-0 bg-black opacity-0 transition-opacity duration-1000"
+                style={{pointerEvents: 'none'}}
+            ></div>
+        </ThreeSixtyBackground>
     );
 };
 
